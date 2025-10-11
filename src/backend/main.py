@@ -13,6 +13,7 @@ from contextlib import asynccontextmanager
 from src.backend.core.config import settings
 from src.backend.core.database import init_db
 from src.backend.api.routes import health_indicators, simulations, ai_narrative
+from src.backend.api.routes.simulation_api import router as simulation_router
 from src.backend.core.middleware import LoggingMiddleware, RateLimitMiddleware
 from src.backend.core.exceptions import PolicySimulationException
 
@@ -96,6 +97,11 @@ app.include_router(
     ai_narrative.router,
     prefix="/api/ai",
     tags=["AI Narrative Generation"]
+)
+
+app.include_router(
+    simulation_router,
+    tags=["Feature 1: Policy Simulation Engine"]
 )
 
 
