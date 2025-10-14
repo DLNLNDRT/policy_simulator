@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Expose port (Railway will set PORT environment variable)
-EXPOSE 8000
+EXPOSE $PORT
 
 # Start the application
 CMD ["python", "comprehensive_demo_server.py"]
