@@ -4,7 +4,7 @@ import {
   TrendingUp, 
   Activity, 
   PieChart, 
-  Scatter,
+  Target,
   Grid3X3,
   Settings,
   Download,
@@ -66,7 +66,7 @@ const AdvancedCharts: React.FC<AdvancedChartsProps> = ({ onCreate }) => {
   const chartTypes = [
     { type: ChartType.LINE, label: 'Line Chart', icon: TrendingUp, description: 'Show trends over time' },
     { type: ChartType.BAR, label: 'Bar Chart', icon: BarChart3, description: 'Compare values across categories' },
-    { type: ChartType.SCATTER, label: 'Scatter Plot', icon: Scatter, description: 'Show relationships between variables' },
+    { type: ChartType.SCATTER, label: 'Scatter Plot', icon: Target, description: 'Show relationships between variables' },
     { type: ChartType.PIE, label: 'Pie Chart', icon: PieChart, description: 'Show proportions of a whole' },
     { type: ChartType.HEATMAP, label: 'Heatmap', icon: Grid3X3, description: 'Show data density and patterns' },
     { type: ChartType.AREA, label: 'Area Chart', icon: Activity, description: 'Show cumulative values over time' }
@@ -209,7 +209,7 @@ const AdvancedCharts: React.FC<AdvancedChartsProps> = ({ onCreate }) => {
                 dataKey="value"
               >
                 {data.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
+                  <Cell key={`cell-${index}`} fill={entry.color || '#8884d8'} />
                 ))}
               </Pie>
               <Tooltip />

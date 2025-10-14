@@ -334,7 +334,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
             <div className="charts-row">
               <div className="chart-container">
                 <h3>Trend Analysis</h3>
-                <TrendAnalysisCard data={dashboardData?.components?.[0]?.data} />
+                <TrendAnalysisCard data={dashboardData?.components?.[0]?.data as any} />
               </div>
               <div className="chart-container">
                 <h3>Correlation Matrix</h3>
@@ -347,8 +347,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
         {activeTab === 'trends' && (
           <div className="trends-section">
             <TrendAnalysisCard 
-              data={dashboardData?.components?.[0]?.data}
-              onAnalyze={(config) => {
+              data={dashboardData?.components?.[0]?.data as any}
+              onAnalyze={(config: any) => {
                 // Handle trend analysis
                 console.log('Trend analysis requested:', config)
               }}
@@ -359,8 +359,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
         {activeTab === 'correlations' && (
           <div className="correlations-section">
             <CorrelationMatrix 
-              data={dashboardData?.components?.[1]?.data}
-              onAnalyze={(config) => {
+              data={dashboardData?.components?.[1]?.data as any}
+              onAnalyze={(config: any) => {
                 // Handle correlation analysis
                 console.log('Correlation analysis requested:', config)
               }}

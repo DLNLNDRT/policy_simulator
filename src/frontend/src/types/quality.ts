@@ -266,7 +266,7 @@ export interface QualityTrendsResponse {
 // API Response types
 export interface QualityOverviewResponse extends QualityOverview {}
 
-export interface QualityTrendsResponse extends QualityTrendsResponse {}
+export interface QualityTrendsResponseData extends QualityTrendsResponse {}
 
 export interface IndicatorQualityResponse extends IndicatorQuality {}
 
@@ -276,7 +276,7 @@ export interface ValidationResultResponse extends ValidationResult {}
 
 export interface ProvenanceDataResponse extends ProvenanceData {}
 
-export interface DataSourcesResponse extends DataSourcesResponse {}
+export interface DataSourcesResponseData extends DataSourcesResponse {}
 
 export interface QualityAlertsResponse {
   alerts: QualityAlert[]
