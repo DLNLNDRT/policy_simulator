@@ -12,11 +12,11 @@ The Policy Simulation Assistant is an MVP developed using the **ADAPT Framework*
 
 ### Key Features
 
-- **🔮 What-if Simulations**: Interactive sliders to model workforce density and spending changes
-- **📊 Predictive Analytics**: Regression-based forecasting with confidence intervals  
-- **🤖 AI-Powered Narratives**: GPT-5 generated explanations with citations and disclaimers
-- **📈 Interactive Visualizations**: Real-time charts showing baseline vs. projected outcomes
-- **📋 Policy Brief Export**: Generate PDF reports for stakeholder presentations
+- **🎯 Policy Simulation Engine**: Interactive sliders to model workforce density and spending changes with real-time predictions
+- **📊 Health Benchmark Dashboard**: Cross-country health indicator comparison with anomaly detection and peer group analysis
+- **📝 Narrative Insight Generator**: AI-powered narrative generation with customizable templates and quality metrics
+- **🛡️ Data Quality Assurance**: Real-time quality monitoring, automated validation, and data provenance tracking
+- **📈 Advanced Analytics & Reporting**: Trend analysis, correlation matrices, and automated report generation with interactive visualizations
 
 ### Target Users
 
@@ -27,10 +27,32 @@ The Policy Simulation Assistant is an MVP developed using the **ADAPT Framework*
 
 ## 🚀 Quick Start
 
+### Live Demo Access
+
+**🌐 Interactive Demo (Recommended)**
+```bash
+# Start the complete MVP demo server
+cd project_root
+python comprehensive_demo_server.py
+
+# Access the full interactive demo
+open http://localhost:8005/full
+```
+
+**📊 Streamlit EDA Dashboard**
+```bash
+# Start the data exploration dashboard
+cd project_root
+streamlit run streamlit_eda_dashboard.py
+
+# Access the dashboard
+open http://localhost:8503
+```
+
 ### Prerequisites
 
-- Node.js 18+ and npm
 - Python 3.11+
+- Node.js 18+ and npm (for frontend development)
 - OpenAI API key with GPT-5 access
 
 ### Installation
@@ -40,18 +62,19 @@ The Policy Simulation Assistant is an MVP developed using the **ADAPT Framework*
 git clone <repository-url>
 cd project_root
 
-# Install dependencies
-npm run setup
+# Install Python dependencies
+pip install -r requirements.txt
+
+# Install frontend dependencies (optional)
+cd src/frontend
+npm install
 
 # Set up environment variables
 cp env.example .env
 # Edit .env with your API keys and configuration
 
-# Initialize database
-npm run db:migrate
-
-# Start development servers
-npm run dev
+# Start the demo server
+python comprehensive_demo_server.py
 ```
 
 ### Environment Variables
@@ -205,20 +228,23 @@ npm run type-check       # TypeScript type checking
 
 ## 🎯 MVP Roadmap
 
-### Phase 1: Core Simulation (Weeks 1-9)
-- [x] Data quality assessment and cleaning
-- [x] Correlation analysis and model development
-- [x] Policy simulation UI with interactive sliders
-- [x] GPT-5 narrative generation integration
-- [x] Export functionality for policy briefs
+### Phase 1: Core MVP (Completed ✅)
+- [x] **Feature 1**: Policy Simulation Engine with interactive sliders and real-time predictions
+- [x] **Feature 2**: Health Benchmark Dashboard with cross-country comparison and anomaly detection
+- [x] **Feature 3**: Narrative Insight Generator with AI-powered content and quality metrics
+- [x] **Feature 4**: Data Quality Assurance with real-time monitoring and validation
+- [x] **Feature 5**: Advanced Analytics & Reporting with trend analysis and interactive visualizations
+- [x] Complete interactive demo with all 5 features working
+- [x] Streamlit EDA dashboard for data exploration
 
-### Phase 2: Enhanced Analytics (Months 3-6)
-- [ ] Anomaly detection for health indicators
-- [ ] Data provenance tracking and transparency
-- [ ] Advanced benchmarking and peer comparison
-- [ ] API access for third-party integrations
+### Phase 2: Enhanced Analytics (In Progress)
+- [x] Interactive trend analysis with dynamic chart generation
+- [x] Correlation matrix visualization with heatmaps
+- [x] Automated report generation with multiple export formats
+- [ ] Real-time data pipeline integration
+- [ ] Advanced statistical modeling
 
-### Phase 3: Scale & Monetization (Months 6-12)
+### Phase 3: Scale & Monetization (Future)
 - [ ] White-label licensing for health IT vendors
 - [ ] Natural language query interface
 - [ ] Health equity index generation

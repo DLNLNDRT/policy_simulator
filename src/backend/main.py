@@ -14,6 +14,10 @@ from src.backend.core.config import settings
 from src.backend.core.database import init_db
 from src.backend.api.routes import health_indicators, simulations, ai_narrative
 from src.backend.api.routes.simulation_api import router as simulation_router
+from src.backend.api.routes.benchmark_api import router as benchmark_router
+from src.backend.api.routes.narrative_api import router as narrative_router
+from src.backend.api.routes.quality_api import router as quality_router
+from src.backend.api.routes.analytics_api import router as analytics_router
 from src.backend.core.middleware import LoggingMiddleware, RateLimitMiddleware
 from src.backend.core.exceptions import PolicySimulationException
 
@@ -102,6 +106,26 @@ app.include_router(
 app.include_router(
     simulation_router,
     tags=["Feature 1: Policy Simulation Engine"]
+)
+
+app.include_router(
+    benchmark_router,
+    tags=["Feature 2: Health Benchmark Dashboard"]
+)
+
+app.include_router(
+    narrative_router,
+    tags=["Feature 3: Narrative Insight Generator"]
+)
+
+app.include_router(
+    quality_router,
+    tags=["Feature 4: Data Quality Assurance"]
+)
+
+app.include_router(
+    analytics_router,
+    tags=["Feature 5: Advanced Analytics & Reporting"]
 )
 
 

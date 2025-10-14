@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Policy Simulation Assistant - Full Interactive Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <div class="bg-white shadow-sm border-b">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div class="text-center">
+                    <h1 class="text-4xl font-bold text-gray-900 mb-2">
+                        Policy Simulation Assistant
+                    </h1>
+                    <p class="text-xl text-gray-600">
+                        Complete Interactive Demo - All 5 Features
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="bg-white shadow-sm border-b">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <nav class="flex space-x-8 py-4">
+                    <button onclick="showFeature(1)" class="feature-nav px-4 py-2 rounded-lg font-medium" data-feature="1">
+                        🎯 Feature 1: Simulation
+                    </button>
+                    <button onclick="showFeature(2)" class="feature-nav px-4 py-2 rounded-lg font-medium" data-feature="2">
+                        📊 Feature 2: Benchmark
+                    </button>
+                    <button onclick="showFeature(3)" class="feature-nav px-4 py-2 rounded-lg font-medium" data-feature="3">
+                        📝 Feature 3: Narrative
+                    </button>
+                    <button onclick="showFeature(4)" class="feature-nav px-4 py-2 rounded-lg font-medium" data-feature="4">
+                        🛡️ Feature 4: Quality
+                    </button>
+                    <button onclick="showFeature(5)" class="feature-nav px-4 py-2 rounded-lg font-medium" data-feature="5">
+                        📈 Feature 5: Analytics
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            
+            <!-- Feature 1: Policy Simulation Engine -->
+            <div id="feature-1" class="feature-content hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Simulation Parameters -->
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h2 class="text-2xl font-semibold mb-6">🎯 Policy Simulation Engine</h2>
+                        
+                        <div class="space-y-6">
+                            <!-- Country Selection -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Country</label>
+                                <select id="simCountry" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="PRT">Portugal</option>
+                                    <option value="ESP">Spain</option>
+                                    <option value="SWE">Sweden</option>
+                                    <option value="GRC">Greece</option>
+                                </select>
+                            </div>
+
+                            <!-- Gender Selection -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Gender</label>
+                                <select id="simGender" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="BOTH">Both Genders</option>
+                                    <option value="MALE">Male</option>
+                                    <option value="FEMALE">Female</option>
+                                </select>
+                            </div>
+
+                            <!-- Doctor Density -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    Doctor Density (per 1,000 population)
+                                </label>
+                                <input type="range" id="doctorDensity" min="1" max="5" step="0.1" value="2.5" 
+                                       class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                                <div class="flex justify-between text-sm text-gray-600 mt-1">
+                                    <span>1.0</span>
+                                    <span id="doctorValue" class="font-medium">2.5</span>
+                                    <span>5.0</span>
+                                </div>
+                            </div>
+
+                            <!-- Nurse Density -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    Nurse Density (per 1,000 population)
+                                </label>
+                                <input type="range" id="nurseDensity" min="3" max="10" step="0.1" value="6.0" 
+                                       class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                                <div class="flex justify-between text-sm text-gray-600 mt-1">
+                                    <span>3.0</span>
+                                    <span id="nurseValue" class="font-medium">6.0</span>
+                                    <span>10.0</span>
+                                </div>
+                            </div>
+
+                            <!-- Health Spending -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    Health Spending (% of GDP)
+                                </label>
+                                <input type="range" id="healthSpending" min="4" max="12" step="0.1" value="6.5" 
+                                       class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                                <div class="flex justify-between text-sm text-gray-600 mt-1">
+                                    <span>4.0%</span>
+                                    <span id="spendingValue" class="font-medium">6.5%</span>
+                                    <span>12.0%</span>
+                                </div>
+                            </div>
+
+                            <!-- Run Button -->
+                            <button onclick="runSimulation()" 
+                                    class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">
+                                Run Simulation
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Simulation Results -->
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-xl font-semibold mb-4">Simulation Results</h3>
+                        <div id="simResults" class="space-y-4">
+                            <div class="text-center text-gray-500 py-8">
+                                Configure parameters and click "Run Simulation" to see results...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 2: Benchmark Dashboard -->
+            <div id="feature-2" class="feature-content hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Benchmark Controls -->
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h2 class="text-2xl font-semibold mb-6">📊 Health Benchmark Dashboard</h2>
+                        
+                        <div class="space-y-6">
+                            <!-- Country Selection -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Select Countries to Compare</label>
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" value="PRT" class="benchmark-country" checked>
+                                        <span class="ml-2">Portugal</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" value="ESP" class="benchmark-country" checked>
+                                        <span class="ml-2">Spain</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" value="SWE" class="benchmark-country">
+                                        <span class="ml-2">Sweden</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" value="GRC" class="benchmark-country">
+                                        <span class="ml-2">Greece</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Metrics Selection -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Select Metrics</label>
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" value="life_expectancy" class="benchmark-metric" checked>
+                                        <span class="ml-2">Life Expectancy</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" value="doctor_density" class="benchmark-metric" checked>
+                                        <span class="ml-2">Doctor Density</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" value="nurse_density" class="benchmark-metric" checked>
+                                        <span class="ml-2">Nurse Density</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" value="health_spending" class="benchmark-metric" checked>
+                                        <span class="ml-2">Health Spending</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Options -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Analysis Options</label>
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" id="includeAnomalies" checked>
+                                        <span class="ml-2">Include Anomaly Detection</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" id="includePeers" checked>
+                                        <span class="ml-2">Include Peer Group Analysis</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Run Button -->
+                            <button onclick="runBenchmark()" 
+                                    class="w-full px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium">
+                                Run Benchmark Analysis
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Benchmark Results -->
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-xl font-semibold mb-4">Benchmark Results</h3>
+                        <div id="benchmarkResults" class="space-y-4">
+                            <div class="text-center text-gray-500 py-8">
+                                Select countries and metrics, then click "Run Benchmark Analysis"...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 3: Narrative Generator -->
+            <div id="feature-3" class="feature-content hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Narrative Controls -->
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h2 class="text-2xl font-semibold mb-6">📝 Narrative Insight Generator</h2>
+                        
+                        <div class="space-y-6">
+                            <!-- Narrative Type -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Narrative Type</label>
+                                <select id="narrativeType" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                    <option value="simulation_impact">Simulation Impact</option>
+                                    <option value="benchmark_analysis">Benchmark Analysis</option>
+                                    <option value="policy_recommendations">Policy Recommendations</option>
+                                    <option value="executive_summary">Executive Summary</option>
+                                </select>
+                            </div>
+
+                            <!-- Audience -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Target Audience</label>
+                                <select id="narrativeAudience" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                    <option value="policy_makers">Policy Makers</option>
+                                    <option value="healthcare_professionals">Healthcare Professionals</option>
+                                    <option value="researchers">Researchers</option>
+                                    <option value="general_public">General Public</option>
+                                </select>
+                            </div>
+
+                            <!-- Tone -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Tone</label>
+                                <select id="narrativeTone" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                    <option value="formal">Formal</option>
+                                    <option value="professional">Professional</option>
+                                    <option value="accessible">Accessible</option>
+                                    <option value="technical">Technical</option>
+                                </select>
+                            </div>
+
+                            <!-- Length -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Length</label>
+                                <select id="narrativeLength" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                    <option value="brief">Brief (1-2 paragraphs)</option>
+                                    <option value="standard">Standard (3-5 paragraphs)</option>
+                                    <option value="detailed">Detailed (6+ paragraphs)</option>
+                                </select>
+                            </div>
+
+                            <!-- Custom Instructions -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Custom Instructions (Optional)</label>
+                                <textarea id="customInstructions" rows="3" 
+                                          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                          placeholder="Any specific requirements or focus areas..."></textarea>
+                            </div>
+
+                            <!-- Generate Button -->
+                            <button onclick="generateNarrative()" 
+                                    class="w-full px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium">
+                                Generate Narrative
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Narrative Results -->
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-xl font-semibold mb-4">Generated Narrative</h3>
+                        <div id="narrativeResults" class="space-y-4">
+                            <div class="text-center text-gray-500 py-8">
+                                Configure options and click "Generate Narrative"...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 4: Data Quality Assurance -->
+            <div id="feature-4" class="feature-content hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Quality Controls -->
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h2 class="text-2xl font-semibold mb-6">🛡️ Data Quality Assurance</h2>
+                        
+                        <div class="space-y-6">
+                            <!-- Quality Overview -->
+                            <div>
+                                <h3 class="text-lg font-medium mb-3">Quality Overview</h3>
+                                <button onclick="getQualityOverview()" 
+                                        class="w-full px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700">
+                                    Get Quality Overview
+                                </button>
+                            </div>
+
+                            <!-- Quality Alerts -->
+                            <div>
+                                <h3 class="text-lg font-medium mb-3">Quality Alerts</h3>
+                                <button onclick="getQualityAlerts()" 
+                                        class="w-full px-4 py-2 bg-yellow-100 text-yellow-700 rounded-lg hover:bg-yellow-200">
+                                    Check Quality Alerts
+                                </button>
+                            </div>
+
+                            <!-- Data Validation -->
+                            <div>
+                                <h3 class="text-lg font-medium mb-3">Data Validation</h3>
+                                <div class="space-y-3">
+                                    <select id="validationDataset" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <option value="life_expectancy">Life Expectancy</option>
+                                        <option value="doctor_density">Doctor Density</option>
+                                        <option value="nurse_density">Nurse Density</option>
+                                        <option value="health_spending">Health Spending</option>
+                                    </select>
+                                    <button onclick="validateData()" 
+                                            class="w-full px-4 py-2 bg-yellow-100 text-yellow-700 rounded-lg hover:bg-yellow-200">
+                                        Validate Dataset
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Data Sources -->
+                            <div>
+                                <h3 class="text-lg font-medium mb-3">Data Sources</h3>
+                                <button onclick="getDataSources()" 
+                                        class="w-full px-4 py-2 bg-yellow-100 text-yellow-700 rounded-lg hover:bg-yellow-200">
+                                    View Data Sources
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quality Results -->
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-xl font-semibold mb-4">Quality Results</h3>
+                        <div id="qualityResults" class="space-y-4">
+                            <div class="text-center text-gray-500 py-8">
+                                Select a quality check to see results...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 5: Advanced Analytics -->
+            <div id="feature-5" class="feature-content hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Analytics Controls -->
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h2 class="text-2xl font-semibold mb-6">📈 Advanced Analytics & Reporting</h2>
+                        
+                        <div class="space-y-6">
+                            <!-- Trend Analysis -->
+                            <div>
+                                <h3 class="text-lg font-medium mb-3">Trend Analysis</h3>
+                                <div class="space-y-3">
+                                    <select id="trendIndicator" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <option value="life_expectancy">Life Expectancy</option>
+                                        <option value="doctor_density">Doctor Density</option>
+                                        <option value="nurse_density">Nurse Density</option>
+                                        <option value="health_spending">Health Spending</option>
+                                    </select>
+                                    <select id="trendCountry" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <option value="PRT">Portugal</option>
+                                        <option value="ESP">Spain</option>
+                                        <option value="SWE">Sweden</option>
+                                        <option value="GRC">Greece</option>
+                                    </select>
+                                    <button onclick="runTrendAnalysis()" 
+                                            class="w-full px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+                                        Run Trend Analysis
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Correlation Analysis -->
+                            <div>
+                                <h3 class="text-lg font-medium mb-3">Correlation Analysis</h3>
+                                <button onclick="runCorrelationAnalysis()" 
+                                        class="w-full px-4 py-2 bg-indigo-100 text-indigo-700 rounded-lg hover:bg-indigo-200">
+                                    Analyze Correlations
+                                </button>
+                            </div>
+
+                            <!-- Report Generation -->
+                            <div>
+                                <h3 class="text-lg font-medium mb-3">Report Generation</h3>
+                                <div class="space-y-3">
+                                    <select id="reportTemplate" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <option value="executive_summary">Executive Summary</option>
+                                        <option value="detailed_analysis">Detailed Analysis</option>
+                                        <option value="policy_brief">Policy Brief</option>
+                                    </select>
+                                    <input type="text" id="reportTitle" placeholder="Report Title" 
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                    <button onclick="generateReport()" 
+                                            class="w-full px-4 py-2 bg-indigo-100 text-indigo-700 rounded-lg hover:bg-indigo-200">
+                                        Generate Report
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Analytics Results -->
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-xl font-semibold mb-4">Analytics Results</h3>
+                        <div id="analyticsResults" class="space-y-4">
+                            <div class="text-center text-gray-500 py-8">
+                                Select an analytics option to see results...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8005';
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing...');
+            try {
+                showFeature(1);
+                setupEventListeners();
+                console.log('Initialization complete');
+            } catch (error) {
+                console.error('Initialization error:', error);
+            }
+        });
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Slider value updates
+            document.getElementById('doctorDensity').addEventListener('input', function() {
+                document.getElementById('doctorValue').textContent = this.value;
+            });
+            document.getElementById('nurseDensity').addEventListener('input', function() {
+                document.getElementById('nurseValue').textContent = this.value;
+            });
+            document.getElementById('healthSpending').addEventListener('input', function() {
+                document.getElementById('spendingValue').textContent = this.value + '%';
+            });
+        }
+
+        // Navigation
+        function showFeature(featureNumber) {
+            // Hide all features
+            document.querySelectorAll('.feature-content').forEach(el => {
+                el.classList.add('hidden');
+            });
+            
+            // Remove active class from all nav buttons
+            document.querySelectorAll('.feature-nav').forEach(el => {
+                el.classList.remove('bg-blue-100', 'text-blue-700');
+                el.classList.add('text-gray-600');
+            });
+            
+            // Show selected feature
+            document.getElementById(`feature-${featureNumber}`).classList.remove('hidden');
+            
+            // Add active class to selected nav button
+            const activeNav = document.querySelector(`[data-feature="${featureNumber}"]`);
+            activeNav.classList.add('bg-blue-100', 'text-blue-700');
+            activeNav.classList.remove('text-gray-600');
+        }
+
+        // Feature 1: Simulation
+        async function runSimulation() {
+            const resultsDiv = document.getElementById('simResults');
+            resultsDiv.innerHTML = '<div class="text-center text-blue-600 py-4">Running simulation...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/simulations/run`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        country: document.getElementById('simCountry').value,
+                        gender: document.getElementById('simGender').value,
+                        parameters: {
+                            doctor_density: parseFloat(document.getElementById('doctorDensity').value),
+                            nurse_density: parseFloat(document.getElementById('nurseDensity').value),
+                            health_spending: parseFloat(document.getElementById('healthSpending').value)
+                        }
+                    })
+                });
+                
+                const data = await response.json();
+                displaySimulationResults(data);
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="text-red-600">Error: ${error.message}</div>`;
+            }
+        }
+
+        function displaySimulationResults(data) {
+            const resultsDiv = document.getElementById('simResults');
+            
+            // Safe value extraction with fallbacks
+            const change = data?.prediction?.change || 0;
+            const lifeExpectancy = data?.prediction?.life_expectancy || 0;
+            const confidenceInterval = data?.prediction?.confidence_interval || { lower: 0, upper: 0 };
+            const r2Score = data?.model_metrics?.r2_score || 0;
+            
+            const isPositive = change > 0;
+            
+            resultsDiv.innerHTML = `
+                <div class="text-center mb-6">
+                    <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-lg mb-4 ${isPositive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                        <span class="text-2xl font-bold">${isPositive ? '+' : ''}${change.toFixed(2)} years</span>
+                    </div>
+                    <p class="text-gray-600">Predicted change in life expectancy</p>
+                </div>
+                
+                <div class="space-y-3">
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">New Life Expectancy:</span>
+                        <span class="font-medium">${lifeExpectancy.toFixed(1)} years</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Confidence Interval:</span>
+                        <span class="font-medium">${confidenceInterval.lower.toFixed(2)} - ${confidenceInterval.upper.toFixed(2)}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Model R² Score:</span>
+                        <span class="font-medium">${r2Score.toFixed(3)}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Feature 2: Benchmark
+        async function runBenchmark() {
+            const resultsDiv = document.getElementById('benchmarkResults');
+            resultsDiv.innerHTML = '<div class="text-center text-green-600 py-4">Running benchmark analysis...</div>';
+            
+            try {
+                const countries = Array.from(document.querySelectorAll('.benchmark-country:checked')).map(cb => cb.value);
+                const metrics = Array.from(document.querySelectorAll('.benchmark-metric:checked')).map(cb => cb.value);
+                
+                const response = await fetch(`${API_BASE}/api/benchmarks/compare`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        countries: countries,
+                        metrics: metrics,
+                        include_anomalies: document.getElementById('includeAnomalies').checked,
+                        include_peers: document.getElementById('includePeers').checked
+                    })
+                });
+                
+                const data = await response.json();
+                displayBenchmarkResults(data);
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="text-red-600">Error: ${error.message}</div>`;
+            }
+        }
+
+        function displayBenchmarkResults(data) {
+            const resultsDiv = document.getElementById('benchmarkResults');
+            
+            let html = '<div class="space-y-4">';
+            
+            // Rankings
+            if (data?.rankings && Array.isArray(data.rankings)) {
+                html += '<div><h4 class="font-medium mb-2">Country Rankings:</h4>';
+                data.rankings.forEach((ranking, index) => {
+                    const countryName = ranking?.country_name || ranking?.country || 'Unknown';
+                    const score = ranking?.total_score || ranking?.score || 0;
+                    const rank = ranking?.overall_rank || (index + 1);
+                    html += `<div class="flex justify-between py-1 border-b border-gray-100">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-sm text-gray-500">#${rank}</span>
+                            <span class="font-medium">${countryName}</span>
+                        </div>
+                        <span class="font-medium text-blue-600">${score.toFixed(2)}</span>
+                    </div>`;
+                });
+                html += '</div>';
+            }
+            
+            // Summary
+            if (data?.summary) {
+                const summary = data.summary;
+                html += '<div><h4 class="font-medium mb-2">Summary:</h4>';
+                html += `<div class="grid grid-cols-2 gap-4 text-sm">
+                    <div><span class="text-gray-600">Total Countries:</span> <span class="font-medium">${summary.total_countries || 0}</span></div>
+                    <div><span class="text-gray-600">Best Performer:</span> <span class="font-medium">${summary.best_performer || 'N/A'}</span></div>
+                    <div><span class="text-gray-600">Average Score:</span> <span class="font-medium">${(summary.average_score || 0).toFixed(2)}</span></div>
+                    <div><span class="text-gray-600">Total Anomalies:</span> <span class="font-medium">${summary.total_anomalies || 0}</span></div>
+                </div>`;
+                html += '</div>';
+            }
+            
+            // Anomalies
+            if (data?.anomalies && Array.isArray(data.anomalies) && data.anomalies.length > 0) {
+                html += '<div><h4 class="font-medium mb-2 text-yellow-700">Anomalies Detected:</h4>';
+                data.anomalies.forEach(anomaly => {
+                    const country = anomaly?.country || 'Unknown';
+                    const metric = anomaly?.metric || 'Unknown';
+                    const severity = anomaly?.severity || 'Unknown';
+                    const description = anomaly?.description || 'No description available';
+                    const severityClass = severity === 'high' ? 'text-red-600' : severity === 'medium' ? 'text-yellow-600' : 'text-orange-600';
+                    
+                    html += `<div class="p-3 border rounded mb-2">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="font-medium">${country}: ${metric}</div>
+                                <div class="text-sm text-gray-600">${description}</div>
+                            </div>
+                            <span class="text-xs px-2 py-1 rounded ${severityClass} bg-gray-100">${severity}</span>
+                        </div>
+                    </div>`;
+                });
+                html += '</div>';
+            }
+            
+            // Peer Groups
+            if (data?.peer_groups && Array.isArray(data.peer_groups)) {
+                html += '<div><h4 class="font-medium mb-2">Peer Groups:</h4>';
+                data.peer_groups.forEach(group => {
+                    const groupName = group?.name || 'Unknown Group';
+                    const countries = group?.countries || [];
+                    const average = group?.average || {};
+                    const size = group?.size || countries.length;
+                    
+                    html += `<div class="p-3 border rounded mb-2">
+                        <div class="font-medium mb-1">${groupName} (${size} countries)</div>
+                        <div class="text-sm text-gray-600 mb-2">Countries: ${countries.join(', ')}</div>`;
+                    
+                    if (average.life_expectancy) {
+                        html += `<div class="text-xs text-gray-500">Average Life Expectancy: ${average.life_expectancy.toFixed(1)} years</div>`;
+                    }
+                    if (average.health_spending) {
+                        html += `<div class="text-xs text-gray-500">Average Health Spending: ${average.health_spending.toFixed(1)}% GDP</div>`;
+                    }
+                    
+                    html += '</div>';
+                });
+                html += '</div>';
+            }
+            
+            // If no data, show a message
+            if (!data?.rankings && !data?.anomalies && !data?.peer_groups) {
+                html += '<div class="text-center text-gray-500 py-4">No benchmark data available</div>';
+            }
+            
+            html += '</div>';
+            resultsDiv.innerHTML = html;
+        }
+
+        // Feature 3: Narrative
+        async function generateNarrative() {
+            const resultsDiv = document.getElementById('narrativeResults');
+            resultsDiv.innerHTML = '<div class="text-center text-purple-600 py-4">Generating narrative...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/narratives/generate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        narrative_type: document.getElementById('narrativeType').value,
+                        audience: document.getElementById('narrativeAudience').value,
+                        tone: document.getElementById('narrativeTone').value,
+                        length: document.getElementById('narrativeLength').value,
+                        custom_instructions: document.getElementById('customInstructions').value,
+                        data_source: {
+                            country: 'Portugal',
+                            predicted_change: 0.75,
+                            confidence_interval: { lower: 0.60, upper: 0.90 }
+                        }
+                    })
+                });
+                
+                const data = await response.json();
+                displayNarrativeResults(data);
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="text-red-600">Error: ${error.message}</div>`;
+            }
+        }
+
+        function displayNarrativeResults(data) {
+            const resultsDiv = document.getElementById('narrativeResults');
+            
+            // Debug logging
+            console.log('Narrative API Response:', data);
+            console.log('Sections:', data?.sections);
+            console.log('Sections length:', data?.sections?.length);
+            
+            // Safe value extraction with fallbacks
+            const sections = data?.sections || [];
+            const executiveSummary = data?.executive_summary || 'No executive summary available';
+            const keyInsights = data?.key_insights || [];
+            const recommendations = data?.recommendations || [];
+            const qualityMetrics = data?.quality_metrics || {};
+            const generationTime = data?.generation_time_ms || 0;
+            const cost = data?.cost_usd || 0;
+            
+            // Build narrative from sections
+            let narrativeContent = '';
+            if (sections.length > 0) {
+                sections.forEach(section => {
+                    narrativeContent += `<div class="mb-4">
+                        <h4 class="font-semibold text-lg mb-2">${section.title}</h4>
+                        <p class="text-gray-700 mb-2">${section.content}</p>
+                        ${section.key_points && section.key_points.length > 0 ? 
+                            `<ul class="list-disc list-inside text-sm text-gray-600">
+                                ${section.key_points.map(point => `<li>${point}</li>`).join('')}
+                            </ul>` : ''
+                        }
+                    </div>`;
+                });
+            } else {
+                narrativeContent = '<p class="text-gray-700">No narrative sections generated</p>';
+            }
+            
+            // Build key insights
+            let insightsContent = '';
+            if (keyInsights.length > 0) {
+                insightsContent = `<div class="mb-4">
+                    <h4 class="font-semibold text-lg mb-2">Key Insights</h4>
+                    <ul class="list-disc list-inside text-gray-700">
+                        ${keyInsights.map(insight => `<li>${insight}</li>`).join('')}
+                    </ul>
+                </div>`;
+            }
+            
+            // Build recommendations
+            let recommendationsContent = '';
+            if (recommendations.length > 0) {
+                recommendationsContent = `<div class="mb-4">
+                    <h4 class="font-semibold text-lg mb-2">Recommendations</h4>
+                    <div class="space-y-3">
+                        ${recommendations.map(rec => `
+                            <div class="border-l-4 border-blue-500 pl-4">
+                                <h5 class="font-medium">${rec.title}</h5>
+                                <p class="text-sm text-gray-600">${rec.description}</p>
+                                <div class="text-xs text-gray-500 mt-1">
+                                    <span class="inline-block bg-gray-100 px-2 py-1 rounded mr-2">${rec.priority} priority</span>
+                                    <span class="inline-block bg-gray-100 px-2 py-1 rounded">${rec.timeline}</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>`;
+            }
+            
+            resultsDiv.innerHTML = `
+                <div class="prose max-w-none">
+                    <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                        <h4 class="font-medium mb-2">Executive Summary:</h4>
+                        <p class="text-gray-700">${executiveSummary}</p>
+                    </div>
+                    
+                    ${narrativeContent}
+                    ${insightsContent}
+                    ${recommendationsContent}
+                    
+                    <div class="bg-blue-50 p-4 rounded-lg mt-4">
+                        <h4 class="font-medium mb-2">Quality Metrics</h4>
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div><strong>Overall Score:</strong> ${qualityMetrics.overall_score?.toFixed(2) || 'N/A'}/5.0</div>
+                            <div><strong>Completeness:</strong> ${qualityMetrics.completeness_score?.toFixed(1) || 'N/A'}%</div>
+                            <div><strong>Validity:</strong> ${qualityMetrics.validity_score?.toFixed(1) || 'N/A'}%</div>
+                            <div><strong>Consistency:</strong> ${qualityMetrics.consistency_score?.toFixed(1) || 'N/A'}%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-sm text-gray-600 mt-4">
+                        <p><strong>Generation Time:</strong> ${generationTime}ms</p>
+                        <p><strong>Cost:</strong> $${cost.toFixed(4)}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Feature 4: Quality
+        async function getQualityOverview() {
+            const resultsDiv = document.getElementById('qualityResults');
+            resultsDiv.innerHTML = '<div class="text-center text-yellow-600 py-4">Loading quality overview...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/quality/overview`);
+                const data = await response.json();
+                displayQualityResults(data, 'overview');
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="text-red-600">Error: ${error.message}</div>`;
+            }
+        }
+
+        async function getQualityAlerts() {
+            const resultsDiv = document.getElementById('qualityResults');
+            resultsDiv.innerHTML = '<div class="text-center text-yellow-600 py-4">Loading quality alerts...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/quality/alerts`);
+                const data = await response.json();
+                displayQualityResults(data, 'alerts');
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="text-red-600">Error: ${error.message}</div>`;
+            }
+        }
+
+        async function validateData() {
+            const resultsDiv = document.getElementById('qualityResults');
+            const dataset = document.getElementById('validationDataset').value;
+            resultsDiv.innerHTML = '<div class="text-center text-yellow-600 py-4">Validating dataset...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/quality/validate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ dataset: dataset })
+                });
+                const data = await response.json();
+                displayQualityResults(data, 'validation');
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="text-red-600">Error: ${error.message}</div>`;
+            }
+        }
+
+        async function getDataSources() {
+            const resultsDiv = document.getElementById('qualityResults');
+            resultsDiv.innerHTML = '<div class="text-center text-yellow-600 py-4">Loading data sources...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/quality/sources`);
+                const data = await response.json();
+                displayQualityResults(data, 'sources');
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="text-red-600">Error: ${error.message}</div>`;
+            }
+        }
+
+        function displayQualityResults(data, type) {
+            const resultsDiv = document.getElementById('qualityResults');
+            let html = '<div class="space-y-4">';
+            
+            if (type === 'overview') {
+                const overallScore = data?.overall_score || 0;
+                const completeness = data?.completeness || 0;
+                
+                html += `
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-green-50 p-3 rounded">
+                            <div class="text-2xl font-bold text-green-600">${overallScore.toFixed(1)}</div>
+                            <div class="text-sm text-green-700">Overall Quality Score</div>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded">
+                            <div class="text-2xl font-bold text-blue-600">${completeness.toFixed(1)}%</div>
+                            <div class="text-sm text-blue-700">Data Completeness</div>
+                        </div>
+                    </div>
+                `;
+            } else if (type === 'alerts') {
+                if (data?.alerts && Array.isArray(data.alerts) && data.alerts.length > 0) {
+                    data.alerts.forEach(alert => {
+                        const title = alert?.title || 'Unknown Alert';
+                        const description = alert?.description || 'No description available';
+                        const severity = alert?.severity || 'medium';
+                        const alertClass = severity === 'high' ? 'bg-red-50 text-red-700' : 'bg-yellow-50 text-yellow-700';
+                        
+                        html += `<div class="p-3 rounded ${alertClass}">
+                            <div class="font-medium">${title}</div>
+                            <div class="text-sm">${description}</div>
+                        </div>`;
+                    });
+                } else {
+                    html += '<div class="text-green-600 text-center py-4">No active quality alerts</div>';
+                }
+            } else if (type === 'validation') {
+                const validRecords = data?.valid_records || 0;
+                const invalidRecords = data?.invalid_records || 0;
+                const validationScore = data?.validation_score || 0;
+                
+                html += `
+                    <div class="space-y-2">
+                        <div class="flex justify-between"><span>Valid Records:</span><span class="font-medium">${validRecords}</span></div>
+                        <div class="flex justify-between"><span>Invalid Records:</span><span class="font-medium">${invalidRecords}</span></div>
+                        <div class="flex justify-between"><span>Validation Score:</span><span class="font-medium">${validationScore.toFixed(2)}</span></div>
+                    </div>
+                `;
+            } else if (type === 'sources') {
+                if (data?.sources && Array.isArray(data.sources)) {
+                    data.sources.forEach(source => {
+                        const name = source?.name || 'Unknown Source';
+                        const description = source?.description || 'No description available';
+                        const lastUpdated = source?.last_updated || 'Unknown';
+                        
+                        html += `<div class="p-3 border rounded">
+                            <div class="font-medium">${name}</div>
+                            <div class="text-sm text-gray-600">${description}</div>
+                            <div class="text-sm text-gray-500">Last Updated: ${lastUpdated}</div>
+                        </div>`;
+                    });
+                } else {
+                    html += '<div class="text-gray-500 text-center py-4">No data sources available</div>';
+                }
+            }
+            
+            html += '</div>';
+            resultsDiv.innerHTML = html;
+        }
+
+        // Feature 5: Analytics
+        async function runTrendAnalysis() {
+            const resultsDiv = document.getElementById('analyticsResults');
+            resultsDiv.innerHTML = '<div class="text-center text-indigo-600 py-4">Running trend analysis...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/analytics/trends`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        indicator: document.getElementById('trendIndicator').value,
+                        country: document.getElementById('trendCountry').value,
+                        time_period: [2020, 2024]
+                    })
+                });
+                
+                const data = await response.json();
+                displayAnalyticsResults(data, 'trends');
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="text-red-600">Error: ${error.message}</div>`;
+            }
+        }
+
+        async function runCorrelationAnalysis() {
+            const resultsDiv = document.getElementById('analyticsResults');
+            resultsDiv.innerHTML = '<div class="text-center text-indigo-600 py-4">Running correlation analysis...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/analytics/correlations`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        indicators: ['life_expectancy', 'doctor_density', 'nurse_density', 'health_spending']
+                    })
+                });
+                
+                const data = await response.json();
+                displayAnalyticsResults(data, 'correlations');
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="text-red-600">Error: ${error.message}</div>`;
+            }
+        }
+
+        async function generateReport() {
+            const resultsDiv = document.getElementById('analyticsResults');
+            resultsDiv.innerHTML = '<div class="text-center text-indigo-600 py-4">Generating report...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/analytics/reports/generate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        template: document.getElementById('reportTemplate').value,
+                        title: document.getElementById('reportTitle').value || 'Health Policy Analysis Report',
+                        simulation_data: {
+                            country: 'Portugal',
+                            predicted_change: 0.75
+                        }
+                    })
+                });
+                
+                const data = await response.json();
+                displayAnalyticsResults(data, 'report');
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="text-red-600">Error: ${error.message}</div>`;
+            }
+        }
+
+        function displayAnalyticsResults(data, type) {
+            const resultsDiv = document.getElementById('analyticsResults');
+            let html = '<div class="space-y-6">';
+            
+            if (type === 'trends') {
+                const trendDirection = data?.trend_direction || 'Unknown';
+                const trendStrength = data?.trend_strength || 0;
+                const rSquared = data?.r_squared || 0;
+                const pValue = data?.p_value || 0;
+                
+                // Add trend visualization chart
+                html += `
+                    <div class="bg-white p-4 rounded-lg border">
+                        <h4 class="font-semibold mb-4">Trend Visualization</h4>
+                        <div id="trendsChart" style="height: 300px;"></div>
+                    </div>
+                `;
+                
+                // Add trend metrics
+                html += `
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-semibold mb-3">Trend Analysis</h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span>Trend Direction:</span>
+                                <span class="font-medium ${trendDirection === 'increasing' ? 'text-green-600' : trendDirection === 'decreasing' ? 'text-red-600' : 'text-gray-600'}">
+                                    ${trendDirection === 'increasing' ? '↗ Increasing' : trendDirection === 'decreasing' ? '↘ Decreasing' : '→ Stable'}
+                                </span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Trend Strength:</span>
+                                <span class="font-medium">${trendStrength.toFixed(3)}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>R² Score:</span>
+                                <span class="font-medium">${rSquared.toFixed(3)}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>P-Value:</span>
+                                <span class="font-medium">${pValue.toFixed(4)}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                html += '</div>';
+                resultsDiv.innerHTML = html;
+                
+                // Generate chart after DOM is updated
+                setTimeout(() => generateTrendsChart(data), 100);
+                
+            } else if (type === 'correlations') {
+                if (data?.correlation_matrix && Array.isArray(data.correlation_matrix)) {
+                    // Add correlation matrix visualization
+                    html += `
+                        <div class="bg-white p-4 rounded-lg border">
+                            <h4 class="font-semibold mb-4">Correlation Matrix Visualization</h4>
+                            <div id="correlationsChart" style="height: 400px;"></div>
+                        </div>
+                    `;
+                    
+                    // Add correlation details
+                    html += `
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-3">Correlation Details</h4>
+                            <div class="space-y-2">
+                    `;
+                    
+                    data.correlation_matrix.forEach(row => {
+                        const indicator1 = row?.indicator1 || 'Unknown';
+                        const indicator2 = row?.indicator2 || 'Unknown';
+                        const correlation = row?.correlation || 0;
+                        const strength = Math.abs(correlation);
+                        const strengthClass = strength > 0.7 ? 'text-blue-600' : 
+                                            strength > 0.5 ? 'text-green-600' : 
+                                            strength > 0.3 ? 'text-yellow-600' : 'text-gray-600';
+                        
+                        html += `
+                            <div class="flex justify-between items-center p-2 bg-white rounded">
+                                <span class="text-sm">${indicator1} ↔ ${indicator2}</span>
+                                <span class="text-sm font-medium ${strengthClass}">${correlation.toFixed(3)}</span>
+                            </div>
+                        `;
+                    });
+                    
+                    html += `
+                            </div>
+                        </div>
+                    `;
+                    
+                    html += '</div>';
+                    resultsDiv.innerHTML = html;
+                    
+                    // Generate chart after DOM is updated
+                    setTimeout(() => generateCorrelationsChart(data.correlation_matrix), 100);
+                } else {
+                    html += '<div class="text-gray-500 text-center py-4">No correlation data available</div>';
+                    html += '</div>';
+                    resultsDiv.innerHTML = html;
+                }
+            } else if (type === 'report') {
+                const reportContent = data?.report_content || 'No report content available';
+                const generatedAt = data?.generated_at || 'Unknown';
+                const format = data?.format || 'Unknown';
+                
+                html += `
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-medium mb-2">Generated Report:</h4>
+                        <div class="text-sm text-gray-700 mb-3">${reportContent}</div>
+                        <div class="text-xs text-gray-500">
+                            <p>Generated: ${generatedAt}</p>
+                            <p>Format: ${format}</p>
+                        </div>
+                    </div>
+                `;
+                
+                html += '</div>';
+                resultsDiv.innerHTML = html;
+            }
+        }
+        
+        // Chart generation functions
+        function generateTrendsChart(data) {
+            const chartContainer = document.getElementById('trendsChart');
+            if (!chartContainer) return;
+            
+            const trendDirection = data?.trend_direction || 'stable';
+            const trendStrength = data?.trend_strength || 0;
+            const rSquared = data?.r_squared || 0;
+            
+            // Use actual data if available, otherwise generate realistic sample data
+            let dataPoints;
+            let yAxisLabel = 'Value';
+            let xAxisLabel = 'Time Period';
+            
+            if (data?.trend_data && Array.isArray(data.trend_data)) {
+                // Use actual API data
+                dataPoints = data.trend_data.map((point, i) => ({
+                    period: point.period || `Period ${i + 1}`,
+                    value: point.value || 0
+                }));
+                yAxisLabel = data.y_axis_label || 'Value';
+                xAxisLabel = data.x_axis_label || 'Time Period';
+            } else {
+                // Generate realistic sample data based on trend direction and strength
+                const periods = ['2020', '2021', '2022', '2023', '2024'];
+                
+                // Get the selected indicator from the dropdown
+                const selectedIndicator = document.getElementById('trendIndicator')?.value || 'life_expectancy';
+                
+                // Set appropriate baseline values and labels based on indicator
+                let baseValue, yAxisLabel;
+                if (selectedIndicator === 'doctor_density') {
+                    baseValue = 40; // Realistic doctor density baseline
+                    yAxisLabel = 'Doctor Density (per 10,000)';
+                } else if (selectedIndicator === 'nurse_density') {
+                    baseValue = 60; // Realistic nurse density baseline
+                    yAxisLabel = 'Nurse Density (per 10,000)';
+                } else if (selectedIndicator === 'health_spending') {
+                    baseValue = 8; // Realistic health spending baseline
+                    yAxisLabel = 'Health Spending (% of GDP)';
+                } else {
+                    baseValue = 75; // Life expectancy baseline
+                    yAxisLabel = 'Life Expectancy (years)';
+                }
+                
+                dataPoints = periods.map((period, i) => {
+                    let value;
+                    if (trendDirection === 'increasing') {
+                        value = baseValue + (i * trendStrength * 2) + (Math.random() - 0.5) * 2;
+                    } else if (trendDirection === 'decreasing') {
+                        value = baseValue - (i * Math.abs(trendStrength) * 2) + (Math.random() - 0.5) * 2;
+                    } else {
+                        value = baseValue + (Math.random() - 0.5) * 4;
+                    }
+                    return { period, value: Math.max(0, value) };
+                });
+                xAxisLabel = 'Year';
+            }
+            
+            const maxValue = Math.max(...dataPoints.map(d => d.value));
+            const minValue = Math.min(...dataPoints.map(d => d.value));
+            const range = maxValue - minValue || 1; // Avoid division by zero
+            
+            const chartHTML = `
+                <div class="relative h-full">
+                    <svg class="w-full h-full" viewBox="0 0 450 250">
+                        <defs>
+                            <linearGradient id="trendGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:${trendDirection === 'increasing' ? '#10b981' : trendDirection === 'decreasing' ? '#ef4444' : '#6b7280'};stop-opacity:0.3" />
+                                <stop offset="100%" style="stop-color:${trendDirection === 'increasing' ? '#10b981' : trendDirection === 'decreasing' ? '#ef4444' : '#6b7280'};stop-opacity:0" />
+                            </linearGradient>
+                        </defs>
+                        
+                        <!-- Chart title -->
+                        <text x="225" y="15" text-anchor="middle" font-size="14" font-weight="bold" fill="#374151">
+                            ${yAxisLabel.replace(' (per 10,000)', '').replace(' (% of GDP)', '').replace(' (years)', '')} Trend Analysis
+                        </text>
+                        
+                        <!-- Grid lines -->
+                        ${Array.from({length: 5}, (_, i) => {
+                            const y = 40 + (i * 40);
+                            return `<line x1="60" y1="${y}" x2="380" y2="${y}" stroke="#e5e7eb" stroke-width="1" />`;
+                        }).join('')}
+                        
+                        <!-- Y-axis labels -->
+                        ${Array.from({length: 5}, (_, i) => {
+                            const value = minValue + (range * (4-i) / 4);
+                            const y = 40 + (i * 40);
+                            return `<text x="55" y="${y + 4}" text-anchor="end" font-size="10" fill="#6b7280">${value.toFixed(1)}</text>`;
+                        }).join('')}
+                        
+                        <!-- Y-axis title -->
+                        <text x="20" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#374151" transform="rotate(-90, 20, 140)">
+                            ${yAxisLabel}
+                        </text>
+                        
+                        <!-- Trend line -->
+                        <polyline
+                            fill="none"
+                            stroke="${trendDirection === 'increasing' ? '#10b981' : trendDirection === 'decreasing' ? '#ef4444' : '#6b7280'}"
+                            stroke-width="3"
+                            points="${dataPoints.map((d, i) => `${60 + (i * 320) / (dataPoints.length - 1)},${40 + ((maxValue - d.value) / range) * 160}`).join(' ')}"
+                        />
+                        
+                        <!-- Area under curve -->
+                        <polygon
+                            fill="url(#trendGradient)"
+                            points="60,200 ${dataPoints.map((d, i) => `${60 + (i * 320) / (dataPoints.length - 1)},${40 + ((maxValue - d.value) / range) * 160}`).join(' ')} 380,200"
+                        />
+                        
+                        <!-- Data points -->
+                        ${dataPoints.map((d, i) => `
+                            <circle
+                                cx="${60 + (i * 320) / (dataPoints.length - 1)}"
+                                cy="${40 + ((maxValue - d.value) / range) * 160}"
+                                r="4"
+                                fill="${trendDirection === 'increasing' ? '#10b981' : trendDirection === 'decreasing' ? '#ef4444' : '#6b7280'}"
+                                stroke="white"
+                                stroke-width="2"
+                            />
+                            <text
+                                x="${60 + (i * 320) / (dataPoints.length - 1)}"
+                                y="${40 + ((maxValue - d.value) / range) * 160 - 8}"
+                                text-anchor="middle"
+                                font-size="9"
+                                fill="#374151"
+                                font-weight="bold"
+                            >
+                                ${d.value.toFixed(1)}
+                            </text>
+                        `).join('')}
+                        
+                        <!-- X-axis labels -->
+                        ${dataPoints.map((d, i) => {
+                            const x = 60 + (i * 320) / (dataPoints.length - 1);
+                            return `<text x="${x}" y="220" text-anchor="middle" font-size="10" fill="#6b7280">${d.period}</text>`;
+                        }).join('')}
+                        
+                        <!-- X-axis title -->
+                        <text x="220" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#374151">
+                            ${xAxisLabel}
+                        </text>
+                        
+                        <!-- Trend info box -->
+                        <rect x="300" y="50" width="120" height="80" fill="white" stroke="#e5e7eb" stroke-width="1" rx="4" />
+                        <text x="310" y="70" font-size="11" font-weight="bold" fill="#374151">Trend Info</text>
+                        <text x="310" y="85" font-size="9" fill="#6b7280">Direction: ${trendDirection}</text>
+                        <text x="310" y="100" font-size="9" fill="#6b7280">Strength: ${trendStrength.toFixed(3)}</text>
+                        <text x="310" y="115" font-size="9" fill="#6b7280">R²: ${rSquared.toFixed(3)}</text>
+                    </svg>
+                </div>
+            `;
+            
+            chartContainer.innerHTML = chartHTML;
+        }
+        
+        function generateCorrelationsChart(correlationMatrix) {
+            const chartContainer = document.getElementById('correlationsChart');
+            if (!chartContainer) return;
+            
+            // Extract unique indicators
+            const indicators = [...new Set(correlationMatrix.flatMap(row => [row.indicator1, row.indicator2]))];
+            const cellSize = 50;
+            const padding = 30;
+            const totalSize = indicators.length * cellSize + padding * 2;
+            
+            // Create correlation matrix
+            const matrix = {};
+            indicators.forEach(ind1 => {
+                matrix[ind1] = {};
+                indicators.forEach(ind2 => {
+                    matrix[ind1][ind2] = ind1 === ind2 ? 1 : 0;
+                });
+            });
+            
+            // Fill in correlations
+            correlationMatrix.forEach(row => {
+                if (matrix[row.indicator1] && matrix[row.indicator2]) {
+                    matrix[row.indicator1][row.indicator2] = row.correlation;
+                    matrix[row.indicator2][row.indicator1] = row.correlation;
+                }
+            });
+            
+            const chartHTML = `
+                <div class="overflow-x-auto">
+                    <div style="width: ${totalSize + 100}px; height: ${totalSize + 100}px; position: relative;">
+                        <svg width="${totalSize + 100}" height="${totalSize + 100}" class="border rounded">
+                            <!-- Chart title -->
+                            <text x="${(totalSize + 100) / 2}" y="20" text-anchor="middle" font-size="14" font-weight="bold" fill="#374151">
+                                Health Indicators Correlation Matrix
+                            </text>
+                            
+                            <!-- Correlation matrix -->
+                            ${indicators.map((ind1, i) => 
+                                indicators.map((ind2, j) => {
+                                    const correlation = matrix[ind1][ind2];
+                                    const intensity = Math.abs(correlation);
+                                    const color = correlation > 0 ? 
+                                        `rgb(${255 - intensity * 200}, ${255 - intensity * 200}, 255)` :
+                                        `rgb(255, ${255 - intensity * 200}, ${255 - intensity * 200})`;
+                                    
+                                    const x = padding + 50 + j * cellSize;
+                                    const y = padding + 50 + i * cellSize;
+                                    
+                                    return `
+                                        <rect
+                                            x="${x}"
+                                            y="${y}"
+                                            width="${cellSize - 2}"
+                                            height="${cellSize - 2}"
+                                            fill="${color}"
+                                            stroke="#e5e7eb"
+                                            stroke-width="1"
+                                        />
+                                        <text
+                                            x="${x + cellSize/2}"
+                                            y="${y + cellSize/2 + 4}"
+                                            text-anchor="middle"
+                                            font-size="10"
+                                            fill="#374151"
+                                        >
+                                            ${correlation.toFixed(2)}
+                                        </text>
+                                    `;
+                                }).join('')
+                            ).join('')}
+                            
+                            <!-- Y-axis labels -->
+                            ${indicators.map((indicator, i) => {
+                                const x = padding + 45;
+                                const y = padding + 50 + i * cellSize + cellSize/2;
+                                return `
+                                    <text
+                                        x="${x}"
+                                        y="${y}"
+                                        text-anchor="end"
+                                        font-size="10"
+                                        fill="#374151"
+                                        transform="rotate(-90, ${x}, ${y})"
+                                    >
+                                        ${indicator}
+                                    </text>
+                                `;
+                            }).join('')}
+                            
+                            <!-- X-axis labels -->
+                            ${indicators.map((indicator, i) => {
+                                const x = padding + 50 + i * cellSize + cellSize/2;
+                                const y = padding + 45;
+                                return `
+                                    <text
+                                        x="${x}"
+                                        y="${y}"
+                                        text-anchor="middle"
+                                        font-size="10"
+                                        fill="#374151"
+                                    >
+                                        ${indicator}
+                                    </text>
+                                `;
+                            }).join('')}
+                            
+                            <!-- Y-axis title -->
+                            <text x="15" y="${(totalSize + 100) / 2}" text-anchor="middle" font-size="12" font-weight="bold" fill="#374151" transform="rotate(-90, 15, ${(totalSize + 100) / 2})">
+                                Health Indicators
+                            </text>
+                            
+                            <!-- X-axis title -->
+                            <text x="${(totalSize + 100) / 2}" y="${totalSize + 90}" text-anchor="middle" font-size="12" font-weight="bold" fill="#374151">
+                                Health Indicators
+                            </text>
+                        </svg>
+                    </div>
+                </div>
+                <div class="mt-4 flex items-center justify-center space-x-4 text-sm">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-4 h-4 bg-blue-200 rounded"></div>
+                        <span>Positive Correlation</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-4 h-4 bg-red-200 rounded"></div>
+                        <span>Negative Correlation</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-4 h-4 bg-gray-200 rounded"></div>
+                        <span>No Correlation</span>
+                    </div>
+                </div>
+            `;
+            
+            chartContainer.innerHTML = chartHTML;
+        }
+    </script>
+</body>
+</html>

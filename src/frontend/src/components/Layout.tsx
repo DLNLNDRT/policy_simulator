@@ -8,7 +8,9 @@ import {
   X,
   Brain,
   Shield,
-  Zap
+  Zap,
+  Target,
+  FileText
 } from 'lucide-react'
 import { useState } from 'react'
 
@@ -22,8 +24,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   const navigation = [
     { name: 'Home', href: '/', icon: Home },
-    { name: 'Simulation', href: '/simulation', icon: BarChart3 },
-    { name: 'Dashboard', href: '/dashboard', icon: Brain },
+    { name: 'Simulation', href: '/simulation', icon: Target },
+    { name: 'Benchmark', href: '/benchmark', icon: BarChart3 },
+    { name: 'Narrative', href: '/narrative', icon: FileText },
     { name: 'About', href: '/about', icon: Info },
   ]
 
@@ -142,12 +145,17 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <ul className="space-y-2">
                 <li>
                   <Link to="/simulation" className="text-sm text-gray-600 hover:text-primary-600">
-                    Run Simulation
+                    Policy Simulation
                   </Link>
                 </li>
                 <li>
-                  <Link to="/dashboard" className="text-sm text-gray-600 hover:text-primary-600">
-                    View Dashboard
+                  <Link to="/benchmark" className="text-sm text-gray-600 hover:text-primary-600">
+                    Health Benchmark
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/narrative" className="text-sm text-gray-600 hover:text-primary-600">
+                    Narrative Generator
                   </Link>
                 </li>
                 <li>

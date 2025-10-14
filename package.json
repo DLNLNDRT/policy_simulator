@@ -1,0 +1,55 @@
+{
+  "name": "policy-simulation-assistant",
+  "version": "1.0.0",
+  "description": "GenAI-powered Policy Simulation Assistant for healthcare policy makers",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd src/backend && python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000",
+    "dev:frontend": "cd src/frontend && npm run dev",
+    "build": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "cd src/frontend && npm run build",
+    "build:backend": "cd src/backend && python -m build",
+    "test": "npm run test:frontend && npm run test:backend",
+    "test:frontend": "cd src/frontend && npm test",
+    "test:backend": "cd src/backend && python -m pytest",
+    "test:integration": "cd src/backend && python -m pytest tests/integration/",
+    "test:e2e": "cd src/frontend && npm run test:e2e",
+    "lint": "npm run lint:frontend && npm run lint:backend",
+    "lint:frontend": "cd src/frontend && npm run lint",
+    "lint:backend": "cd src/backend && python -m flake8 src/",
+    "format": "npm run format:frontend && npm run format:backend",
+    "format:frontend": "cd src/frontend && npm run format",
+    "format:backend": "cd src/backend && python -m black src/",
+    "setup": "npm run setup:frontend && npm run setup:backend",
+    "setup:frontend": "cd src/frontend && npm install",
+    "setup:backend": "cd src/backend && pip install -r requirements.txt",
+    "data:ingest": "cd src/backend && python -m scripts.ingest_data",
+    "data:validate": "cd src/backend && python -m scripts.validate_data",
+    "db:migrate": "cd src/backend && python -m scripts.migrate_db",
+    "db:seed": "cd src/backend && python -m scripts.seed_db"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "python": ">=3.11.0"
+  },
+  "keywords": [
+    "healthcare",
+    "policy",
+    "simulation",
+    "genai",
+    "data-analytics",
+    "fastapi",
+    "react",
+    "typescript"
+  ],
+  "author": "Policy Simulation Assistant Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/policy-simulation-assistant.git"
+  }
+}

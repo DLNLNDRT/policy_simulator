@@ -113,7 +113,7 @@ const ChartCard: React.FC<ChartCardProps> = ({ baseline, predicted, confidenceIn
                 y={baseline} 
                 stroke="#6b7280" 
                 strokeDasharray="5 5"
-                label={{ value: "Baseline", position: "topRight" }}
+                label={{ value: "Baseline", position: "top" }}
               />
             </BarChart>
           </ResponsiveContainer>

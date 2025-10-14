@@ -8,39 +8,45 @@ import {
   Zap,
   Users,
   Globe,
-  TrendingUp
+  TrendingUp,
+  Target,
+  FileText
 } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
 
 const HomePage: React.FC = () => {
   const features = [
     {
-      icon: BarChart3,
-      title: 'Policy Simulation',
-      description: 'Interactive what-if scenarios for workforce and spending changes',
+      icon: Target,
+      title: 'Policy Simulation Engine',
+      description: 'Interactive what-if scenarios for workforce and spending changes with gender filtering',
       color: 'text-blue-600',
-      bgColor: 'bg-blue-100'
+      bgColor: 'bg-blue-100',
+      link: '/simulation'
     },
     {
-      icon: Brain,
-      title: 'AI-Powered Insights',
-      description: 'GPT-5 generated narratives with citations and disclaimers',
+      icon: BarChart3,
+      title: 'Health Benchmark Dashboard',
+      description: 'Compare countries, detect anomalies, and analyze peer group performance',
+      color: 'text-green-600',
+      bgColor: 'bg-green-100',
+      link: '/benchmark'
+    },
+    {
+      icon: FileText,
+      title: 'Narrative Insight Generator',
+      description: 'AI-powered policy narratives with citations and actionable recommendations',
       color: 'text-purple-600',
-      bgColor: 'bg-purple-100'
+      bgColor: 'bg-purple-100',
+      link: '/narrative'
     },
     {
       icon: Shield,
-      title: 'Data Quality',
-      description: '98.4/100 quality score with comprehensive validation',
-      color: 'text-green-600',
-      bgColor: 'bg-green-100'
-    },
-    {
-      icon: Zap,
-      title: 'Fast Performance',
-      description: 'Sub-5 second response times with intelligent caching',
-      color: 'text-yellow-600',
-      bgColor: 'bg-yellow-100'
+      title: 'Data Quality Assurance',
+      description: '98.4/100 quality score with comprehensive validation and monitoring',
+      color: 'text-orange-600',
+      bgColor: 'bg-orange-100',
+      link: null
     }
   ]
 
@@ -80,10 +86,10 @@ const HomePage: React.FC = () => {
                   <ArrowRight className="w-5 h-5" />
                 </Link>
                 <Link
-                  to="/dashboard"
+                  to="/benchmark"
                   className="btn-outline btn-lg inline-flex items-center space-x-2"
                 >
-                  <span>View Dashboard</span>
+                  <span>View Benchmark</span>
                   <BarChart3 className="w-5 h-5" />
                 </Link>
               </div>
@@ -131,8 +137,8 @@ const HomePage: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {features.map((feature, index) => {
                 const Icon = feature.icon
-                return (
-                  <div key={index} className="card p-6 text-center hover:shadow-medium transition-shadow">
+                const CardContent = (
+                  <div className="card p-6 text-center hover:shadow-medium transition-shadow">
                     <div className={`inline-flex items-center justify-center w-16 h-16 ${feature.bgColor} rounded-xl mb-6`}>
                       <Icon className={`w-8 h-8 ${feature.color}`} />
                     </div>
@@ -142,6 +148,16 @@ const HomePage: React.FC = () => {
                     <p className="text-gray-600">
                       {feature.description}
                     </p>
+                  </div>
+                )
+                
+                return feature.link ? (
+                  <Link key={index} to={feature.link} className="block">
+                    {CardContent}
+                  </Link>
+                ) : (
+                  <div key={index}>
+                    {CardContent}
                   </div>
                 )
               })}
