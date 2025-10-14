@@ -338,7 +338,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
               </div>
               <div className="chart-container">
                 <h3>Correlation Matrix</h3>
-                <CorrelationMatrix data={dashboardData?.components?.[1]?.data} />
+                <CorrelationMatrix data={dashboardData?.components?.[1]?.data as any} />
               </div>
             </div>
           </div>
@@ -360,9 +360,9 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
           <div className="correlations-section">
             <CorrelationMatrix 
               data={dashboardData?.components?.[1]?.data as any}
-              onAnalyze={(config: any) => {
-                // Handle correlation analysis
-                console.log('Correlation analysis requested:', config)
+              onExport={(format: string) => {
+                // Handle correlation export
+                console.log('Correlation export requested:', format)
               }}
             />
           </div>
@@ -371,7 +371,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
         {activeTab === 'forecasts' && (
           <div className="forecasts-section">
             <ForecastChart 
-              data={dashboardData?.components?.[2]?.data}
+              data={dashboardData?.components?.[2]?.data as any}
               onForecast={(config: any) => {
                 // Handle forecast generation
                 console.log('Forecast requested:', config)

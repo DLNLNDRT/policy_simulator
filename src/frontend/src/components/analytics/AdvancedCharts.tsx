@@ -209,7 +209,7 @@ const AdvancedCharts: React.FC<AdvancedChartsProps> = ({ onCreate }) => {
                 dataKey="value"
               >
                 {data.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color || '#8884d8'} />
+                  <Cell key={`cell-${index}`} fill={(entry as any).color || '#8884d8'} />
                 ))}
               </Pie>
               <Tooltip />
