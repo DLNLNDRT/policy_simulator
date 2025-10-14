@@ -1,0 +1,47 @@
+# Railway ignore file - exclude frontend and Node.js files
+# We only want to deploy the Python FastAPI backend
+
+# Frontend files
+src/frontend/
+node_modules/
+package.json
+package-lock.json
+
+# Development files
+.env
+.DS_Store
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Git files
+.git/
+.gitignore
+
+# Documentation
+*.md
+docs/
+
+# Test files
+tests/
+*_test.py
+test_*.py
+
+# Log files
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
