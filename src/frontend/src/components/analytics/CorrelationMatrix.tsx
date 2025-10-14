@@ -193,7 +193,7 @@ const CorrelationMatrix: React.FC<CorrelationMatrixProps> = ({
                     </span>
                   </div>
                   <div className="strength-item">
-                    <span className="strength-label">Weak (<0.6):</span>
+                    <span className="strength-label">Weak (&lt;0.6):</span>
                     <span className="strength-count">
                       {correlationPairs.filter(p => Math.abs(p.correlation) < 0.6).length}
                     </span>
