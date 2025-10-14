@@ -26,6 +26,9 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Configure Streamlit to avoid Arrow serialization issues
+st.config.set_option('global.dataFrameSerialization', 'legacy')
+
 # Custom CSS for better styling
 st.markdown("""
 <style>
@@ -77,6 +80,30 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 @st.cache_data
+def clean_dataframe_for_streamlit(df):
+    """Clean dataframe to avoid Arrow serialization issues"""
+    if df is None or df.empty:
+        return df
+    
+    # Convert object columns to string to avoid Arrow issues
+    for col in df.columns:
+        if df[col].dtype == 'object':
+            df[col] = df[col].astype(str)
+    
+    # Replace NaN values with empty strings
+    df = df.fillna('')
+    
+    # Ensure numeric columns are properly typed
+    for col in df.columns:
+        if df[col].dtype == 'object':
+            # Try to convert to numeric if possible
+            try:
+                df[col] = pd.to_numeric(df[col], errors='ignore')
+            except:
+                pass
+    
+    return df
+
 def load_data_files():
     """Load all data files from adapt_context/data directory"""
     data_dir = Path("adapt_context/data")
@@ -104,7 +131,9 @@ def load_data_files():
                     df = pd.read_excel(file_path)
                 else:
                     continue
-                    
+                
+                # Clean the dataframe to avoid Arrow serialization issues
+                df = clean_dataframe_for_streamlit(df)
                 data_files[file_name] = df
                 st.success(f"✅ Loaded {file_name}: {len(df)} rows, {len(df.columns)} columns")
             except Exception as e:
