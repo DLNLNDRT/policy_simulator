@@ -372,7 +372,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
           <div className="forecasts-section">
             <ForecastChart 
               data={dashboardData?.components?.[2]?.data}
-              onForecast={(config) => {
+              onForecast={(config: any) => {
                 // Handle forecast generation
                 console.log('Forecast requested:', config)
               }}

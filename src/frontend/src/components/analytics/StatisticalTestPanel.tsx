@@ -292,7 +292,7 @@ const StatisticalTestPanel: React.FC<StatisticalTestPanelProps> = ({
                       <h6>Technical Details</h6>
                       <div className="technical-content">
                         <div className="detail-section">
-                          <h7>Hypothesis Testing</h7>
+                          <h6>Hypothesis Testing</h6>
                           <ul>
                             <li>Null Hypothesis (H₀): No significant relationship exists</li>
                             <li>Alternative Hypothesis (H₁): Significant relationship exists</li>
@@ -301,7 +301,7 @@ const StatisticalTestPanel: React.FC<StatisticalTestPanelProps> = ({
                         </div>
                         
                         <div className="detail-section">
-                          <h7>Decision Rule</h7>
+                          <h6>Decision Rule</h6>
                           <p>
                             {test.p_value < confidenceLevel 
                               ? `Since p-value (${test.p_value.toFixed(4)}) < α (${confidenceLevel}), we reject the null hypothesis.`
@@ -311,7 +311,7 @@ const StatisticalTestPanel: React.FC<StatisticalTestPanelProps> = ({
                         </div>
 
                         <div className="detail-section">
-                          <h7>Interpretation</h7>
+                          <h6>Interpretation</h6>
                           <p>
                             {test.significance 
                               ? 'The test indicates a statistically significant relationship between the variables.'
