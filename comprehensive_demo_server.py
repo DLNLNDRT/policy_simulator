@@ -16,6 +16,7 @@ import csv
 import io
 import base64
 import numpy as np
+from data_loader import data_loader
 
 app = FastAPI(
     title="Policy Simulation Assistant - Complete MVP Demo",
@@ -36,69 +37,14 @@ app.add_middleware(
 # SHARED MODELS AND DATA
 # ============================================================================
 
-# Mock countries data
-MOCK_COUNTRIES = {
-    'PRT': {
-        'name': 'Portugal',
-        'baseline': {
-            'life_expectancy': 81.2,
-            'doctor_density': 2.1,
-            'nurse_density': 5.2,
-            'health_spending': 5.8,
-            'year': 2022
-        },
-        'gender_baseline': {
-            'BOTH': {'life_expectancy': 81.2},
-            'MALE': {'life_expectancy': 78.1},
-            'FEMALE': {'life_expectancy': 84.3}
-        }
-    },
-    'ESP': {
-        'name': 'Spain',
-        'baseline': {
-            'life_expectancy': 83.1,
-            'doctor_density': 2.8,
-            'nurse_density': 6.1,
-            'health_spending': 7.2,
-            'year': 2022
-        },
-        'gender_baseline': {
-            'BOTH': {'life_expectancy': 83.1},
-            'MALE': {'life_expectancy': 80.2},
-            'FEMALE': {'life_expectancy': 86.0}
-        }
-    },
-    'SWE': {
-        'name': 'Sweden',
-        'baseline': {
-            'life_expectancy': 82.5,
-            'doctor_density': 3.0,
-            'nurse_density': 7.0,
-            'health_spending': 8.0,
-            'year': 2022
-        },
-        'gender_baseline': {
-            'BOTH': {'life_expectancy': 82.5},
-            'MALE': {'life_expectancy': 80.8},
-            'FEMALE': {'life_expectancy': 84.2}
-        }
-    },
-    'GRC': {
-        'name': 'Greece',
-        'baseline': {
-            'life_expectancy': 81.5,
-            'doctor_density': 2.4,
-            'nurse_density': 5.8,
-            'health_spending': 6.1,
-            'year': 2022
-        },
-        'gender_baseline': {
-            'BOTH': {'life_expectancy': 81.5},
-            'MALE': {'life_expectancy': 78.8},
-            'FEMALE': {'life_expectancy': 84.2}
-        }
-    }
-}
+# Real data loader - loads actual health indicator data from CSV files
+def get_countries_data():
+    """Get real countries data from CSV files"""
+    return data_loader.get_available_countries()
+
+def get_country_data(country_name: str):
+    """Get specific country data from real datasets"""
+    return data_loader.get_country_data(country_name)
 
 # ============================================================================
 # FEATURE 1: POLICY SIMULATION ENGINE
@@ -446,22 +392,24 @@ async def health_check():
 @app.get("/api/simulations/countries")
 async def get_simulation_countries():
     """Get available countries for simulation"""
+    real_countries = get_countries_data()
     countries = []
-    for code, data in MOCK_COUNTRIES.items():
+    for country in real_countries:
         countries.append({
-            "code": code,
-            "name": data["name"]
+            "code": country["code"],
+            "name": country["name"]
         })
     return countries
 
 @app.post("/api/simulations/run")
 async def run_simulation(request: SimulationRequest):
     """Run a policy simulation"""
-    if request.country not in MOCK_COUNTRIES:
+    # Find country in real data
+    country_data = get_country_data(request.country)
+    if not country_data:
         raise HTTPException(status_code=404, detail=f"Country {request.country} not found")
     
     # Get baseline data
-    country_data = MOCK_COUNTRIES[request.country]
     baseline = country_data['baseline'].copy()
     
     # Update baseline with gender-specific life expectancy if not BOTH
@@ -504,11 +452,12 @@ async def run_simulation(request: SimulationRequest):
 @app.get("/api/benchmarks/countries")
 async def get_benchmark_countries():
     """Get available countries for benchmarking"""
+    real_countries = get_countries_data()
     countries = []
-    for code, data in MOCK_COUNTRIES.items():
+    for country in real_countries:
         countries.append({
-            "code": code,
-            "name": data["name"]
+            "code": country["code"],
+            "name": country["name"]
         })
     return countries
 
