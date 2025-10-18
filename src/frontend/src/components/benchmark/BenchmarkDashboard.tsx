@@ -70,7 +70,7 @@ const BenchmarkDashboard: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8002'
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8005'
 
   // Fetch available countries
   useEffect(() => {
