@@ -617,107 +617,102 @@ async def get_narrative_options():
         ]
     }
 
+class SimulationNarrativeRequest(BaseModel):
+    simulation_results: Dict[str, Any]
+    template: str = "policy_insight"
+    audience: str = "policy_makers"
+
 @app.post("/api/narratives/generate")
-async def generate_narrative(request: NarrativeRequest):
-    """Generate a narrative based on the request"""
+async def generate_narrative(request: SimulationNarrativeRequest):
+    """Generate a narrative based on simulation results"""
     
-    # Mock narrative generation
+    # Extract simulation data
+    sim_results = request.simulation_results
+    country = sim_results.get('country', 'Unknown')
+    baseline = sim_results.get('baseline', {})
+    parameters = sim_results.get('parameters', {})
+    prediction = sim_results.get('prediction', {})
+    
+    # Extract key values
+    current_le = baseline.get('life_expectancy', 75.0)
+    predicted_change = prediction.get('change', 0.0)
+    new_le = current_le + predicted_change
+    
+    # Determine impact direction
+    impact_direction = "positive" if predicted_change > 0 else "negative" if predicted_change < 0 else "neutral"
+    
+    # Generate narrative based on template
     narrative_id = str(uuid.uuid4())
     
-    # Generate mock sections based on narrative type
-    sections = []
-    if request.narrative_type == "simulation_impact":
-        sections = [
-            NarrativeSection(
-                title="Executive Summary",
-                content="The simulation predicts a positive impact on life expectancy for the selected country. The proposed policy changes show promising results with a predicted increase in life expectancy.",
-                order=1,
-                word_count=25,
-                key_points=["Positive impact predicted", "Policy changes effective", "Life expectancy increase"]
-            ),
-            NarrativeSection(
-                title="Policy Impact Analysis",
-                content="Based on the simulation results, the proposed changes to healthcare workforce and spending are expected to yield significant improvements in health outcomes.",
-                order=2,
-                word_count=30,
-                key_points=["Workforce changes effective", "Spending increases beneficial", "Health outcomes improved"]
-            )
-        ]
-    elif request.narrative_type == "benchmark_comparison":
-        sections = [
-            NarrativeSection(
-                title="Country Performance Overview",
-                content="The benchmark comparison reveals significant variations in health indicators across the selected countries, with clear leaders and areas for improvement.",
-                order=1,
-                word_count=28,
-                key_points=["Significant variations found", "Clear performance leaders", "Areas for improvement identified"]
-            )
-        ]
+    if request.template == "policy_insight":
+        # Generate policy-focused narrative
+        narrative_text = f"""
+Based on the simulation analysis for {country}, the proposed policy changes are predicted to have a {impact_direction} impact on life expectancy.
+
+**Current Status:**
+- Current life expectancy: {current_le:.1f} years
+- Predicted change: {predicted_change:+.1f} years
+- Projected life expectancy: {new_le:.1f} years
+
+**Policy Implications:**
+"""
+        
+        if parameters.get('doctor_density', 0) != 0:
+            narrative_text += f"- Doctor density change: {parameters['doctor_density']:+.1f} per 10,000 population\n"
+        if parameters.get('nurse_density', 0) != 0:
+            narrative_text += f"- Nurse density change: {parameters['nurse_density']:+.1f} per 10,000 population\n"
+        if parameters.get('health_spending', 0) != 0:
+            narrative_text += f"- Health spending change: {parameters['health_spending']:+.1f}% of GDP\n"
+        
+        narrative_text += f"""
+**Recommendations:**
+- Monitor implementation of proposed changes
+- Track health outcomes over time
+- Consider additional factors affecting life expectancy
+- Validate results with local health data
+
+**Confidence Level:** The simulation uses statistical models based on historical data correlations. Results should be interpreted as directional indicators rather than precise predictions.
+"""
     
-    # Generate mock recommendations
-    recommendations = [
-        Recommendation(
-            title="Implement Workforce Expansion",
-            description="Increase healthcare workforce density to improve health outcomes",
-            priority="high",
-            timeline="6-12 months",
-            resources_needed="Budget allocation for training and recruitment",
-            expected_impact="Improved access to healthcare services"
-        ),
-        Recommendation(
-            title="Optimize Health Spending",
-            description="Reallocate health spending to focus on preventive care and primary healthcare",
-            priority="medium",
-            timeline="12-18 months",
-            resources_needed="Policy review and budget restructuring",
-            expected_impact="Better health outcomes and cost efficiency"
-        )
+    else:
+        # Default narrative
+        narrative_text = f"""
+Simulation analysis for {country} shows a {impact_direction} predicted change in life expectancy of {predicted_change:+.1f} years.
+
+Current life expectancy: {current_le:.1f} years
+Projected life expectancy: {new_le:.1f} years
+
+This analysis is based on statistical correlations and should be used as a guide for policy planning.
+"""
+    
+    # Generate disclaimers
+    disclaimers = [
+        "This analysis is based on statistical models and historical data correlations",
+        "Results should be interpreted as directional indicators, not precise predictions",
+        "Actual outcomes may vary due to factors not included in this model",
+        "Policy decisions should consider multiple factors beyond this analysis"
     ]
     
-    # Generate quality metrics
-    quality_metrics = QualityMetrics(
-        coherence_score=4.2,
-        accuracy_score=4.5,
-        actionability_score=4.0,
-        readability_score=4.3,
-        overall_score=4.25,
-        word_count=500,
-        reading_time_minutes=2,
-        completeness_score=95.0,
-        validity_score=98.0,
-        consistency_score=92.0,
-        freshness_score=88.0,
-        last_updated=datetime.utcnow().isoformat(),
-        trend="stable",
-        alerts=[]
-    )
+    # Generate citations
+    citations = [
+        "WHO Global Health Observatory 2023",
+        "World Bank Health Expenditure Data",
+        "OECD Health Statistics 2023"
+    ]
     
-    response = NarrativeResponse(
-        narrative_id=narrative_id,
-        title=f"Generated {request.narrative_type.replace('_', ' ').title()} Report",
-        narrative_type=request.narrative_type,
-        sections=sections,
-        executive_summary="This report provides a comprehensive analysis of the health policy implications based on the provided data and simulation results.",
-        key_insights=[
-            "Policy changes show positive impact on health outcomes",
-            "Workforce expansion is the most effective intervention",
-            "Health spending optimization can improve efficiency"
-        ],
-        recommendations=recommendations,
-        quality_metrics=quality_metrics.dict(),
-        metadata={
-            "model": "gpt-4",
-            "temperature": 0.7,
-            "prompt_tokens": 500,
-            "completion_tokens": 300,
-            "total_tokens": 800
-        },
-        generated_at=datetime.now().isoformat(),
-        cost_usd=0.15,
-        generation_time_ms=2500
-    )
-    
-    return response
+    return {
+        "narrative_id": narrative_id,
+        "narrative": narrative_text.strip(),
+        "disclaimers": disclaimers,
+        "citations": citations,
+        "metadata": {
+            "country": country,
+            "template": request.template,
+            "audience": request.audience,
+            "generated_at": datetime.now().isoformat(),
+            "word_count": len(narrative_text.split())
+        }
+    }
 
 # ============================================================================
 # FEATURE 4 ENDPOINTS
