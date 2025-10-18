@@ -50,7 +50,7 @@ const ExportManager: React.FC<ExportManagerProps> = ({ narrative, onClose }) => 
     setExportStatus('exporting')
 
     try {
-      const response = await fetch('/api/narratives/export', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || ''}/api/narratives/export`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
