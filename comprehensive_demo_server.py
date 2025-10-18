@@ -136,7 +136,12 @@ def simulate_policy_impact(baseline: Dict, parameters: Dict, gender: str = "BOTH
     
     # Calculate new life expectancy
     predicted_le = baseline['life_expectancy'] + predicted_change
-    change_percentage = (predicted_change / baseline['life_expectancy']) * 100
+    
+    # Calculate change percentage, handling zero baseline
+    if baseline['life_expectancy'] > 0:
+        change_percentage = (predicted_change / baseline['life_expectancy']) * 100
+    else:
+        change_percentage = 0  # Default to 0% if baseline is 0
     
     # Calculate confidence interval
     margin_of_error = 0.8 if gender != 'BOTH' else 0.7
