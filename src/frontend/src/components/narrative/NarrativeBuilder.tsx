@@ -3,8 +3,22 @@ import { FileText, Download, Eye, Loader2, AlertCircle } from 'lucide-react'
 import TemplateSelector from './TemplateSelector'
 import PreviewPanel from './PreviewPanel'
 import ExportManager from './ExportManager'
-import QualityMetrics from './QualityMetrics'
-import { NarrativeRequest, NarrativeResponse, NarrativeType, AudienceType, ToneType, LengthType, FocusArea } from '@/types/narrative'
+import { NarrativeRequest, NarrativeType, AudienceType, ToneType, LengthType, FocusArea } from '@/types/narrative'
+
+// Define the actual backend response type
+interface NarrativeResponse {
+  narrative_id: string
+  narrative: string
+  disclaimers: string[]
+  citations: string[]
+  metadata: {
+    country: string
+    template: string
+    audience: string
+    generated_at: string
+    word_count: number
+  }
+}
 
 interface NarrativeBuilderProps {
   dataSource?: Record<string, any> // Data from Feature 1 or Feature 2
