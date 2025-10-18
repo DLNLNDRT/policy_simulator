@@ -645,6 +645,7 @@ async def generate_narrative(request: SimulationNarrativeRequest):
     narrative_id = str(uuid.uuid4())
     
     # Generate narrative based on template
+    print(f"DEBUG: Template received: '{request.template}'")
     if request.template in ["policy_insight", "simulation_impact"]:
         # Generate policy-focused narrative
         narrative_text = f"""
