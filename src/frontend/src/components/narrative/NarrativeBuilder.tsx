@@ -68,7 +68,10 @@ const NarrativeBuilder: React.FC<NarrativeBuilderProps> = ({
       const requestBody = {
         simulation_results: narrativeRequest.data_source || {},
         template: narrativeRequest.narrative_type?.toLowerCase() || "policy_insight",
-        audience: narrativeRequest.audience?.toLowerCase() || "policy_makers"
+        audience: narrativeRequest.audience?.toLowerCase() || "policy_makers",
+        focus_areas: narrativeRequest.focus_areas?.map(area => area.toLowerCase()) || ["policy_recommendations", "health_outcomes"],
+        tone: narrativeRequest.tone?.toLowerCase() || "formal",
+        length: narrativeRequest.length?.toLowerCase() || "standard"
       }
 
       const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || ''}/api/narratives/generate`, {

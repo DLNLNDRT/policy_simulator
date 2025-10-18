@@ -621,6 +621,9 @@ class SimulationNarrativeRequest(BaseModel):
     simulation_results: Dict[str, Any]
     template: str = "policy_insight"
     audience: str = "policy_makers"
+    focus_areas: List[str] = ["policy_recommendations", "health_outcomes"]
+    tone: str = "formal"
+    length: str = "standard"
 
 @app.post("/api/narratives/generate")
 async def generate_narrative(request: SimulationNarrativeRequest):
@@ -645,7 +648,6 @@ async def generate_narrative(request: SimulationNarrativeRequest):
     narrative_id = str(uuid.uuid4())
     
     # Generate narrative based on template
-    print(f"DEBUG: Template received: '{request.template}'")
     if request.template in ["policy_insight", "simulation_impact"]:
         # Generate policy-focused narrative
         narrative_text = f"""
@@ -666,13 +668,52 @@ Based on the simulation analysis for {country}, the proposed policy changes are 
         if parameters.get('health_spending', 0) != 0:
             narrative_text += f"- Health spending change: {parameters['health_spending']:+.1f}% of GDP\n"
         
-        narrative_text += f"""
-**Recommendations:**
+        # Add focus area sections
+        if "health_outcomes" in request.focus_areas:
+            narrative_text += f"""
+**Health Outcomes Analysis:**
+- Expected life expectancy improvement: {predicted_change:+.1f} years
+- Health system capacity impact: {'Positive' if predicted_change > 0 else 'Negative' if predicted_change < 0 else 'Neutral'}
+- Population health implications: The proposed changes are projected to {'enhance' if predicted_change > 0 else 'reduce' if predicted_change < 0 else 'maintain'} overall population health outcomes
+"""
+        
+        if "economic_impact" in request.focus_areas:
+            narrative_text += f"""
+**Economic Impact Assessment:**
+- Healthcare cost implications: {'Potential cost savings' if predicted_change > 0 else 'Potential cost increases' if predicted_change < 0 else 'Minimal cost impact'}
+- Productivity impact: {'Improved workforce productivity' if predicted_change > 0 else 'Reduced workforce productivity' if predicted_change < 0 else 'Stable productivity'}
+- Return on investment: The proposed changes show {'positive' if predicted_change > 0 else 'negative' if predicted_change < 0 else 'neutral'} ROI potential
+"""
+        
+        if "implementation" in request.focus_areas:
+            narrative_text += f"""
+**Implementation Considerations:**
+- Timeline: Recommended implementation over 2-3 years
+- Resource requirements: {'Moderate' if abs(predicted_change) < 0.5 else 'High'} resource investment needed
+- Stakeholder engagement: Requires coordination with healthcare providers, policymakers, and community organizations
+- Monitoring framework: Establish quarterly progress reviews and annual impact assessments
+"""
+        
+        if "policy_recommendations" in request.focus_areas:
+            narrative_text += f"""
+**Policy Recommendations:**
 - Monitor implementation of proposed changes
 - Track health outcomes over time
 - Consider additional factors affecting life expectancy
 - Validate results with local health data
-
+- Develop contingency plans for unexpected outcomes
+"""
+        
+        if "risk_assessment" in request.focus_areas:
+            narrative_text += f"""
+**Risk Assessment:**
+- Implementation risks: {'Low' if abs(predicted_change) < 0.3 else 'Medium' if abs(predicted_change) < 0.8 else 'High'}
+- Data quality risks: Moderate - based on statistical correlations
+- External factor risks: High - economic, social, and environmental factors not included
+- Mitigation strategies: Regular monitoring, stakeholder feedback, and adaptive management
+"""
+        
+        narrative_text += f"""
 **Confidence Level:** The simulation uses statistical models based on historical data correlations. Results should be interpreted as directional indicators rather than precise predictions.
 """
     
