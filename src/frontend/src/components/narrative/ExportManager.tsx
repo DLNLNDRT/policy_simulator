@@ -1,6 +1,20 @@
 import React, { useState } from 'react'
 import { Download, FileText, File, Image, X, Loader2, CheckCircle } from 'lucide-react'
-import { NarrativeResponse } from '@/types/narrative'
+
+// Define the actual backend response type
+interface NarrativeResponse {
+  narrative_id: string
+  narrative: string
+  disclaimers: string[]
+  citations: string[]
+  metadata: {
+    country: string
+    template: string
+    audience: string
+    generated_at: string
+    word_count: number
+  }
+}
 
 interface ExportManagerProps {
   narrative: NarrativeResponse
@@ -80,7 +94,8 @@ const ExportManager: React.FC<ExportManagerProps> = ({ narrative, onClose }) => 
     if (downloadUrl) {
       const link = document.createElement('a')
       link.href = downloadUrl
-      link.download = `${narrative.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.${exportFormat}`
+      const filename = `narrative_${narrative.metadata.country}_${narrative.metadata.template}`.replace(/[^a-z0-9]/gi, '_').toLowerCase()
+      link.download = `${filename}.${exportFormat}`
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
@@ -125,19 +140,19 @@ const ExportManager: React.FC<ExportManagerProps> = ({ narrative, onClose }) => 
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
                 <span className="text-gray-600">Title:</span>
-                <span className="ml-2 font-medium text-gray-900">{narrative.title}</span>
+                <span className="ml-2 font-medium text-gray-900">Policy Simulation Narrative</span>
               </div>
               <div>
                 <span className="text-gray-600">Type:</span>
-                <span className="ml-2 font-medium text-gray-900">{narrative.narrative_type}</span>
+                <span className="ml-2 font-medium text-gray-900">{narrative.metadata.template}</span>
               </div>
               <div>
                 <span className="text-gray-600">Word Count:</span>
-                <span className="ml-2 font-medium text-gray-900">{narrative.quality_metrics.word_count.toLocaleString()}</span>
+                <span className="ml-2 font-medium text-gray-900">{narrative.metadata.word_count.toLocaleString()}</span>
               </div>
               <div>
                 <span className="text-gray-600">Quality Score:</span>
-                <span className="ml-2 font-medium text-gray-900">{narrative.quality_metrics.overall_score.toFixed(1)}/5.0</span>
+                <span className="ml-2 font-medium text-gray-900">N/A</span>
               </div>
             </div>
           </div>
