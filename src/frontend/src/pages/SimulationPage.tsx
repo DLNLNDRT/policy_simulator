@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { 
   Play, 
@@ -34,6 +34,7 @@ interface SimulationResult {
 const SimulationPage: React.FC = () => {
   const [isRunning, setIsRunning] = useState(false)
   const [results, setResults] = useState<SimulationResult | null>(null)
+  const [countries, setCountries] = useState<Array<{code: string, name: string}>>([])
   const [params, setParams] = useState<SimulationParams>({
     country: 'Portugal',
     doctorDensityChange: 0,
@@ -41,17 +42,28 @@ const SimulationPage: React.FC = () => {
     spendingChange: 0
   })
 
-  const countries = [
-    { code: 'PRT', name: 'Portugal' },
-    { code: 'ESP', name: 'Spain' },
-    { code: 'SWE', name: 'Sweden' },
-    { code: 'DEU', name: 'Germany' },
-    { code: 'FRA', name: 'France' },
-    { code: 'ITA', name: 'Italy' },
-    { code: 'GBR', name: 'United Kingdom' },
-    { code: 'USA', name: 'United States' },
-    { code: 'CAN', name: 'Canada' }
-  ]
+  // Fetch real countries from API
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        const response = await fetch('http://localhost:8005/api/simulations/countries')
+        if (response.ok) {
+          const countriesData = await response.json()
+          setCountries(countriesData)
+          // Set first country as default
+          if (countriesData.length > 0) {
+            setParams(prev => ({ ...prev, country: countriesData[0].name }))
+          }
+        }
+      } catch (error) {
+        console.error('Failed to fetch countries:', error)
+        // Fallback to empty array if API fails
+        setCountries([])
+      }
+    }
+    
+    fetchCountries()
+  }, [])
 
   const handleRunSimulation = async () => {
     setIsRunning(true)
@@ -91,7 +103,7 @@ const SimulationPage: React.FC = () => {
   const handleReset = () => {
     setResults(null)
     setParams({
-      country: 'Portugal',
+      country: countries.length > 0 ? countries[0].name : 'Portugal',
       doctorDensityChange: 0,
       nurseDensityChange: 0,
       spendingChange: 0
