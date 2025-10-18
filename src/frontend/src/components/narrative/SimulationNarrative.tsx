@@ -38,16 +38,10 @@ const SimulationNarrative: React.FC<SimulationNarrativeProps> = ({
     }
   }
 
-  const defaultNarrativeRequest: NarrativeRequest = {
-    narrative_type: NarrativeType.SIMULATION_IMPACT,
-    audience: AudienceType.POLICY_MAKERS,
-    tone: ToneType.FORMAL,
-    length: LengthType.STANDARD,
-    focus_areas: [FocusArea.POLICY_RECOMMENDATIONS, FocusArea.HEALTH_OUTCOMES],
-    data_source: transformSimulationData(simulationData),
-    include_citations: true,
-    include_recommendations: true,
-    custom_instructions: ''
+  const defaultNarrativeRequest = {
+    simulation_results: simulationData || {},
+    template: "policy_insight",
+    audience: "policy_makers"
   }
 
   if (!hasData) {
@@ -160,7 +154,7 @@ const SimulationNarrative: React.FC<SimulationNarrativeProps> = ({
 
       {/* Narrative Builder */}
       <NarrativeBuilder
-        dataSource={transformSimulationData(simulationData)}
+        dataSource={simulationData}
         onNarrativeGenerated={onNarrativeGenerated}
       />
     </div>

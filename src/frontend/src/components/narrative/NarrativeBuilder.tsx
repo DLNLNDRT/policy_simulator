@@ -50,12 +50,19 @@ const NarrativeBuilder: React.FC<NarrativeBuilderProps> = ({
     setGeneratedNarrative(null)
 
     try {
+      // Use the correct API format for simulation results
+      const requestBody = {
+        simulation_results: narrativeRequest.data_source || {},
+        template: "policy_insight",
+        audience: "policy_makers"
+      }
+
       const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || ''}/api/narratives/generate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(narrativeRequest),
+        body: JSON.stringify(requestBody),
       })
 
       if (!response.ok) {
