@@ -9,6 +9,7 @@ import BenchmarkPage from '@/pages/BenchmarkPage'
 import NarrativePage from '@/pages/NarrativePage'
 import AboutPage from '@/pages/AboutPage'
 import NotFoundPage from '@/pages/NotFoundPage'
+import { SimulationProvider } from '@/contexts/SimulationContext'
 
 function App() {
   return (
@@ -18,16 +19,18 @@ function App() {
         <meta name="description" content="GenAI-powered healthcare policy simulation tool for policy makers" />
       </Helmet>
       
-      <Layout>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/simulation" element={<SimulationPage />} />
-          <Route path="/benchmark" element={<BenchmarkPage />} />
-          <Route path="/narrative" element={<NarrativePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </Layout>
+      <SimulationProvider>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/simulation" element={<SimulationPage />} />
+            <Route path="/benchmark" element={<BenchmarkPage />} />
+            <Route path="/narrative" element={<NarrativePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Layout>
+      </SimulationProvider>
     </>
   )
 }

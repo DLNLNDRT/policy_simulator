@@ -4,6 +4,7 @@ import { FileText, BarChart, TrendingUp, Settings, Info } from 'lucide-react'
 import SimulationNarrative from '@/components/narrative/SimulationNarrative'
 import BenchmarkNarrative from '@/components/narrative/BenchmarkNarrative'
 import NarrativeBuilder from '@/components/narrative/NarrativeBuilder'
+import { useSimulation } from '@/contexts/SimulationContext'
 
 interface NarrativePageProps {
   simulationData?: any
@@ -11,9 +12,14 @@ interface NarrativePageProps {
 }
 
 const NarrativePage: React.FC<NarrativePageProps> = ({
-  simulationData,
+  simulationData: propSimulationData,
   benchmarkData
 }) => {
+  // Get simulation data from context
+  const { simulationData: contextSimulationData } = useSimulation()
+  
+  // Use context data if available, otherwise use prop data
+  const simulationData = contextSimulationData || propSimulationData
   const [activeTab, setActiveTab] = useState<'simulation' | 'benchmark' | 'custom'>('simulation')
   const [hasSimulationData, setHasSimulationData] = useState(false)
   const [hasBenchmarkData, setHasBenchmarkData] = useState(false)

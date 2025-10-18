@@ -13,6 +13,7 @@ import SimulationCard from '@/components/simulation/SimulationCard'
 import ResultsCard from '@/components/simulation/ResultsCard'
 import NarrativeCard from '@/components/simulation/NarrativeCard'
 import ChartCard from '@/components/simulation/ChartCard'
+import { useSimulation } from '@/contexts/SimulationContext'
 
 interface SimulationParams {
   country: string
@@ -44,6 +45,9 @@ const SimulationPage: React.FC = () => {
 
   // Get API base URL from environment variable
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ''
+  
+  // Get simulation context
+  const { setSimulationData } = useSimulation()
 
   // Fetch real countries from API
   useEffect(() => {
@@ -150,6 +154,15 @@ const SimulationPage: React.FC = () => {
       }
       
       setResults(results)
+      
+      // Store simulation data in context for narrative page
+      setSimulationData({
+        country: simulationData.country,
+        baseline: simulationData.baseline,
+        parameters: simulationData.parameters,
+        prediction: simulationData.prediction,
+        metadata: simulationData.metadata
+      })
     } catch (error) {
       console.error('Simulation failed:', error)
       // Fallback to mock results if API fails
