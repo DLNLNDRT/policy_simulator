@@ -42,11 +42,14 @@ const SimulationPage: React.FC = () => {
     spendingChange: 0
   })
 
+  // Get API base URL from environment variable
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ''
+
   // Fetch real countries from API
   useEffect(() => {
     const fetchCountries = async () => {
       try {
-        const response = await fetch('/api/simulations/countries')
+        const response = await fetch(`${API_BASE_URL}/api/simulations/countries`)
         if (response.ok) {
           const countriesData = await response.json()
           setCountries(countriesData)
@@ -63,14 +66,14 @@ const SimulationPage: React.FC = () => {
     }
     
     fetchCountries()
-  }, [])
+  }, [API_BASE_URL])
 
   const handleRunSimulation = async () => {
     setIsRunning(true)
     
     try {
       // Call real simulation API
-      const response = await fetch('/api/simulations/run', {
+      const response = await fetch(`${API_BASE_URL}/api/simulations/run`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -93,7 +96,7 @@ const SimulationPage: React.FC = () => {
       const simulationData = await response.json()
       
       // Generate narrative using the narrative API
-      const narrativeResponse = await fetch('/api/narratives/generate', {
+      const narrativeResponse = await fetch(`${API_BASE_URL}/api/narratives/generate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
