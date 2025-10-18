@@ -108,7 +108,13 @@ const SimulationPage: React.FC = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          simulation_results: simulationData,
+          simulation_results: {
+            country: simulationData.country,
+            baseline: simulationData.baseline,
+            parameters: simulationData.parameters,
+            prediction: simulationData.prediction,
+            metadata: simulationData.metadata
+          },
           template: 'policy_insight',
           audience: 'policy_makers'
         })
@@ -129,8 +135,9 @@ const SimulationPage: React.FC = () => {
       }
       
       const results: SimulationResult = {
-        predictedChange: simulationData.predicted_change || 0,
-        confidenceInterval: simulationData.confidence_interval || [0, 0],
+        predictedChange: simulationData.prediction?.change || 0,
+        confidenceInterval: simulationData.prediction?.confidence_interval ? 
+          [simulationData.prediction.confidence_interval.lower, simulationData.prediction.confidence_interval.upper] : [0, 0],
         narrative: narrative,
         disclaimers: disclaimers,
         citations: simulationData.citations || [
