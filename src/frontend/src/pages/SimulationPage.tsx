@@ -71,6 +71,9 @@ const SimulationPage: React.FC = () => {
   const handleRunSimulation = async () => {
     setIsRunning(true)
     
+    // Debug: Log current parameters
+    console.log('Running simulation with parameters:', params)
+    
     try {
       // Call real simulation API
       const response = await fetch(`${API_BASE_URL}/api/simulations/run`, {
@@ -94,6 +97,9 @@ const SimulationPage: React.FC = () => {
       }
       
       const simulationData = await response.json()
+      
+      // Debug: Log simulation response
+      console.log('Simulation response:', simulationData)
       
       // Generate narrative using the narrative API
       const narrativeResponse = await fetch(`${API_BASE_URL}/api/narratives/generate`, {
