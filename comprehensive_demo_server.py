@@ -122,10 +122,10 @@ def simulate_policy_impact(baseline: Dict, parameters: Dict, gender: str = "BOTH
     baseline_nurse = baseline['nurse_density']
     baseline_spending = baseline['health_spending']
     
-    # Calculate the change in each parameter
-    doctor_change = parameters['doctor_density'] - baseline_doctor
-    nurse_change = parameters['nurse_density'] - baseline_nurse
-    spending_change = parameters['health_spending'] - baseline_spending
+    # The parameters are already the CHANGE values (e.g., +5 means increase by 5)
+    doctor_change = parameters['doctor_density']
+    nurse_change = parameters['nurse_density'] 
+    spending_change = parameters['health_spending']
     
     # Calculate predicted CHANGE in life expectancy
     predicted_change = (
