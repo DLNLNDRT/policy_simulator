@@ -163,11 +163,12 @@ class RealDataLoader:
         
         return self.countries_cache
     
-    def get_country_data(self, country_name: str) -> Optional[Dict[str, Any]]:
-        """Get specific country data"""
+    def get_country_data(self, country_identifier: str) -> Optional[Dict[str, Any]]:
+        """Get specific country data by code or name"""
         countries = self.get_available_countries()
         for country in countries:
-            if country['name'].lower() == country_name.lower():
+            if (country['name'].lower() == country_identifier.lower() or 
+                country['code'].lower() == country_identifier.lower()):
                 return country
         return None
     
