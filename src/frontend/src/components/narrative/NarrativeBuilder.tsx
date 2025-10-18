@@ -191,10 +191,6 @@ const NarrativeBuilder: React.FC<NarrativeBuilderProps> = ({
             <PreviewPanel narrative={generatedNarrative} />
           )}
 
-          {/* Quality Metrics */}
-          {generatedNarrative && (
-            <QualityMetrics metrics={generatedNarrative.quality_metrics} />
-          )}
         </div>
       </div>
 
