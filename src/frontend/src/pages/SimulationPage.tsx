@@ -46,7 +46,7 @@ const SimulationPage: React.FC = () => {
   useEffect(() => {
     const fetchCountries = async () => {
       try {
-        const response = await fetch('http://localhost:8005/api/simulations/countries')
+        const response = await fetch('/api/simulations/countries')
         if (response.ok) {
           const countriesData = await response.json()
           setCountries(countriesData)
