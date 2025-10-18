@@ -109,7 +109,7 @@ class RealDataLoader:
             for _, row in latest_doctor.iterrows():
                 country_name = row['GEO_NAME_SHORT']
                 if country_name in countries:
-                    countries[country_name]['doctor_density'] = row['AMOUNT_N']
+                    countries[country_name]['doctor_density'] = row['RATE_PER_10000_N']
         
         nurse_df = self.load_nurse_density_data()
         if not nurse_df.empty:
@@ -120,7 +120,7 @@ class RealDataLoader:
             for _, row in latest_nurse.iterrows():
                 country_name = row['GEO_NAME_SHORT']
                 if country_name in countries:
-                    countries[country_name]['nurse_density'] = row['AMOUNT_N']
+                    countries[country_name]['nurse_density'] = row['RATE_PER_10000_N']
         
         spending_df = self.load_health_spending_data()
         if not spending_df.empty:
@@ -131,7 +131,7 @@ class RealDataLoader:
             for _, row in latest_spending.iterrows():
                 country_name = row['GEO_NAME_SHORT']
                 if country_name in countries:
-                    countries[country_name]['health_spending'] = row['AMOUNT_N']
+                    countries[country_name]['health_spending'] = row['RATE_PER_100_N']
         
         # Convert to list format
         self.countries_cache = []
