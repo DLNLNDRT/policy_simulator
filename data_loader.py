@@ -124,7 +124,7 @@ class RealDataLoader:
         
         spending_df = self.load_health_spending_data()
         if not spending_df.empty:
-            latest_spending = spending_df.groupby('GEO_NAME_SHORT', ).apply(
+            latest_spending = spending_df.groupby('GEO_NAME_SHORT').apply(
                 lambda x: x.loc[x['DIM_TIME'].idxmax()]
             ).reset_index(drop=True)
             

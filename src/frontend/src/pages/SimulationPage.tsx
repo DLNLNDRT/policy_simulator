@@ -77,9 +77,11 @@ const SimulationPage: React.FC = () => {
         },
         body: JSON.stringify({
           country: params.country,
-          doctor_density_change: params.doctorDensityChange,
-          nurse_density_change: params.nurseDensityChange,
-          health_spending_change: params.spendingChange,
+          parameters: {
+            doctor_density: params.doctorDensityChange,
+            nurse_density: params.nurseDensityChange,
+            health_spending: params.spendingChange
+          },
           gender: 'BOTH'
         })
       })
