@@ -470,23 +470,28 @@ async def get_benchmark_countries():
 async def compare_countries(request: ComparisonRequest):
     """Compare multiple countries across health metrics"""
     
-    # Validate countries
-    for country in request.countries:
-        if country not in MOCK_COUNTRIES:
-            raise HTTPException(status_code=404, detail=f"Country {country} not found")
-    
-    # Default metrics if none specified
-    metrics = request.metrics or ['life_expectancy', 'doctor_density', 'nurse_density', 'health_spending']
-    
-    # Calculate rankings (simplified)
-    rankings = []
-    for i, country in enumerate(request.countries):
-        country_data = MOCK_COUNTRIES[country]['baseline']
+    try:
+        # Get real countries data
+        real_countries = get_countries_data()
+        country_lookup = {country['code']: country for country in real_countries}
+        
+        # Validate countries
+        for country in request.countries:
+            if country not in country_lookup:
+                raise HTTPException(status_code=404, detail=f"Country {country} not found")
+        
+        # Default metrics if none specified
+        metrics = request.metrics or ['life_expectancy', 'doctor_density', 'nurse_density', 'health_spending']
+        
+        # Calculate rankings (simplified)
+        rankings = []
+        for i, country in enumerate(request.countries):
+            country_data = country_lookup[country]['baseline']
         
         # Create mock metrics
         country_metrics = []
         for metric in metrics:
-            value = country_data.get(metric.replace('_', '_'), 0)
+            value = country_data.get(metric, 0)
             country_metrics.append(HealthMetric(
                 name=metric,
                 value=value,
@@ -500,62 +505,65 @@ async def compare_countries(request: ComparisonRequest):
         
         ranking = CountryRanking(
             country_code=country,
-            country_name=MOCK_COUNTRIES[country]['name'],
+            country_name=country_lookup[country]['name'],
             overall_rank=i + 1,
             metrics=country_metrics,
             total_score=0.8 - (i * 0.2)
         )
         rankings.append(ranking)
-    
-    # Mock anomalies
-    anomalies = []
-    if request.include_anomalies:
-        anomalies.append(AnomalyAlert(
-            country="PRT",
-            metric="health_spending",
-            severity="medium",
-            description="Health spending (5.8% GDP) is below recommended levels",
-            confidence=0.8,
-            recommendation="Consider increasing health expenditure to improve outcomes",
-            detected_at=datetime.now().isoformat()
-        ))
-    
-    # Mock peer groups
-    peer_groups = []
-    if request.include_peers:
-        peer_groups.append(PeerGroup(
-            name="Southern Europe",
-            countries=["PRT", "ESP", "GRC"],
-            criteria=["region"],
-            average={"life_expectancy": 82.0, "health_spending": 6.4},
-            size=3
-        ))
-    
-    # Generate summary
-    summary = {
-        "total_countries": len(request.countries),
-        "total_anomalies": len(anomalies),
-        "high_severity_anomalies": len([a for a in anomalies if a.severity == "high"]),
-        "peer_groups": len(peer_groups),
-        "best_performer": rankings[0].country_name if rankings else None,
-        "worst_performer": rankings[-1].country_name if rankings else None,
-        "average_score": sum(r.total_score for r in rankings) / len(rankings) if rankings else 0,
-        "score_range": {
-            "min": min(r.total_score for r in rankings) if rankings else 0,
-            "max": max(r.total_score for r in rankings) if rankings else 0
+        
+        # Mock anomalies
+        anomalies = []
+        if request.include_anomalies:
+            anomalies.append(AnomalyAlert(
+                country="PRT",
+                metric="health_spending",
+                severity="medium",
+                description="Health spending (5.8% GDP) is below recommended levels",
+                confidence=0.8,
+                recommendation="Consider increasing health expenditure to improve outcomes",
+                detected_at=datetime.now().isoformat()
+            ))
+        
+        # Mock peer groups
+        peer_groups = []
+        if request.include_peers:
+            peer_groups.append(PeerGroup(
+                name="Southern Europe",
+                countries=["PRT", "ESP", "GRC"],
+                criteria=["region"],
+                average={"life_expectancy": 82.0, "health_spending": 6.4},
+                size=3
+            ))
+        
+        # Generate summary
+        summary = {
+            "total_countries": len(request.countries),
+            "total_anomalies": len(anomalies),
+            "high_severity_anomalies": len([a for a in anomalies if a.severity == "high"]),
+            "peer_groups": len(peer_groups),
+            "best_performer": rankings[0].country_name if rankings else None,
+            "worst_performer": rankings[-1].country_name if rankings else None,
+            "average_score": sum(r.total_score for r in rankings) / len(rankings) if rankings else 0,
+            "score_range": {
+                "min": min(r.total_score for r in rankings) if rankings else 0,
+                "max": max(r.total_score for r in rankings) if rankings else 0
+            }
         }
-    }
     
-    return CountryComparison(
-        countries=request.countries,
-        metrics=metrics,
-        year=request.year,
-        rankings=rankings,
-        anomalies=anomalies,
-        peer_groups=peer_groups,
-        summary=summary,
-        generated_at=datetime.now().isoformat()
-    )
+        return CountryComparison(
+            countries=request.countries,
+            metrics=metrics,
+            year=request.year,
+            rankings=rankings,
+            anomalies=anomalies,
+            peer_groups=peer_groups,
+            summary=summary,
+            generated_at=datetime.now().isoformat()
+        )
+    except Exception as e:
+        print(f"Error in benchmark compare: {e}")
+        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 def get_metric_unit(metric: str) -> str:
     """Get unit for metric"""
