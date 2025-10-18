@@ -644,7 +644,8 @@ async def generate_narrative(request: SimulationNarrativeRequest):
     # Generate narrative based on template
     narrative_id = str(uuid.uuid4())
     
-    if request.template == "policy_insight":
+    # Generate narrative based on template
+    if request.template in ["policy_insight", "simulation_impact"]:
         # Generate policy-focused narrative
         narrative_text = f"""
 Based on the simulation analysis for {country}, the proposed policy changes are predicted to have a {impact_direction} impact on life expectancy.
@@ -674,16 +675,109 @@ Based on the simulation analysis for {country}, the proposed policy changes are 
 **Confidence Level:** The simulation uses statistical models based on historical data correlations. Results should be interpreted as directional indicators rather than precise predictions.
 """
     
-    else:
-        # Default narrative
+    elif request.template == "executive_summary":
+        # Generate executive summary narrative
         narrative_text = f"""
-Simulation analysis for {country} shows a {impact_direction} predicted change in life expectancy of {predicted_change:+.1f} years.
+EXECUTIVE SUMMARY: Health Policy Impact Analysis for {country}
 
-Current life expectancy: {current_le:.1f} years
-Projected life expectancy: {new_le:.1f} years
+OVERVIEW
+This analysis evaluates the potential impact of proposed health policy changes on life expectancy in {country}. The simulation model predicts a {impact_direction} impact based on current health indicators and proposed modifications.
 
-This analysis is based on statistical correlations and should be used as a guide for policy planning.
+KEY FINDINGS
+• Current Life Expectancy: {current_le:.1f} years
+• Projected Change: {predicted_change:+.1f} years
+• New Life Expectancy: {new_le:.1f} years
+
+POLICY CHANGES ANALYZED
 """
+        
+        if parameters.get('doctor_density', 0) != 0:
+            narrative_text += f"• Doctor Density: {parameters['doctor_density']:+.1f} per 10,000 population\n"
+        if parameters.get('nurse_density', 0) != 0:
+            narrative_text += f"• Nurse Density: {parameters['nurse_density']:+.1f} per 10,000 population\n"
+        if parameters.get('health_spending', 0) != 0:
+            narrative_text += f"• Health Spending: {parameters['health_spending']:+.1f}% of GDP\n"
+        
+        narrative_text += f"""
+STRATEGIC RECOMMENDATIONS
+1. Implement comprehensive monitoring systems
+2. Establish baseline metrics for tracking
+3. Develop contingency plans for unexpected outcomes
+4. Engage stakeholders in implementation process
+
+RISK ASSESSMENT
+The analysis is based on statistical correlations and should be considered directional guidance. Actual outcomes may vary due to external factors not captured in this model.
+
+NEXT STEPS
+• Validate findings with local health experts
+• Develop detailed implementation timeline
+• Establish success metrics and monitoring protocols
+"""
+    
+    elif request.template == "trend_analysis":
+        # Generate trend analysis narrative
+        narrative_text = f"""
+TREND ANALYSIS: Health Policy Impact Trends for {country}
+
+TREND OVERVIEW
+Analysis of proposed health policy changes reveals a {impact_direction} trend in life expectancy projections for {country}.
+
+CURRENT TRENDS
+• Baseline Life Expectancy: {current_le:.1f} years
+• Projected Change: {predicted_change:+.1f} years
+• Trend Direction: {'Upward' if predicted_change > 0 else 'Downward' if predicted_change < 0 else 'Stable'}
+
+FACTOR ANALYSIS
+"""
+        
+        if parameters.get('doctor_density', 0) != 0:
+            narrative_text += f"• Doctor Density Impact: {parameters['doctor_density']:+.1f} per 10,000 population\n"
+        if parameters.get('nurse_density', 0) != 0:
+            narrative_text += f"• Nurse Density Impact: {parameters['nurse_density']:+.1f} per 10,000 population\n"
+        if parameters.get('health_spending', 0) != 0:
+            narrative_text += f"• Health Spending Impact: {parameters['health_spending']:+.1f}% of GDP\n"
+        
+        narrative_text += f"""
+TREND PROJECTIONS
+Based on current data patterns, the proposed changes are expected to result in a {impact_direction} impact on life expectancy. This trend should be monitored closely for any deviations from projections.
+
+ANALYTICAL INSIGHTS
+• Statistical confidence in trend direction
+• Historical correlation patterns
+• External factor considerations
+• Long-term sustainability assessment
+"""
+    
+    else:
+        # Default to policy insight for unknown templates
+        narrative_text = f"""
+Based on the simulation analysis for {country}, the proposed policy changes are predicted to have a {impact_direction} impact on life expectancy.
+
+**Current Status:**
+- Current life expectancy: {current_le:.1f} years
+- Predicted change: {predicted_change:+.1f} years
+- Projected life expectancy: {new_le:.1f} years
+
+**Policy Implications:**
+"""
+        
+        if parameters.get('doctor_density', 0) != 0:
+            narrative_text += f"- Doctor density change: {parameters['doctor_density']:+.1f} per 10,000 population\n"
+        if parameters.get('nurse_density', 0) != 0:
+            narrative_text += f"- Nurse density change: {parameters['nurse_density']:+.1f} per 10,000 population\n"
+        if parameters.get('health_spending', 0) != 0:
+            narrative_text += f"- Health spending change: {parameters['health_spending']:+.1f}% of GDP\n"
+        
+        narrative_text += f"""
+**Recommendations:**
+- Monitor implementation of proposed changes
+- Track health outcomes over time
+- Consider additional factors affecting life expectancy
+- Validate results with local health data
+
+**Confidence Level:** The simulation uses statistical models based on historical data correlations. Results should be interpreted as directional indicators rather than precise predictions.
+"""
+    
     
     # Generate disclaimers
     disclaimers = [
