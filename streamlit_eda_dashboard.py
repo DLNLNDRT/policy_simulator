@@ -29,52 +29,77 @@ st.set_page_config(
 # Configure Streamlit to avoid Arrow serialization issues
 st.config.set_option('global.dataFrameSerialization', 'legacy')
 
-# Custom CSS for better styling
+# Custom CSS for better styling with improved color scheme
 st.markdown("""
 <style>
     .main-header {
         font-size: 2.5rem;
         font-weight: bold;
-        color: #1f77b4;
+        color: #2c3e50;
         text-align: center;
         margin-bottom: 2rem;
     }
     .section-header {
         font-size: 1.8rem;
         font-weight: bold;
-        color: #2c3e50;
+        color: #34495e;
         margin-top: 2rem;
         margin-bottom: 1rem;
-        border-bottom: 2px solid #3498db;
+        border-bottom: 2px solid #5a6c7d;
         padding-bottom: 0.5rem;
     }
     .metric-card {
         background-color: #f8f9fa;
         padding: 1rem;
         border-radius: 0.5rem;
-        border-left: 4px solid #3498db;
+        border-left: 4px solid #5a6c7d;
         margin: 0.5rem 0;
+        color: #2c3e50;
     }
     .insight-box {
-        background-color: #e8f4fd;
+        background-color: #f0f4f8;
         padding: 1rem;
         border-radius: 0.5rem;
-        border-left: 4px solid #2980b9;
+        border-left: 4px solid #4a90a4;
         margin: 1rem 0;
+        color: #2c3e50;
     }
     .warning-box {
-        background-color: #fff3cd;
+        background-color: #fef9e7;
         padding: 1rem;
         border-radius: 0.5rem;
-        border-left: 4px solid #ffc107;
+        border-left: 4px solid #d4a574;
         margin: 1rem 0;
+        color: #2c3e50;
     }
     .success-box {
-        background-color: #d4edda;
+        background-color: #f0f8f0;
         padding: 1rem;
         border-radius: 0.5rem;
-        border-left: 4px solid #28a745;
+        border-left: 4px solid #6b8e6b;
         margin: 1rem 0;
+        color: #2c3e50;
+    }
+    /* Improve text contrast in metric cards */
+    .metric-card strong {
+        color: #2c3e50;
+    }
+    .metric-card span {
+        color: #34495e;
+    }
+    .metric-card small {
+        color: #5a6c7d;
+    }
+    /* Improve overall text readability */
+    .stDataFrame {
+        color: #2c3e50;
+    }
+    .stMetric {
+        color: #2c3e50;
+    }
+    /* Darken plotly chart text for better readability */
+    .js-plotly-plot {
+        color: #2c3e50;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -313,10 +338,18 @@ def create_quality_analysis(artifacts):
     if 'overall_score' in metrics:
         col1, col2, col3 = st.columns([1, 2, 1])
         with col2:
+            # Determine color based on score
+            if metrics['overall_score'] >= 95:
+                score_color = "#6b8e6b"  # Dark green
+            elif metrics['overall_score'] >= 80:
+                score_color = "#d4a574"  # Orange
+            else:
+                score_color = "#c0392b"  # Red
+            
             st.markdown(f"""
             <div class="metric-card">
-                <h3 style="text-align: center; margin: 0;">Overall Data Quality Score</h3>
-                <h1 style="text-align: center; color: #27ae60; margin: 0;">{metrics['overall_score']}/100</h1>
+                <h3 style="text-align: center; margin: 0; color: #2c3e50;">Overall Data Quality Score</h3>
+                <h1 style="text-align: center; color: {score_color}; margin: 0;">{metrics['overall_score']}/100</h1>
             </div>
             """, unsafe_allow_html=True)
     
@@ -338,8 +371,14 @@ def create_quality_analysis(artifacts):
             orientation='h',
             title="Data Quality Scores by Dataset",
             color='Quality Score',
-            color_continuous_scale='RdYlGn',
+            color_continuous_scale='Viridis',
             range_color=[0, 100]
+        )
+        fig.update_layout(
+            font_color='#2c3e50',
+            title_font_color='#2c3e50',
+            xaxis_title_font_color='#2c3e50',
+            yaxis_title_font_color='#2c3e50'
         )
         fig.update_layout(height=400, yaxis={'categoryorder': 'total ascending'})
         st.plotly_chart(fig, use_container_width=True)
@@ -420,6 +459,12 @@ def create_correlation_analysis(artifacts, data_files):
                 aspect='auto',
                 title="Correlation Matrix Heatmap"
             )
+            fig.update_layout(
+                font_color='#2c3e50',
+                title_font_color='#2c3e50',
+                xaxis_title_font_color='#2c3e50',
+                yaxis_title_font_color='#2c3e50'
+            )
             fig.update_layout(height=500)
             st.plotly_chart(fig, use_container_width=True)
         
@@ -478,6 +523,12 @@ def create_correlation_analysis(artifacts, data_files):
                     aspect='auto',
                     title=f"Correlation Matrix: {', '.join(selected_datasets)}"
                 )
+                fig.update_layout(
+                    font_color='#2c3e50',
+                    title_font_color='#2c3e50',
+                    xaxis_title_font_color='#2c3e50',
+                    yaxis_title_font_color='#2c3e50'
+                )
                 fig.update_layout(height=600)
                 st.plotly_chart(fig, use_container_width=True)
 
@@ -507,7 +558,7 @@ def create_kpi_dashboard(artifacts):
         st.markdown(f"""
         <div class="metric-card">
             <strong>{kpi}</strong><br>
-            <span style="color: #27ae60;">Target: {target}</span><br>
+            <span style="color: #5a6c7d;">Target: {target}</span><br>
             <small>{description}</small>
         </div>
         """, unsafe_allow_html=True)
@@ -525,7 +576,7 @@ def create_kpi_dashboard(artifacts):
         st.markdown(f"""
         <div class="metric-card">
             <strong>{kpi}</strong><br>
-            <span style="color: #27ae60;">Target: {target}</span><br>
+            <span style="color: #5a6c7d;">Target: {target}</span><br>
             <small>{description}</small>
         </div>
         """, unsafe_allow_html=True)
@@ -543,7 +594,7 @@ def create_kpi_dashboard(artifacts):
         st.markdown(f"""
         <div class="metric-card">
             <strong>{kpi}</strong><br>
-            <span style="color: #27ae60;">Target: {target}</span><br>
+            <span style="color: #5a6c7d;">Target: {target}</span><br>
             <small>{description}</small>
         </div>
         """, unsafe_allow_html=True)
@@ -659,6 +710,12 @@ def create_country_analysis(data_files):
                 color='Country Count',
                 color_continuous_scale='Blues'
             )
+            fig.update_layout(
+                font_color='#2c3e50',
+                title_font_color='#2c3e50',
+                xaxis_title_font_color='#2c3e50',
+                yaxis_title_font_color='#2c3e50'
+            )
             fig.update_layout(height=400, xaxis_tickangle=-45)
             st.plotly_chart(fig, use_container_width=True)
         
@@ -683,6 +740,12 @@ def create_country_analysis(data_files):
                 title="Top Countries by Dataset Coverage",
                 color='Dataset Count',
                 color_continuous_scale='Greens'
+            )
+            fig.update_layout(
+                font_color='#2c3e50',
+                title_font_color='#2c3e50',
+                xaxis_title_font_color='#2c3e50',
+                yaxis_title_font_color='#2c3e50'
             )
             fig.update_layout(height=400)
             st.plotly_chart(fig, use_container_width=True)
@@ -733,6 +796,12 @@ def create_country_analysis(data_files):
                         color='Data Points',
                         color_continuous_scale='Viridis'
                     )
+                    fig.update_layout(
+                        font_color='#2c3e50',
+                        title_font_color='#2c3e50',
+                        xaxis_title_font_color='#2c3e50',
+                        yaxis_title_font_color='#2c3e50'
+                    )
                     fig.update_layout(height=300)
                     st.plotly_chart(fig, use_container_width=True)
                     
@@ -776,6 +845,12 @@ def create_country_analysis(data_files):
                     color_continuous_scale='Blues',
                     title="Data Points Heatmap",
                     labels=dict(x="Dataset", y="Country", color="Data Points")
+                )
+                fig.update_layout(
+                    font_color='#2c3e50',
+                    title_font_color='#2c3e50',
+                    xaxis_title_font_color='#2c3e50',
+                    yaxis_title_font_color='#2c3e50'
                 )
                 fig.update_layout(height=400)
                 st.plotly_chart(fig, use_container_width=True)
@@ -927,7 +1002,11 @@ def create_temporal_analysis(data_files):
             title="Temporal Coverage Timeline",
             xaxis_title="Year",
             yaxis_title="Dataset",
-            height=400
+            height=400,
+            font_color='#2c3e50',
+            title_font_color='#2c3e50',
+            xaxis_title_font_color='#2c3e50',
+            yaxis_title_font_color='#2c3e50'
         )
         st.plotly_chart(fig, use_container_width=True)
         
@@ -1027,6 +1106,12 @@ def create_temporal_analysis(data_files):
             title="Number of Datasets per Year",
             color='Dataset Count',
             color_continuous_scale='Blues'
+        )
+        fig.update_layout(
+            font_color='#2c3e50',
+            title_font_color='#2c3e50',
+            xaxis_title_font_color='#2c3e50',
+            yaxis_title_font_color='#2c3e50'
         )
         fig.update_layout(height=400, xaxis_tickangle=-45)
         st.plotly_chart(fig, use_container_width=True)
