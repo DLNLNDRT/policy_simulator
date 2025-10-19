@@ -402,7 +402,8 @@ async def get_simulation_countries():
     for country in real_countries:
         countries.append({
             "code": country["code"],
-            "name": country["name"]
+            "name": country["name"],
+            "baseline": country["baseline"]
         })
     return countries
 
@@ -462,7 +463,8 @@ async def get_benchmark_countries():
     for country in real_countries:
         countries.append({
             "code": country["code"],
-            "name": country["name"]
+            "name": country["name"],
+            "baseline": country["baseline"]
         })
     return countries
 
@@ -483,57 +485,124 @@ async def compare_countries(request: ComparisonRequest):
         # Default metrics if none specified
         metrics = request.metrics or ['life_expectancy', 'doctor_density', 'nurse_density', 'health_spending']
         
-        # Calculate rankings (simplified)
+        # Calculate rankings for all countries
         rankings = []
+        
+        # First, collect all values for each metric to calculate proper percentiles
+        metric_values = {metric: [] for metric in metrics}
+        for country in request.countries:
+            country_data = country_lookup[country]['baseline']
+            for metric in metrics:
+                value = country_data.get(metric, 0)
+                metric_values[metric].append(value)
+        
+        # Calculate percentiles for each metric
+        metric_percentiles = {}
+        for metric, values in metric_values.items():
+            if values:
+                sorted_values = sorted(values, reverse=True)  # Higher is better for health metrics
+                metric_percentiles[metric] = {}
+                for i, value in enumerate(sorted_values):
+                    percentile = ((len(sorted_values) - i) / len(sorted_values)) * 100
+                    metric_percentiles[metric][value] = percentile
+        
+        # Create rankings for each country
         for i, country in enumerate(request.countries):
             country_data = country_lookup[country]['baseline']
+            
+            # Create metrics for this country
+            country_metrics = []
+            total_percentile = 0
+            
+            for metric in metrics:
+                value = country_data.get(metric, 0)
+                percentile = metric_percentiles[metric].get(value, 50)  # Default to 50th percentile
+                total_percentile += percentile
+                
+                country_metrics.append(HealthMetric(
+                    name=metric,
+                    value=value,
+                    unit=get_metric_unit(metric),
+                    rank=0,  # Will be calculated after sorting
+                    percentile=percentile,
+                    trend="stable",
+                    anomaly=False,
+                    baseline_year=2022
+                ))
+            
+            # Calculate overall score as average percentile
+            overall_score = total_percentile / len(metrics) if metrics else 0
+            
+            ranking = CountryRanking(
+                country_code=country,
+                country_name=country_lookup[country]['name'],
+                overall_rank=0,  # Will be calculated after sorting
+                metrics=country_metrics,
+                total_score=overall_score / 100  # Convert to 0-1 scale
+            )
+            rankings.append(ranking)
         
-        # Create mock metrics
-        country_metrics = []
-        for metric in metrics:
-            value = country_data.get(metric, 0)
-            country_metrics.append(HealthMetric(
-                name=metric,
-                value=value,
-                unit=get_metric_unit(metric),
-                rank=i + 1,
-                percentile=100 - (i * 25),
-                trend="stable",
-                anomaly=False,
-                baseline_year=2022
-            ))
+        # Sort rankings by total score (descending) and assign ranks
+        rankings.sort(key=lambda x: x.total_score, reverse=True)
+        for i, ranking in enumerate(rankings):
+            ranking.overall_rank = i + 1
+            for metric in ranking.metrics:
+                metric.rank = i + 1
         
-        ranking = CountryRanking(
-            country_code=country,
-            country_name=country_lookup[country]['name'],
-            overall_rank=i + 1,
-            metrics=country_metrics,
-            total_score=0.8 - (i * 0.2)
-        )
-        rankings.append(ranking)
-        
-        # Mock anomalies
+        # Detect real anomalies based on data
         anomalies = []
         if request.include_anomalies:
-            anomalies.append(AnomalyAlert(
-                country="PRT",
-                metric="health_spending",
-                severity="medium",
-                description="Health spending (5.8% GDP) is below recommended levels",
-                confidence=0.8,
-                recommendation="Consider increasing health expenditure to improve outcomes",
-                detected_at=datetime.now().isoformat()
-            ))
+            # Find countries with unusually low health spending
+            health_spending_values = [country_lookup[country]['baseline'].get('health_spending', 0) for country in request.countries]
+            if health_spending_values:
+                avg_spending = sum(health_spending_values) / len(health_spending_values)
+                for country in request.countries:
+                    country_data = country_lookup[country]['baseline']
+                    spending = country_data.get('health_spending', 0)
+                    if spending < avg_spending * 0.8:  # 20% below average
+                        anomalies.append(AnomalyAlert(
+                            country=country,
+                            metric="health_spending",
+                            severity="medium",
+                            description=f"Health spending ({spending:.1f}% GDP) is significantly below average ({avg_spending:.1f}% GDP)",
+                            confidence=0.8,
+                            recommendation="Consider increasing health expenditure to improve outcomes",
+                            detected_at=datetime.now().isoformat()
+                        ))
+            
+            # Find countries with unusually low doctor density
+            doctor_density_values = [country_lookup[country]['baseline'].get('doctor_density', 0) for country in request.countries]
+            if doctor_density_values:
+                avg_doctors = sum(doctor_density_values) / len(doctor_density_values)
+                for country in request.countries:
+                    country_data = country_lookup[country]['baseline']
+                    doctors = country_data.get('doctor_density', 0)
+                    if doctors < avg_doctors * 0.7:  # 30% below average
+                        anomalies.append(AnomalyAlert(
+                            country=country,
+                            metric="doctor_density",
+                            severity="high",
+                            description=f"Doctor density ({doctors:.1f} per 10,000) is significantly below average ({avg_doctors:.1f} per 10,000)",
+                            confidence=0.9,
+                            recommendation="Consider increasing medical education capacity and recruitment",
+                            detected_at=datetime.now().isoformat()
+                        ))
         
-        # Mock peer groups
+        # Create realistic peer groups based on actual data
         peer_groups = []
-        if request.include_peers:
+        if request.include_peers and len(request.countries) > 1:
+            # Calculate averages for the selected countries
+            peer_averages = {}
+            for metric in metrics:
+                values = [country_lookup[country]['baseline'].get(metric, 0) for country in request.countries]
+                peer_averages[metric] = sum(values) / len(values) if values else 0
+            
             peer_groups.append(PeerGroup(
-                name="Southern Europe",
-                countries=["PRT", "ESP", "GRC"],
-                criteria=["region"],
-                average={"life_expectancy": 82.0, "health_spending": 6.4},
-                size=3
+                name="Selected Countries",
+                countries=request.countries,
+                criteria=["selected_for_comparison"],
+                average=peer_averages,
+                size=len(request.countries)
             ))
         
         # Generate summary
