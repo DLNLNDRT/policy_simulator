@@ -76,16 +76,29 @@ class RealDataLoader:
         # Load life expectancy data to get countries
         life_exp_df = self.load_life_expectancy_data()
         if not life_exp_df.empty:
-            # Get latest data for each country
-            latest_data = life_exp_df.groupby('GEO_NAME_SHORT').apply(
-                lambda x: x.loc[x['DIM_TIME'].idxmax()]
-            ).reset_index(drop=True)
-            
-            for _, row in latest_data.iterrows():
-                country_name = row['GEO_NAME_SHORT']
+            # Get latest data for each country, prioritizing TOTAL over gender-specific data
+            for country_name in life_exp_df['GEO_NAME_SHORT'].unique():
+                country_data = life_exp_df[life_exp_df['GEO_NAME_SHORT'] == country_name]
+                latest_year = country_data['DIM_TIME'].max()
+                latest_data = country_data[country_data['DIM_TIME'] == latest_year]
+                
+                # Look for TOTAL first, then fall back to FEMALE if TOTAL not available
+                total_row = latest_data[latest_data['DIM_SEX'] == 'TOTAL']
+                if not total_row.empty:
+                    row = total_row.iloc[0]
+                    life_exp = row['AMOUNT_N']
+                    gender = 'TOTAL'
+                else:
+                    # Fall back to FEMALE if no TOTAL data
+                    female_row = latest_data[latest_data['DIM_SEX'] == 'FEMALE']
+                    if not female_row.empty:
+                        row = female_row.iloc[0]
+                        life_exp = row['AMOUNT_N']
+                        gender = 'FEMALE'
+                    else:
+                        continue
+                
                 year = row['DIM_TIME']
-                life_exp = row['AMOUNT_N']
-                gender = row['DIM_SEX']
                 
                 if country_name not in countries:
                     countries[country_name] = {
@@ -136,12 +149,16 @@ class RealDataLoader:
         # Convert to list format
         self.countries_cache = []
         for country_name, data in countries.items():
-            # Calculate average life expectancy if we have both genders
+            # Calculate average life expectancy - prioritize TOTAL, then calculate average
             avg_life_exp = None
-            if 'BOTH' in data['life_expectancy']:
+            if 'TOTAL' in data['life_expectancy']:
+                avg_life_exp = data['life_expectancy']['TOTAL']
+            elif 'BOTH' in data['life_expectancy']:
                 avg_life_exp = data['life_expectancy']['BOTH']
             elif 'MALE' in data['life_expectancy'] and 'FEMALE' in data['life_expectancy']:
                 avg_life_exp = (data['life_expectancy']['MALE'] + data['life_expectancy']['FEMALE']) / 2
+            elif 'FEMALE' in data['life_expectancy']:
+                avg_life_exp = data['life_expectancy']['FEMALE']
             
             country_data = {
                 'code': country_name[:3].upper(),  # Use first 3 letters as code
