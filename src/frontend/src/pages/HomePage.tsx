@@ -13,7 +13,6 @@ import {
   FileText
 } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
-import TestStyling from '@/components/TestStyling'
 
 const HomePage: React.FC = () => {
   const features = [
@@ -66,11 +65,6 @@ const HomePage: React.FC = () => {
       </Helmet>
 
       <div className="min-h-screen">
-        {/* Tailwind CSS Test */}
-        <div className="container mx-auto px-4 py-8">
-          <TestStyling />
-        </div>
-        
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-primary-50 to-blue-50 py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
