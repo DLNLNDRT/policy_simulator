@@ -147,16 +147,16 @@ class RealDataLoader:
                 'code': country_name[:3].upper(),  # Use first 3 letters as code
                 'name': country_name,
                 'baseline': {
-                    'life_expectancy': avg_life_exp or 75.0,  # Default life expectancy
-                    'doctor_density': data['doctor_density'] or 30.0,  # Default doctor density
-                    'nurse_density': data['nurse_density'] or 50.0,  # Default nurse density
-                    'health_spending': data['health_spending'] or 8.0,  # Default health spending
-                    'year': data['year']
+                    'life_expectancy': float(avg_life_exp or 75.0),  # Default life expectancy
+                    'doctor_density': float(data['doctor_density'] or 30.0),  # Default doctor density
+                    'nurse_density': float(data['nurse_density'] or 50.0),  # Default nurse density
+                    'health_spending': float(data['health_spending'] or 8.0),  # Default health spending
+                    'year': int(data['year'])
                 },
                 'gender_baseline': {
-                    'BOTH': {'life_expectancy': avg_life_exp or 75.0},
-                    'MALE': {'life_expectancy': data['life_expectancy'].get('MALE', avg_life_exp or 75.0)},
-                    'FEMALE': {'life_expectancy': data['life_expectancy'].get('FEMALE', avg_life_exp or 75.0)}
+                    'BOTH': {'life_expectancy': float(avg_life_exp or 75.0)},
+                    'MALE': {'life_expectancy': float(data['life_expectancy'].get('MALE', avg_life_exp or 75.0))},
+                    'FEMALE': {'life_expectancy': float(data['life_expectancy'].get('FEMALE', avg_life_exp or 75.0))}
                 }
             }
             self.countries_cache.append(country_data)

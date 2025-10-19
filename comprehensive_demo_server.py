@@ -40,11 +40,19 @@ app.add_middleware(
 # Real data loader - loads actual health indicator data from CSV files
 def get_countries_data():
     """Get real countries data from CSV files"""
-    return data_loader.get_available_countries()
+    try:
+        return data_loader.get_available_countries()
+    except Exception as e:
+        print(f"Error loading countries data: {e}")
+        return []
 
 def get_country_data(country_name: str):
     """Get specific country data from real datasets"""
-    return data_loader.get_country_data(country_name)
+    try:
+        return data_loader.get_country_data(country_name)
+    except Exception as e:
+        print(f"Error loading country data for {country_name}: {e}")
+        return None
 
 # ============================================================================
 # FEATURE 1: POLICY SIMULATION ENGINE
@@ -397,15 +405,24 @@ async def health_check():
 @app.get("/api/simulations/countries")
 async def get_simulation_countries():
     """Get available countries for simulation"""
-    real_countries = get_countries_data()
-    countries = []
-    for country in real_countries:
-        countries.append({
-            "code": country["code"],
-            "name": country["name"],
-            "baseline": country["baseline"]
-        })
-    return countries
+    try:
+        print("Getting countries data...")
+        real_countries = get_countries_data()
+        print(f"Found {len(real_countries)} countries")
+        countries = []
+        for country in real_countries:
+            countries.append({
+                "code": country["code"],
+                "name": country["name"],
+                "baseline": country["baseline"]
+            })
+        print(f"Returning {len(countries)} countries")
+        return countries
+    except Exception as e:
+        print(f"Error in get_simulation_countries: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Error loading countries: {str(e)}")
 
 @app.post("/api/simulations/run")
 async def run_simulation(request: SimulationRequest):

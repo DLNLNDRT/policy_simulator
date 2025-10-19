@@ -49,6 +49,18 @@ streamlit run streamlit_eda_dashboard.py
 open http://localhost:8503
 ```
 
+**🌐 Live Frontend (Vercel)**
+> **Interactive React UI**: [https://project-root-cyou-hnobva8u2-dlnlndrts-projects.vercel.app/](https://project-root-cyou-hnobva8u2-dlnlndrts-projects.vercel.app/)
+
+The Vercel deployment provides a modern React-based interface with all 5 features:
+- **Policy Simulation**: Interactive sliders for workforce and spending changes
+- **Benchmark Analysis**: Cross-country health indicator comparison  
+- **Narrative Generation**: AI-powered policy insights with customizable templates
+- **Data Quality Dashboard**: Real-time quality monitoring and validation
+- **Advanced Analytics**: Trend analysis and correlation matrices
+
+*Note: The frontend requires the backend API to be running. For full functionality, start the backend server locally or deploy it to a cloud platform.*
+
 ### Prerequisites
 
 - Python 3.11+
