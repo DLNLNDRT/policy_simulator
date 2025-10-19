@@ -6,6 +6,32 @@
 [![Tech Stack](https://img.shields.io/badge/Stack-React%20%7C%20FastAPI%20%7C%20GPT--5-green)](#tech-stack)
 [![Data Quality](https://img.shields.io/badge/Data%20Quality-98.4%2F100-brightgreen)](./adapt_context/artifacts/data_quality_report.md)
 
+## 🌐 Live Applications
+
+### 🚀 **Interactive React Frontend (Vercel)**
+> **[https://project-root-cyou-hnobva8u2-dlnlndrts-projects.vercel.app/](https://project-root-cyou-hnobva8u2-dlnlndrts-projects.vercel.app/)**
+
+Modern React-based interface with all 5 features:
+- **Policy Simulation**: Interactive sliders for workforce and spending changes
+- **Benchmark Analysis**: Cross-country health indicator comparison  
+- **Narrative Generation**: AI-powered policy insights with customizable templates
+- **Data Quality Dashboard**: Real-time quality monitoring and validation
+- **Advanced Analytics**: Trend analysis and correlation matrices
+
+### 📊 **Data Exploration Dashboard (Streamlit)**
+> **[https://project-root.streamlit.app/](https://project-root.streamlit.app/)**
+
+Interactive data exploration and analysis dashboard:
+- **Data Quality Analysis**: Comprehensive quality metrics and validation
+- **Correlation Matrices**: Health indicator relationships and patterns
+- **Country Comparisons**: Cross-national health indicator analysis
+- **Temporal Analysis**: Time-series trends and patterns
+- **Interactive Visualizations**: Plotly charts and statistical insights
+
+*Note: The React frontend requires the backend API to be running for full functionality.*
+
+---
+
 ## 🎯 Project Overview
 
 The Policy Simulation Assistant is an MVP developed using the **ADAPT Framework** (Assess → Discover → Analyze → Prototype → Test) to create a GenAI-powered tool that helps policy makers understand the potential impact of healthcare workforce and spending changes on life expectancy outcomes.
@@ -49,17 +75,6 @@ streamlit run streamlit_eda_dashboard.py
 open http://localhost:8503
 ```
 
-**🌐 Live Frontend (Vercel)**
-> **Interactive React UI**: [https://project-root-cyou-hnobva8u2-dlnlndrts-projects.vercel.app/](https://project-root-cyou-hnobva8u2-dlnlndrts-projects.vercel.app/)
-
-The Vercel deployment provides a modern React-based interface with all 5 features:
-- **Policy Simulation**: Interactive sliders for workforce and spending changes
-- **Benchmark Analysis**: Cross-country health indicator comparison  
-- **Narrative Generation**: AI-powered policy insights with customizable templates
-- **Data Quality Dashboard**: Real-time quality monitoring and validation
-- **Advanced Analytics**: Trend analysis and correlation matrices
-
-*Note: The frontend requires the backend API to be running. For full functionality, start the backend server locally or deploy it to a cloud platform.*
 
 ### Prerequisites
 
