@@ -34,9 +34,7 @@ policy_simulator/
 ├── 📁 deployment/                   # Deployment configurations
 │   └── 📁 configs/                 # Platform-specific configs
 ├── 📄 Dockerfile                   # Railway deployment
-├── 📄 requirements.txt             # Main Python dependencies
-├── 📄 requirements_railway.txt     # Railway-specific deps
-├── 📄 requirements_streamlit_cloud.txt # Streamlit Cloud deps
+├── 📄 requirements.txt             # All Python dependencies
 ├── 📄 Procfile                     # Heroku deployment
 ├── 📄 runtime.txt                  # Python version
 ├── 📄 vercel.json                  # Vercel frontend config
@@ -54,9 +52,8 @@ policy_simulator/
 - `runtime.txt` - Python version specification
 - `vercel.json` - Vercel frontend configuration
 
-### Platform-Specific Requirements
-- `requirements_railway.txt` - Railway backend dependencies
-- `requirements_streamlit_cloud.txt` - Streamlit Cloud dependencies
+### Single Requirements File
+- `requirements.txt` - All Python dependencies (backend + dashboard + deployment)
 
 ## 📊 Data Organization
 

@@ -1,13 +1,35 @@
-# Policy Simulator - Simplified for Railway
-fastapi
-uvicorn[standard]
-pydantic
-pandas
-numpy
-scikit-learn
-python-multipart
-openpyxl
-xlrd
-python-dateutil
-pytz
-requests
+# Policy Simulator - Complete Requirements
+# Works for FastAPI backend, Railway deployment, and Streamlit dashboard
+
+# Web Framework
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.0.0
+
+# Data Processing
+pandas>=2.0.0
+numpy>=1.24.0
+scipy>=1.11.0
+
+# Machine Learning
+scikit-learn>=1.3.0
+
+# Visualization
+plotly>=5.15.0
+seaborn>=0.12.0
+matplotlib>=3.7.0
+
+# Streamlit Dashboard
+streamlit>=1.50.0
+streamlit-option-menu>=0.4.0
+
+# Data I/O
+openpyxl>=3.1.0
+xlrd>=2.0.0
+pyarrow>=10.0.0,<15.0.0
+
+# Utilities
+python-dateutil>=2.8.0
+pytz>=2023.3
+requests>=2.27.0
+python-multipart>=0.0.6

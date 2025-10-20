@@ -36,7 +36,7 @@ python run_dashboard.py
 - **Health Check**: `/health`
 
 ### 3. Streamlit Dashboard (Streamlit Cloud)
-- **Config**: `requirements_streamlit_cloud.txt`
+- **Config**: `requirements.txt` (same as backend)
 - **File**: `scripts/streamlit_eda_dashboard.py`
 
 ## 📁 Project Structure
@@ -61,7 +61,7 @@ policy_simulator/
 - `vercel.json` - Vercel frontend deployment  
 - `Procfile` - Heroku deployment (if needed)
 - `runtime.txt` - Python version specification
-- `requirements_streamlit_cloud.txt` - Streamlit Cloud dependencies
+- `requirements.txt` - All Python dependencies (backend + dashboard)
 
 ## 🛠️ Troubleshooting
 
@@ -76,6 +76,6 @@ policy_simulator/
 - Ensure API URLs are correct
 
 ### Streamlit Cloud Issues
-- Check requirements_streamlit_cloud.txt
+- Check requirements.txt for all dependencies
 - Verify file paths in streamlit_eda_dashboard.py
 - Check data file accessibility
