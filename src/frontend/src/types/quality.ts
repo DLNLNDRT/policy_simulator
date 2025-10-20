@@ -100,16 +100,14 @@ export interface ValidationResult {
 }
 
 export interface DataSource {
-  id: string
+  source_id: string
   name: string
   url: string
-  type: DataSourceType
-  reliability_score: number
-  coverage: string[]
+  description: string
+  quality_score: number
+  coverage: string
   last_updated: string
-  status: string
   version?: string
-  description?: string
 }
 
 export interface ProcessingStep {
