@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Policy Simulation Assistant - Streamlit Dashboard Startup Script
+Policy Simulator - Streamlit Dashboard Startup Script
 Run this script to start the Streamlit EDA dashboard.
 """
 

@@ -1,7 +1,7 @@
 # Project Structure
 
 ```
-project_root/
+policy_simulator/
 ├── README.md                          # Main project documentation
 ├── requirements.txt                   # Core Python dependencies
 ├── run_server.py                      # Server startup script

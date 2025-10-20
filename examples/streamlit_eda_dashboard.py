@@ -1,5 +1,5 @@
 """
-Streamlit EDA Dashboard for Policy Simulation Assistant
+Streamlit EDA Dashboard for Policy Simulator
 Comprehensive data exploration and analysis dashboard using ADAPT framework artifacts
 """
 
@@ -20,7 +20,7 @@ warnings.filterwarnings('ignore')
 
 # Page configuration
 st.set_page_config(
-    page_title="Policy Simulation Assistant - EDA Dashboard",
+    page_title="Policy Simulator - EDA Dashboard",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -1192,7 +1192,7 @@ def create_insights_summary(artifacts):
 def main():
     """Main dashboard function"""
     # Header
-    st.markdown('<div class="main-header">📊 Policy Simulation Assistant - EDA Dashboard</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-header">📊 Policy Simulator - EDA Dashboard</div>', unsafe_allow_html=True)
     st.markdown("**Comprehensive data exploration and analysis dashboard using ADAPT framework artifacts**")
     
     # Load data
@@ -1243,7 +1243,7 @@ def main():
     st.markdown("---")
     st.markdown("""
     <div style="text-align: center; color: #7f8c8d; font-size: 0.9rem;">
-        📊 Policy Simulation Assistant EDA Dashboard | 
+        📊 Policy Simulator EDA Dashboard | 
         Generated on {date} | 
         ADAPT Framework Analysis
     </div>

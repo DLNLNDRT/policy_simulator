@@ -1,4 +1,4 @@
-# Policy Simulation Assistant
+# Policy Simulator
 
 > GenAI-powered healthcare policy simulation tool for policy makers, ministries, and NGOs
 
@@ -9,7 +9,7 @@
 ## 🌐 Live Applications
 
 ### 🚀 **Interactive React Frontend (Vercel)**
-👉 [Open the Frontend](https://project-root-nr18cpcgs-dlnlndrts-projects.vercel.app/)
+👉 [Open the Frontend](https://policy-simulator-nr18cpcgs-dlnlndrts-projects.vercel.app/)
 
 Modern React-based interface with all 5 features:
 - **Policy Simulation**: Interactive sliders for workforce and spending changes
@@ -19,7 +19,7 @@ Modern React-based interface with all 5 features:
 - **Advanced Analytics**: Trend analysis and correlation matrices
 
 ### 📊 **Data Exploration Dashboard (Streamlit)**
-👉 [Open the Dashboard](https://projectroo-jnjwo6vcxpj33bygawnbhh.streamlit.app/)
+👉 [Open the Dashboard](https://policy-simulator-jnjwo6vcxpj33bygawnbhh.streamlit.app/)
 
 
 Interactive data exploration and analysis dashboard:
@@ -35,7 +35,7 @@ Interactive data exploration and analysis dashboard:
 
 ## 🎯 Project Overview
 
-The Policy Simulation Assistant is an MVP developed using the **ADAPT Framework** (Assess → Discover → Analyze → Prototype → Test) to create a GenAI-powered tool that helps policy makers understand the potential impact of healthcare workforce and spending changes on life expectancy outcomes.
+The Policy Simulator is an MVP developed using the **ADAPT Framework** (Assess → Discover → Analyze → Prototype → Test) to create a GenAI-powered tool that helps policy makers understand the potential impact of healthcare workforce and spending changes on life expectancy outcomes.
 
 ### Key Features
 

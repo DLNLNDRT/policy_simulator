@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Policy Simulation Assistant - Server Startup Script
+Policy Simulator - Server Startup Script
 Run this script to start the main FastAPI server.
 """
 
@@ -16,7 +16,7 @@ from comprehensive_demo_server import app
 if __name__ == "__main__":
     import uvicorn
     port = int(os.environ.get("PORT", 8005))
-    print(f"🚀 Starting Policy Simulation Assistant Server...")
+    print(f"🚀 Starting Policy Simulator Server...")
     print(f"📊 Server will be available at: http://localhost:{port}")
     print(f"📚 API Documentation at: http://localhost:{port}/docs")
     uvicorn.run(app, host="0.0.0.0", port=port)

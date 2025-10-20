@@ -1,6 +1,6 @@
 """
-Comprehensive Demo Server for All 5 Features
-Policy Simulation Assistant - Complete MVP Demo
+Policy Simulator - Complete MVP Demo Server
+Comprehensive server for all 5 features: Simulation, Benchmark, Narrative, Quality, and Analytics
 """
 
 from fastapi import FastAPI, HTTPException, status
@@ -19,7 +19,7 @@ import numpy as np
 from utils.data_loader import data_loader
 
 app = FastAPI(
-    title="Policy Simulation Assistant - Complete MVP Demo",
+    title="Policy Simulator - Complete MVP Demo",
     description="Complete demo API for all 5 features: Simulation Engine, Benchmark Dashboard, Narrative Generator, Data Quality Assurance, and Advanced Analytics",
     version="1.0.0"
 )
@@ -392,7 +392,7 @@ async def health_check():
     """Health check endpoint"""
     return {
         "status": "healthy",
-        "service": "policy-simulation-assistant-complete-mvp",
+        "service": "policy-simulator-mvp",
         "timestamp": datetime.now().isoformat(),
         "version": "1.0.0",
         "features": ["simulation", "benchmark", "narrative", "quality", "analytics"]
@@ -1629,7 +1629,7 @@ if __name__ == "__main__":
     # Get port from environment variable (Railway sets this)
     port = int(os.environ.get("PORT", 8005))
     
-    print("🚀 Starting Policy Simulation Assistant - Complete MVP Demo Server...")
+    print("🚀 Starting Policy Simulator - Complete MVP Demo Server...")
     print(f"📊 Available at: http://localhost:{port}")
     print(f"📚 API Docs at: http://localhost:{port}/docs")
     print(f"🌍 Demo page: http://localhost:{port}/demo")

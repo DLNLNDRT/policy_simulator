@@ -1,7 +1,7 @@
 {
-  "name": "policy-simulation-frontend",
+  "name": "policy-simulator-frontend",
   "version": "1.0.0",
-  "description": "Policy Simulation Assistant Frontend - React + TypeScript + Vite",
+  "description": "Policy Simulator Frontend - React + TypeScript + Vite",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -83,6 +83,6 @@
     "simulation",
     "data-visualization"
   ],
-  "author": "Policy Simulation Assistant Team",
+  "author": "Policy Simulator Team",
   "license": "MIT"
 }
