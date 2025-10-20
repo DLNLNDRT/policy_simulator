@@ -9,7 +9,7 @@ from typing import Dict, List, Any, Optional
 from pathlib import Path
 
 class RealDataLoader:
-    def __init__(self, data_dir: str = "adapt_context/data"):
+    def __init__(self, data_dir: str = "data/raw"):
         self.data_dir = Path(data_dir)
         self.data_cache = {}
         self.countries_cache = None

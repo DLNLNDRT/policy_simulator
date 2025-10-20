@@ -10,7 +10,9 @@ import {
   Shield,
   Zap,
   Target,
-  FileText
+  FileText,
+  CheckCircle,
+  TrendingUp
 } from 'lucide-react'
 import { useState } from 'react'
 
@@ -27,6 +29,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     { name: 'Simulation', href: '/simulation', icon: Target },
     { name: 'Benchmark', href: '/benchmark', icon: BarChart3 },
     { name: 'Narrative', href: '/narrative', icon: FileText },
+    { name: 'Quality', href: '/quality', icon: CheckCircle },
+    { name: 'Analytics', href: '/analytics', icon: TrendingUp },
     { name: 'About', href: '/about', icon: Info },
   ]
 
@@ -45,7 +49,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <Brain className="w-5 h-5 text-white" />
                 </div>
                 <span className="text-xl font-bold text-gray-900">
-                  Policy Simulation
+                  Policy Simulator
                 </span>
               </Link>
             </div>
@@ -130,7 +134,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <Brain className="w-4 h-4 text-white" />
                 </div>
                 <span className="text-lg font-bold text-gray-900">
-                  Policy Simulation Assistant
+                  Policy Simulator
                 </span>
               </div>
               <p className="text-gray-600 text-sm max-w-md">
@@ -156,6 +160,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <li>
                   <Link to="/narrative" className="text-sm text-gray-600 hover:text-primary-600">
                     Narrative Generator
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/quality" className="text-sm text-gray-600 hover:text-primary-600">
+                    Data Quality
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/analytics" className="text-sm text-gray-600 hover:text-primary-600">
+                    Advanced Analytics
                   </Link>
                 </li>
                 <li>
@@ -189,7 +203,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <div className="border-t border-gray-200 mt-8 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-sm text-gray-600">
-                © 2024 Policy Simulation Assistant. Built with the ADAPT Framework.
+                © 2024 Policy Simulator. Built with the ADAPT Framework.
               </p>
               <div className="flex space-x-6 mt-4 md:mt-0">
                 <span className="text-xs text-gray-500">

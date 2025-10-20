@@ -7,6 +7,8 @@ import HomePage from '@/pages/HomePage'
 import SimulationPage from '@/pages/SimulationPage'
 import BenchmarkPage from '@/pages/BenchmarkPage'
 import NarrativePage from '@/pages/NarrativePage'
+import QualityPage from '@/pages/QualityPage'
+import DashboardPage from '@/pages/DashboardPage'
 import AboutPage from '@/pages/AboutPage'
 import NotFoundPage from '@/pages/NotFoundPage'
 import { SimulationProvider } from '@/contexts/SimulationContext'
@@ -15,7 +17,7 @@ function App() {
   return (
     <>
       <Helmet>
-        <title>Policy Simulation Assistant</title>
+        <title>Policy Simulator</title>
         <meta name="description" content="GenAI-powered healthcare policy simulation tool for policy makers" />
       </Helmet>
       
@@ -26,6 +28,8 @@ function App() {
             <Route path="/simulation" element={<SimulationPage />} />
             <Route path="/benchmark" element={<BenchmarkPage />} />
             <Route path="/narrative" element={<NarrativePage />} />
+            <Route path="/quality" element={<QualityPage />} />
+            <Route path="/analytics" element={<DashboardPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
