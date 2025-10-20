@@ -20,7 +20,7 @@ const QualityTrends: React.FC<QualityTrendsProps> = ({ days = 30 }) => {
   const [error, setError] = useState<string | null>(null)
   const [selectedMetric, setSelectedMetric] = useState<'overall_score' | 'completeness_score' | 'validity_score' | 'consistency_score' | 'freshness_score'>('overall_score')
 
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8005'
 
   useEffect(() => {
     fetchQualityTrends()

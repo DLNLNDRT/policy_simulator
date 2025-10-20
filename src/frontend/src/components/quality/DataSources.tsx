@@ -27,7 +27,7 @@ const DataSources: React.FC<DataSourcesProps> = ({
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8005'
 
   useEffect(() => {
     fetchDataSources()
@@ -44,7 +44,7 @@ const DataSources: React.FC<DataSourcesProps> = ({
       }
       
       const data = await response.json()
-      setSourcesData(data.sources || [])
+      setSourcesData(data || [])
     } catch (err: any) {
       console.error('Failed to fetch data sources:', err)
       setError(err.message || 'Failed to load data sources')
@@ -53,9 +53,9 @@ const DataSources: React.FC<DataSourcesProps> = ({
     }
   }
 
-  const getSourceIcon = (type: string) => {
-    switch (type) {
-      case 'who_global_health':
+  const getSourceIcon = (sourceId: string) => {
+    switch (sourceId) {
+      case 'who_gho':
         return <Shield className="w-5 h-5 text-blue-600" />
       case 'world_bank':
         return <Database className="w-5 h-5 text-green-600" />
@@ -66,9 +66,9 @@ const DataSources: React.FC<DataSourcesProps> = ({
     }
   }
 
-  const getSourceColor = (type: string) => {
-    switch (type) {
-      case 'who_global_health':
+  const getSourceColor = (sourceId: string) => {
+    switch (sourceId) {
+      case 'who_gho':
         return 'bg-blue-50 border-blue-200'
       case 'world_bank':
         return 'bg-green-50 border-green-200'
@@ -198,37 +198,37 @@ const DataSources: React.FC<DataSourcesProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {sourcesData.map((source) => (
             <div
-              key={source.id}
-              className={`p-4 rounded-lg border ${getSourceColor(source.type)}`}
+              key={source.source_id}
+              className={`p-4 rounded-lg border ${getSourceColor(source.source_id)}`}
             >
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center space-x-3">
                   <div className="flex-shrink-0">
-                    {getSourceIcon(source.type)}
+                    {getSourceIcon(source.source_id)}
                   </div>
                   <div className="flex-1 min-w-0">
                     <h4 className="text-sm font-semibold text-gray-900 truncate">
                       {source.name}
                     </h4>
-                    <p className="text-xs text-gray-600 capitalize">
-                      {source.type.replace('_', ' ')}
+                    <p className="text-xs text-gray-600">
+                      {source.description}
                     </p>
                   </div>
                 </div>
                 
                 <div className="flex items-center space-x-1">
-                  {getStatusIcon(source.status)}
-                  <span className={`text-xs px-2 py-1 rounded-full font-medium ${getStatusColor(source.status)}`}>
-                    {source.status}
+                  <CheckCircle className="w-4 h-4 text-green-600" />
+                  <span className="text-xs px-2 py-1 rounded-full font-medium text-green-600 bg-green-100">
+                    Active
                   </span>
                 </div>
               </div>
               
               <div className="space-y-2 mb-4">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-600">Reliability:</span>
-                  <span className={`font-medium ${getReliabilityColor(source.reliability_score)}`}>
-                    {(source.reliability_score * 100).toFixed(0)}%
+                  <span className="text-gray-600">Quality Score:</span>
+                  <span className="font-medium text-green-600">
+                    {source.quality_score}%
                   </span>
                 </div>
                 
@@ -242,31 +242,10 @@ const DataSources: React.FC<DataSourcesProps> = ({
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-gray-600">Coverage:</span>
                   <span className="font-medium text-gray-900">
-                    {source.coverage?.length || 0} indicators
+                    {source.coverage}
                   </span>
                 </div>
               </div>
-              
-              {source.coverage && source.coverage.length > 0 && (
-                <div className="mb-4">
-                  <h5 className="text-xs font-medium text-gray-700 mb-2">Coverage:</h5>
-                  <div className="flex flex-wrap gap-1">
-                    {source.coverage.slice(0, 3).map((indicator: string, index: number) => (
-                      <span
-                        key={index}
-                        className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-white bg-opacity-50 text-gray-700"
-                      >
-                        {indicator.replace('_', ' ')}
-                      </span>
-                    ))}
-                    {source.coverage.length > 3 && (
-                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-white bg-opacity-50 text-gray-500">
-                        +{source.coverage.length - 3} more
-                      </span>
-                    )}
-                  </div>
-                </div>
-              )}
               
               <div className="flex items-center justify-between pt-3 border-t border-opacity-20">
                 <a
@@ -281,7 +260,7 @@ const DataSources: React.FC<DataSourcesProps> = ({
                 
                 <div className="flex items-center space-x-2">
                   <button
-                    onClick={() => onViewProvenance?.(source.id)}
+                    onClick={() => onViewProvenance?.(source.source_id)}
                     className="inline-flex items-center space-x-1 text-xs text-gray-600 hover:text-gray-900 transition-colors"
                   >
                     <Eye className="w-3 h-3" />
@@ -289,7 +268,7 @@ const DataSources: React.FC<DataSourcesProps> = ({
                   </button>
                   
                   <button
-                    onClick={() => onExportProvenance?.(source.id)}
+                    onClick={() => onExportProvenance?.(source.source_id)}
                     className="inline-flex items-center space-x-1 text-xs text-gray-600 hover:text-gray-900 transition-colors"
                   >
                     <Download className="w-3 h-3" />
@@ -312,21 +291,21 @@ const DataSources: React.FC<DataSourcesProps> = ({
             </div>
             <div className="text-center p-3 bg-gray-50 rounded-lg">
               <div className="text-2xl font-bold text-gray-900">
-                {sourcesData.filter(s => s.status === 'active').length}
+                {sourcesData.length}
               </div>
               <div className="text-sm text-gray-600">Active Sources</div>
             </div>
             <div className="text-center p-3 bg-gray-50 rounded-lg">
               <div className="text-2xl font-bold text-gray-900">
-                {sourcesData.reduce((sum, s) => sum + (s.coverage?.length || 0), 0)}
+                {sourcesData.length}
               </div>
-              <div className="text-sm text-gray-600">Total Indicators</div>
+              <div className="text-sm text-gray-600">Coverage Areas</div>
             </div>
             <div className="text-center p-3 bg-gray-50 rounded-lg">
               <div className="text-2xl font-bold text-gray-900">
-                {(sourcesData.reduce((sum, s) => sum + s.reliability_score, 0) / sourcesData.length * 100).toFixed(0)}%
+                {(sourcesData.reduce((sum, s) => sum + s.quality_score, 0) / sourcesData.length).toFixed(1)}%
               </div>
-              <div className="text-sm text-gray-600">Avg Reliability</div>
+              <div className="text-sm text-gray-600">Avg Quality</div>
             </div>
           </div>
         </div>

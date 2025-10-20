@@ -1201,6 +1201,35 @@ async def generate_report(request: ReportGenerationRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Report generation failed: {str(e)}")
 
+@app.get("/api/quality/trends")
+async def get_quality_trends(days: int = 30):
+    """Get quality trends over time"""
+    import random
+    from datetime import datetime, timedelta
+    
+    # Generate mock trend data for the last N days
+    trends = []
+    base_date = datetime.now() - timedelta(days=days)
+    
+    for i in range(days):
+        date = base_date + timedelta(days=i)
+        # Generate realistic quality scores with some variation
+        base_score = 98.4
+        variation = random.uniform(-2, 2)
+        
+        trend = {
+            "timestamp": date.isoformat(),
+            "overall_score": max(0, min(100, base_score + variation)),
+            "completeness_score": max(0, min(100, base_score + variation + random.uniform(-1, 1))),
+            "validity_score": max(0, min(100, base_score + variation + random.uniform(-1, 1))),
+            "consistency_score": max(0, min(100, base_score + variation + random.uniform(-1, 1))),
+            "freshness_score": max(0, min(100, base_score + variation + random.uniform(-1, 1))),
+            "alert_count": random.randint(0, 3)
+        }
+        trends.append(trend)
+    
+    return trends
+
 @app.get("/api/quality/sources")
 async def get_data_sources():
     """Get information about data sources"""
