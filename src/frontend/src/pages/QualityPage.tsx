@@ -81,7 +81,7 @@ const QualityPage: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Data Quality Assurance - Policy Simulation Assistant</title>
+        <title>Data Quality Assurance - Policy Simulator</title>
         <meta name="description" content="Monitor data quality, track provenance, and ensure data integrity for health policy simulations." />
       </Helmet>
 

@@ -33,7 +33,7 @@ const QualityDashboard: React.FC<QualityDashboardProps> = ({
   const [error, setError] = useState<string | null>(null)
   const [lastRefresh, setLastRefresh] = useState<Date>(new Date())
 
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8005'
 
   useEffect(() => {
     fetchQualityOverview()
