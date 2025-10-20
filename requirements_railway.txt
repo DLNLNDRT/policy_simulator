@@ -1,6 +1,4 @@
-# Policy Simulator - Railway Deployment
-# Optimized for Railway with pinned versions
-
+# Railway-specific requirements - minimal and stable
 fastapi==0.104.1
 uvicorn[standard]==0.24.0
 pydantic==2.5.0
