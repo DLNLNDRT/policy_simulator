@@ -1,4 +1,4 @@
-# Policy Simulator - Simplified for Railway
+# Simplified requirements for Railway
 fastapi
 uvicorn[standard]
 pydantic
