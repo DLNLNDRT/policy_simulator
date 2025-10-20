@@ -9,7 +9,7 @@
 ## 🌐 Live Applications
 
 ### 🚀 **Interactive React Frontend (Vercel)**
-> **[https://project-root-cyou-hnobva8u2-dlnlndrts-projects.vercel.app/](https://project-root-cyou-hnobva8u2-dlnlndrts-projects.vercel.app/)**
+> **[https://project-root-cyou-hnobva8u2-dlnlndrts-projects.vercel.app/](https://project-root-nr18cpcgs-dlnlndrts-projects.vercel.app/)**
 
 Modern React-based interface with all 5 features:
 - **Policy Simulation**: Interactive sliders for workforce and spending changes
