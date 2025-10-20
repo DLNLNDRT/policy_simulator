@@ -54,34 +54,49 @@ The Policy Simulation Assistant is an MVP developed using the **ADAPT Framework*
 
 ## 🚀 Quick Start
 
-### Live Demo Access
+### Prerequisites
+- Python 3.11+
+- Node.js 18+ (for frontend development)
 
-**🌐 Interactive Demo (Recommended)**
+### Local Development
 ```bash
-# Start the complete MVP demo server
-cd project_root
+# Install dependencies
+pip install -r requirements.txt
+
+# Start the main server
 python comprehensive_demo_server.py
 
-# Access the full interactive demo
-open http://localhost:8005/full
+# Access the API documentation
+open http://localhost:8005/docs
 ```
 
-**📊 Streamlit EDA Dashboard**
+### Frontend Development
 ```bash
-# Start the data exploration dashboard
-cd project_root
-streamlit run streamlit_eda_dashboard.py
+# Navigate to frontend directory
+cd src/frontend
 
-# Access the dashboard
-open http://localhost:8503
+# Install frontend dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+### Streamlit Dashboard
+```bash
+# Run the data exploration dashboard
+python examples/streamlit_eda_dashboard.py
 ```
 
 
-### Prerequisites
+## 📁 Project Structure
 
-- Python 3.11+
-- Node.js 18+ and npm (for frontend development)
-- OpenAI API key with GPT-5 access
+See [PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md) for detailed file organization.
+
+## 🔧 Configuration
+
+- **Environment Variables**: Copy `env.example` to `.env` and configure as needed
+- **API Keys**: Add your OpenAI API key for narrative generation features
 
 ### Installation
 

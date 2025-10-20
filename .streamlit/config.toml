@@ -1,0 +1,19 @@
+[global]
+# Use legacy dataframe serialization to avoid Arrow issues
+dataFrameSerialization = "legacy"
+
+[server]
+# Configure server settings
+port = 8504
+address = "0.0.0.0"
+
+[browser]
+# Configure browser settings
+gatherUsageStats = false
+
+[theme]
+# Optional: Custom theme
+primaryColor = "#1f77b4"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f0f2f6"
+textColor = "#262730"
