@@ -1,66 +1,144 @@
-# Project Structure
+# Policy Simulator - Project Structure
+
+## 📁 Directory Organization
 
 ```
 policy_simulator/
-├── README.md                          # Main project documentation
-├── requirements.txt                   # Core Python dependencies
-├── run_server.py                      # Server startup script
-├── run_dashboard.py                   # Dashboard startup script
-├── env.example                        # Environment variables template
-│
-├── data/                              # Data files
-│   ├── raw/                          # Original CSV datasets
-│   └── processed/                    # Processed data (if any)
-│
-├── src/                               # Source code
-│   ├── frontend/                     # React frontend application
-│   │   ├── src/                      # React source code
-│   │   ├── package.json             # Frontend dependencies
-│   │   └── vite.config.ts           # Vite configuration
-│   └── backend/                      # Backend API code
-│       ├── comprehensive_demo_server.py  # Main FastAPI server
-│       └── utils/                    # Backend utilities
-│           └── data_loader.py        # Data loading utilities
-│
-├── deployment/                        # Deployment configurations
-│   ├── configs/                      # Platform-specific configs
-│   │   ├── vercel.json              # Vercel deployment
-│   │   ├── railway.json             # Railway deployment
-│   │   └── Dockerfile               # Docker configuration
-│   └── guides/                       # Deployment guides
-│
-├── docs/                              # Documentation
-│   ├── architecture/                 # Technical architecture docs
-│   ├── features/                     # Feature documentation
-│   └── deployment/                   # Deployment documentation
-│
-├── examples/                          # Example files
-│   ├── streamlit_eda_dashboard.py    # Streamlit dashboard
-│   └── full_interactive_demo.html    # HTML demo
-│
-├── scripts/                           # Utility scripts
-│   ├── deploy/                       # Deployment scripts
-│   └── test/                         # Testing scripts
-│
-└── requirements/                      # Additional requirements files
-    ├── requirements_full_api.txt     # Full API requirements
-    ├── requirements_streamlit.txt    # Streamlit requirements
-    └── requirements_railway.txt      # Railway requirements
+├── 📁 src/                          # Source code
+│   ├── 📁 backend/                  # FastAPI backend
+│   │   ├── 📁 api/routes/          # API endpoints
+│   │   ├── 📁 core/                # Core configuration
+│   │   ├── 📁 models/              # Pydantic models
+│   │   ├── 📁 services/            # Business logic
+│   │   ├── 📁 tests/               # Backend tests
+│   │   ├── 📁 utils/               # Utilities (data_loader.py)
+│   │   └── comprehensive_demo_server.py
+│   └── 📁 frontend/                 # React frontend
+│       ├── 📁 src/
+│       │   ├── 📁 components/      # React components
+│       │   ├── 📁 pages/           # Page components
+│       │   ├── 📁 types/           # TypeScript types
+│       │   └── 📁 contexts/        # React contexts
+│       ├── package.json
+│       └── vite.config.ts
+├── 📁 data/                         # Health indicator datasets
+│   ├── 📁 raw/                     # Original CSV files
+│   └── 📁 processed/               # Processed data
+├── 📁 scripts/                      # Utility scripts
+│   ├── run_eda_dashboard.sh
+│   └── streamlit_eda_dashboard.py
+├── 📁 docs/                         # Documentation
+│   ├── 📁 architecture/            # Technical architecture
+│   ├── 📁 features/                # Feature documentation
+│   └── full_interactive_demo.html
+├── 📁 deployment/                   # Deployment configurations
+│   └── 📁 configs/                 # Platform-specific configs
+├── 📄 Dockerfile                   # Railway deployment
+├── 📄 requirements.txt             # Main Python dependencies
+├── 📄 requirements_railway.txt     # Railway-specific deps
+├── 📄 requirements_streamlit_cloud.txt # Streamlit Cloud deps
+├── 📄 Procfile                     # Heroku deployment
+├── 📄 runtime.txt                  # Python version
+├── 📄 vercel.json                  # Vercel frontend config
+├── 📄 run_server.py                # Start backend locally
+├── 📄 run_dashboard.py             # Start dashboard locally
+└── 📄 README.md                    # Project overview
 ```
 
-## Quick Start
+## 🚀 Deployment Files
 
-1. **Install dependencies**: `pip install -r requirements.txt`
-2. **Start server**: `python run_server.py`
-3. **Start dashboard**: `python run_dashboard.py`
-4. **Access frontend**: Visit the Vercel URL in README
-5. **Access Streamlit**: Visit the Streamlit URL in README
+### Root Level (Required by Platforms)
+- `Dockerfile` - Railway backend deployment
+- `requirements.txt` - Main Python dependencies
+- `Procfile` - Heroku deployment
+- `runtime.txt` - Python version specification
+- `vercel.json` - Vercel frontend configuration
 
-## Key Files
+### Platform-Specific Requirements
+- `requirements_railway.txt` - Railway backend dependencies
+- `requirements_streamlit_cloud.txt` - Streamlit Cloud dependencies
 
-- `run_server.py` - Easy server startup script
-- `run_dashboard.py` - Easy dashboard startup script
-- `src/backend/comprehensive_demo_server.py` - Main FastAPI server with all 5 features
-- `src/backend/utils/data_loader.py` - Loads health indicator data from CSV files
-- `src/frontend/` - React frontend deployed on Vercel
-- `examples/streamlit_eda_dashboard.py` - Streamlit dashboard
+## 📊 Data Organization
+
+### Raw Data (`data/raw/`)
+- `Access to affordable medicine.csv`
+- `Cause of Death.xlsx`
+- `Density of Doctors.csv`
+- `Density of nurses and midwives.csv`
+- `Density of pharmacists.csv`
+- `Density.csv`
+- `Government Spending.csv`
+- `Life Expectancy.csv`
+
+### Processed Data (`data/processed/`)
+- Cleaned and standardized datasets
+- Generated by `data_loader.py`
+
+## 🛠️ Development Scripts
+
+### Local Development
+- `run_server.py` - Start FastAPI backend
+- `run_dashboard.py` - Start Streamlit dashboard
+- `scripts/run_eda_dashboard.sh` - Shell script for dashboard
+
+### Production
+- `scripts/streamlit_eda_dashboard.py` - Streamlit Cloud deployment
+
+## 📚 Documentation
+
+### Architecture (`docs/architecture/`)
+- `ARCHITECTURE.md` - System architecture
+- `analysis_summary.md` - Data analysis results
+- `correlation_analysis.md` - Statistical analysis
+- `data_quality_report.md` - Data quality metrics
+- `kpi_definitions.md` - Key performance indicators
+- `market_analysis.md` - Market research
+- `scenarios_prioritized.md` - Use case scenarios
+
+### Features (`docs/features/`)
+- Feature implementation guides
+- API documentation
+- User interface specifications
+
+## 🔧 Configuration
+
+### Backend Configuration
+- `src/backend/core/config.py` - Environment settings
+- `src/backend/core/database.py` - Database configuration
+- `src/backend/utils/data_loader.py` - Data loading utilities
+
+### Frontend Configuration
+- `src/frontend/vite.config.ts` - Vite build configuration
+- `src/frontend/tailwind.config.js` - Tailwind CSS configuration
+- `src/frontend/tsconfig.json` - TypeScript configuration
+
+## 🧪 Testing
+
+### Backend Tests
+- `src/backend/tests/` - Unit and integration tests
+- `src/backend/tests/test_simulation_engine.py`
+- `src/backend/tests/test_advanced_analytics.py`
+- `src/backend/tests/test_report_generation.py`
+
+### Frontend Tests
+- `src/frontend/src/tests/` - React component tests
+
+## 📦 Dependencies
+
+### Python (Backend)
+- FastAPI, Uvicorn - Web framework
+- Pandas, NumPy - Data processing
+- Scikit-learn - Machine learning
+- Pydantic - Data validation
+
+### Node.js (Frontend)
+- React, TypeScript - Frontend framework
+- Vite - Build tool
+- Tailwind CSS - Styling
+- Recharts - Data visualization
+
+### Deployment
+- Docker - Containerization
+- Railway - Backend hosting
+- Vercel - Frontend hosting
+- Streamlit Cloud - Dashboard hosting
