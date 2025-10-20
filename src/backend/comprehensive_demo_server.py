@@ -16,7 +16,7 @@ import csv
 import io
 import base64
 import numpy as np
-from data_loader import data_loader
+from utils.data_loader import data_loader
 
 app = FastAPI(
     title="Policy Simulation Assistant - Complete MVP Demo",

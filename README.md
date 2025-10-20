@@ -64,7 +64,7 @@ The Policy Simulation Assistant is an MVP developed using the **ADAPT Framework*
 pip install -r requirements.txt
 
 # Start the main server
-python comprehensive_demo_server.py
+python run_server.py
 
 # Access the API documentation
 open http://localhost:8005/docs
@@ -85,7 +85,7 @@ npm run dev
 ### Streamlit Dashboard
 ```bash
 # Run the data exploration dashboard
-python examples/streamlit_eda_dashboard.py
+python run_dashboard.py
 ```
 
 

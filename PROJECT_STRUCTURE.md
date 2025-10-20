@@ -4,8 +4,8 @@
 project_root/
 ├── README.md                          # Main project documentation
 ├── requirements.txt                   # Core Python dependencies
-├── comprehensive_demo_server.py       # Main FastAPI server
-├── data_loader.py                     # Data loading utilities
+├── run_server.py                      # Server startup script
+├── run_dashboard.py                   # Dashboard startup script
 ├── env.example                        # Environment variables template
 │
 ├── data/                              # Data files
@@ -17,7 +17,10 @@ project_root/
 │   │   ├── src/                      # React source code
 │   │   ├── package.json             # Frontend dependencies
 │   │   └── vite.config.ts           # Vite configuration
-│   └── backend/                      # Backend API code (unused in current setup)
+│   └── backend/                      # Backend API code
+│       ├── comprehensive_demo_server.py  # Main FastAPI server
+│       └── utils/                    # Backend utilities
+│           └── data_loader.py        # Data loading utilities
 │
 ├── deployment/                        # Deployment configurations
 │   ├── configs/                      # Platform-specific configs
@@ -48,13 +51,16 @@ project_root/
 ## Quick Start
 
 1. **Install dependencies**: `pip install -r requirements.txt`
-2. **Start server**: `python comprehensive_demo_server.py`
-3. **Access frontend**: Visit the Vercel URL in README
-4. **Access Streamlit**: Visit the Streamlit URL in README
+2. **Start server**: `python run_server.py`
+3. **Start dashboard**: `python run_dashboard.py`
+4. **Access frontend**: Visit the Vercel URL in README
+5. **Access Streamlit**: Visit the Streamlit URL in README
 
 ## Key Files
 
-- `comprehensive_demo_server.py` - Main FastAPI server with all 5 features
-- `data_loader.py` - Loads health indicator data from CSV files
+- `run_server.py` - Easy server startup script
+- `run_dashboard.py` - Easy dashboard startup script
+- `src/backend/comprehensive_demo_server.py` - Main FastAPI server with all 5 features
+- `src/backend/utils/data_loader.py` - Loads health indicator data from CSV files
 - `src/frontend/` - React frontend deployed on Vercel
 - `examples/streamlit_eda_dashboard.py` - Streamlit dashboard
