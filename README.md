@@ -9,7 +9,7 @@
 ## 🌐 Live Applications
 
 ### 🚀 **Interactive React Frontend (Vercel)**
-> **[https://project-root-cyou-hnobva8u2-dlnlndrts-projects.vercel.app/](https://project-root-nr18cpcgs-dlnlndrts-projects.vercel.app/)**
+👉 [Open the Frontend](https://project-root-nr18cpcgs-dlnlndrts-projects.vercel.app/)
 
 Modern React-based interface with all 5 features:
 - **Policy Simulation**: Interactive sliders for workforce and spending changes
@@ -19,7 +19,8 @@ Modern React-based interface with all 5 features:
 - **Advanced Analytics**: Trend analysis and correlation matrices
 
 ### 📊 **Data Exploration Dashboard (Streamlit)**
-> **[https://project-root.streamlit.app/](https://project-root.streamlit.app/)**
+👉 [Open the Dashboard](https://projectroo-jnjwo6vcxpj33bygawnbhh.streamlit.app/)
+
 
 Interactive data exploration and analysis dashboard:
 - **Data Quality Analysis**: Comprehensive quality metrics and validation
