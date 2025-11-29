@@ -1,11 +1,12 @@
-# Use Python 3.11 base image with build tools
-FROM python:3.11-slim
+# Use Python 3.11.9 base image (explicit version for compatibility)
+FROM python:3.11.9-slim
 
 # Install system dependencies for pandas compilation
 RUN apt-get update && apt-get install -y \
     build-essential \
     gcc \
     g++ \
+    python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
@@ -15,8 +16,10 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install Python dependencies
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+# Upgrade pip, setuptools, and wheel first to ensure we get pre-built wheels
+# Use --prefer-binary to prefer wheels over source builds
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
+    pip install --no-cache-dir --prefer-binary -r requirements.txt
 
 # Copy the rest of the application
 COPY . .
@@ -25,4 +28,4 @@ COPY . .
 EXPOSE $PORT
 
 # Start the application
-CMD ["python", "comprehensive_demo_server.py"]
+CMD ["python", "src/backend/comprehensive_demo_server.py"]
