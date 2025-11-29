@@ -69,10 +69,54 @@ const SimulationPage: React.FC = () => {
 
       try {
         console.log('Fetching countries from:', `${API_BASE_URL}/api/simulations/countries`)
-        const response = await fetch(`${API_BASE_URL}/api/simulations/countries`)
+        console.log('API_BASE_URL value:', API_BASE_URL)
+        
+        // First, test if backend is reachable
+        try {
+          const healthController = new AbortController()
+          const healthTimeout = setTimeout(() => healthController.abort(), 10000) // 10 second timeout
+          
+          const healthCheck = await fetch(`${API_BASE_URL}/health`, {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json',
+            },
+            signal: healthController.signal
+          })
+          
+          clearTimeout(healthTimeout)
+          
+          if (!healthCheck.ok) {
+            throw new Error(`Backend health check failed with status ${healthCheck.status}`)
+          }
+          
+          const healthData = await healthCheck.json()
+          console.log('Backend health check passed:', healthData)
+        } catch (healthError) {
+          console.error('Backend health check failed:', healthError)
+          if (healthError instanceof Error && healthError.name === 'AbortError') {
+            throw new Error(`Backend server timeout. The server at ${API_BASE_URL} is not responding.`)
+          }
+          throw new Error(`Cannot reach backend server at ${API_BASE_URL}. Please verify the backend is running and VITE_API_BASE_URL is correct. Error: ${healthError instanceof Error ? healthError.message : 'Unknown error'}`)
+        }
+        
+        // Now fetch countries
+        const controller = new AbortController()
+        const timeout = setTimeout(() => controller.abort(), 10000) // 10 second timeout
+        
+        const response = await fetch(`${API_BASE_URL}/api/simulations/countries`, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+          },
+          signal: controller.signal
+        })
+        
+        clearTimeout(timeout)
         
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
+          const errorText = await response.text()
+          throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`)
         }
         
         const countriesData = await response.json()
@@ -84,12 +128,29 @@ const SimulationPage: React.FC = () => {
           setParams(prev => ({ ...prev, country: countriesData[0].name }))
           setCountriesError(null)
         } else {
-          throw new Error('No countries returned from API')
+          throw new Error('No countries returned from API. The API returned an empty array.')
         }
       } catch (error) {
-        const errorMsg = error instanceof Error ? error.message : 'Failed to fetch countries'
+        let errorMsg = 'Failed to fetch countries'
+        
+        if (error instanceof Error) {
+          if (error.name === 'AbortError') {
+            errorMsg = 'Request timed out. The backend server may be slow or unreachable.'
+          } else if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+            errorMsg = `Network error: Cannot connect to backend at ${API_BASE_URL}. This could be a CORS issue, network problem, or the backend is down.`
+          } else {
+            errorMsg = error.message
+          }
+        }
+        
         console.error('Failed to fetch countries:', error)
-        setCountriesError(`Failed to load countries: ${errorMsg}. Please check your API connection.`)
+        console.error('Error details:', {
+          name: error instanceof Error ? error.name : 'Unknown',
+          message: error instanceof Error ? error.message : String(error),
+          API_BASE_URL: API_BASE_URL
+        })
+        
+        setCountriesError(`Failed to load countries: ${errorMsg}. Please check your API connection and ensure VITE_API_BASE_URL is set correctly in Vercel dashboard.`)
         setCountries([])
       } finally {
         setIsLoadingCountries(false)
