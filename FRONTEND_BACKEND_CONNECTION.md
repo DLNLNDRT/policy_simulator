@@ -25,7 +25,7 @@ const response = await fetch(`${API_BASE_URL}/api/simulations/countries`)
 **What happens:**
 - Frontend constructs URL: `{API_BASE_URL}/api/simulations/countries`
 - Makes HTTP GET request to backend
-- Example: `https://web-production-21904.up.railway.app/api/simulations/countries`
+- Example: `https://web-production-98ab3.up.railway.app/api/simulations/countries`
 
 ### Step 3: Backend Receives Request
 **Location:** `src/backend/comprehensive_demo_server.py` (line 405)
@@ -96,7 +96,7 @@ setCountries(countriesData)
 2. **Check Environment Variables**
    - Settings → Environment Variables
    - Look for `VITE_API_BASE_URL`
-   - **Value should be:** `https://web-production-21904.up.railway.app` (or your Railway URL)
+   - **Value should be:** `https://web-production-98ab3.up.railway.app` (or your Railway URL)
    - **Must be set for:** All environments (Production, Preview, Development)
 
 3. **If Missing or Wrong:**
@@ -121,7 +121,7 @@ setCountries(countriesData)
 2. **Get Correct Railway URL**
    - Service → Settings → Networking
    - Copy the "Public Domain" URL
-   - It might be different from `web-production-21904.up.railway.app`
+   - Current URL: `https://web-production-98ab3.up.railway.app`
 
 3. **Test Backend Health**
    ```bash
@@ -146,8 +146,8 @@ setCountries(countriesData)
 
 3. **Look for These Messages:**
    ```
-   API_BASE_URL value: https://web-production-21904.up.railway.app
-   Fetching countries from: https://web-production-21904.up.railway.app/api/simulations/countries
+   API_BASE_URL value: https://web-production-98ab3.up.railway.app
+   Fetching countries from: https://web-production-98ab3.up.railway.app/api/simulations/countries
    Backend health check passed: {...}
    Countries loaded: 50
    ```
