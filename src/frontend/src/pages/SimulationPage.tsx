@@ -36,6 +36,8 @@ const SimulationPage: React.FC = () => {
   const [isRunning, setIsRunning] = useState(false)
   const [results, setResults] = useState<SimulationResult | null>(null)
   const [countries, setCountries] = useState<Array<{code: string, name: string}>>([])
+  const [countriesError, setCountriesError] = useState<string | null>(null)
+  const [isLoadingCountries, setIsLoadingCountries] = useState(true)
   const [params, setParams] = useState<SimulationParams>({
     country: 'Portugal',
     doctorDensityChange: 0,
@@ -52,20 +54,45 @@ const SimulationPage: React.FC = () => {
   // Fetch real countries from API
   useEffect(() => {
     const fetchCountries = async () => {
+      setIsLoadingCountries(true)
+      setCountriesError(null)
+      
+      // Check if API URL is configured
+      if (!API_BASE_URL) {
+        const errorMsg = 'API URL not configured. Please set VITE_API_BASE_URL environment variable in Vercel dashboard.'
+        console.error(errorMsg)
+        setCountriesError(errorMsg)
+        setCountries([])
+        setIsLoadingCountries(false)
+        return
+      }
+
       try {
+        console.log('Fetching countries from:', `${API_BASE_URL}/api/simulations/countries`)
         const response = await fetch(`${API_BASE_URL}/api/simulations/countries`)
-        if (response.ok) {
-          const countriesData = await response.json()
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        
+        const countriesData = await response.json()
+        console.log('Countries loaded:', countriesData.length)
+        
+        if (Array.isArray(countriesData) && countriesData.length > 0) {
           setCountries(countriesData)
           // Set first country as default
-          if (countriesData.length > 0) {
-            setParams(prev => ({ ...prev, country: countriesData[0].name }))
-          }
+          setParams(prev => ({ ...prev, country: countriesData[0].name }))
+          setCountriesError(null)
+        } else {
+          throw new Error('No countries returned from API')
         }
       } catch (error) {
+        const errorMsg = error instanceof Error ? error.message : 'Failed to fetch countries'
         console.error('Failed to fetch countries:', error)
-        // Fallback to empty array if API fails
+        setCountriesError(`Failed to load countries: ${errorMsg}. Please check your API connection.`)
         setCountries([])
+      } finally {
+        setIsLoadingCountries(false)
       }
     }
     
@@ -254,6 +281,8 @@ const SimulationPage: React.FC = () => {
                 isRunning={isRunning}
                 onRun={handleRunSimulation}
                 onReset={handleReset}
+                countriesError={countriesError}
+                isLoadingCountries={isLoadingCountries}
               />
             </div>
 
