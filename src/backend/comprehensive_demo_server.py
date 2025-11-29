@@ -16,6 +16,7 @@ import csv
 import io
 import base64
 import numpy as np
+from pathlib import Path
 from utils.data_loader import data_loader
 
 app = FastAPI(
@@ -398,6 +399,47 @@ async def health_check():
         "features": ["simulation", "benchmark", "narrative", "quality", "analytics"]
     }
 
+@app.get("/api/data/status")
+async def data_status():
+    """Check data loading status"""
+    try:
+        from utils.data_loader import data_loader
+        import os
+        from pathlib import Path
+        
+        # Check data directory
+        data_dir = data_loader.data_dir
+        data_dir_exists = data_dir.exists()
+        files = []
+        if data_dir_exists:
+            files = [f.name for f in data_dir.glob("*.csv")] + [f.name for f in data_dir.glob("*.xlsx")]
+        
+        # Try to get countries
+        countries_count = 0
+        countries_error = None
+        try:
+            countries = data_loader.get_available_countries()
+            countries_count = len(countries) if countries else 0
+        except Exception as e:
+            countries_error = str(e)
+        
+        return {
+            "status": "ok",
+            "data_directory": str(data_dir),
+            "data_directory_exists": data_dir_exists,
+            "data_files": files,
+            "countries_loaded": countries_count,
+            "countries_error": countries_error,
+            "working_directory": str(Path.cwd()),
+            "python_path": os.environ.get("PYTHONPATH", "not set")
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "error": str(e),
+            "working_directory": str(Path.cwd())
+        }
+
 # ============================================================================
 # FEATURE 1 ENDPOINTS
 # ============================================================================
@@ -407,14 +449,25 @@ async def get_simulation_countries():
     """Get available countries for simulation"""
     try:
         print("Getting countries data...")
+        print(f"Data loader data_dir: {data_loader.data_dir}")
+        print(f"Data directory exists: {data_loader.data_dir.exists()}")
+        
         real_countries = get_countries_data()
         print(f"Found {len(real_countries)} countries")
+        
+        if not real_countries or len(real_countries) == 0:
+            # Return helpful error message
+            error_msg = f"No countries found. Data directory: {data_loader.data_dir}, Exists: {data_loader.data_dir.exists()}"
+            print(f"WARNING: {error_msg}")
+            # Return empty list instead of error so frontend can handle it
+            return []
+        
         countries = []
         for country in real_countries:
             countries.append({
-                "code": country["code"],
-                "name": country["name"],
-                "baseline": country["baseline"]
+                "code": country.get("code", ""),
+                "name": country.get("name", ""),
+                "baseline": country.get("baseline", {})
             })
         print(f"Returning {len(countries)} countries")
         return countries
@@ -422,7 +475,9 @@ async def get_simulation_countries():
         print(f"Error in get_simulation_countries: {e}")
         import traceback
         traceback.print_exc()
-        raise HTTPException(status_code=500, detail=f"Error loading countries: {str(e)}")
+        # Return empty list instead of raising exception so frontend can show error
+        print(f"Returning empty list due to error: {str(e)}")
+        return []
 
 @app.post("/api/simulations/run")
 async def run_simulation(request: SimulationRequest):

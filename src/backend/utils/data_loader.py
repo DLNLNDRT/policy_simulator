@@ -8,11 +8,41 @@ import os
 from typing import Dict, List, Any, Optional
 from pathlib import Path
 
+def get_project_root():
+    """Get the project root directory"""
+    # Start from this file's location
+    current_file = Path(__file__).resolve()
+    # Go up: utils -> backend -> src -> project_root
+    # Or: utils -> backend -> project_root (if running from backend)
+    project_root = current_file.parent.parent.parent.parent
+    # Check if data directory exists here
+    if (project_root / "data" / "raw").exists():
+        return project_root
+    # Try one level up (if running from src/backend)
+    project_root = current_file.parent.parent.parent
+    if (project_root / "data" / "raw").exists():
+        return project_root
+    # Fallback: try current working directory
+    cwd = Path.cwd()
+    if (cwd / "data" / "raw").exists():
+        return cwd
+    # Last resort: try relative to this file
+    return current_file.parent.parent.parent.parent
+
 class RealDataLoader:
-    def __init__(self, data_dir: str = "data/raw"):
-        self.data_dir = Path(data_dir)
+    def __init__(self, data_dir: Optional[str] = None):
+        if data_dir is None:
+            project_root = get_project_root()
+            self.data_dir = project_root / "data" / "raw"
+        else:
+            self.data_dir = Path(data_dir)
         self.data_cache = {}
         self.countries_cache = None
+        # Log the data directory being used
+        print(f"DataLoader initialized with data_dir: {self.data_dir}")
+        print(f"Data directory exists: {self.data_dir.exists()}")
+        if self.data_dir.exists():
+            print(f"Files in data directory: {list(self.data_dir.glob('*.csv'))}")
         
     def load_life_expectancy_data(self) -> pd.DataFrame:
         """Load life expectancy data from CSV"""
