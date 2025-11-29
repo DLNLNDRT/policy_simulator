@@ -24,6 +24,10 @@ RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
 # Copy the rest of the application
 COPY . .
 
+# Verify files are copied (for debugging)
+RUN ls -la src/backend/comprehensive_demo_server.py || echo "File not found!" && \
+    find . -name "comprehensive_demo_server.py" -type f || echo "File search failed"
+
 # Expose port (Railway will set PORT environment variable)
 EXPOSE $PORT
 
