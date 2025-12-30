@@ -49,7 +49,6 @@ policy_simulator/
 ├── data/                 # Health indicator datasets
 ├── scripts/              # Utility scripts
 ├── docs/                 # Documentation
-├── deployment/           # Deployment configs
 ├── Dockerfile           # Railway deployment
 ├── requirements.txt     # Main dependencies
 └── README.md           # Project overview

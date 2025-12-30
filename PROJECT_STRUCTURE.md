@@ -31,8 +31,6 @@ policy_simulator/
 │   ├── 📁 architecture/            # Technical architecture
 │   ├── 📁 features/                # Feature documentation
 │   └── full_interactive_demo.html
-├── 📁 deployment/                   # Deployment configurations
-│   └── 📁 configs/                 # Platform-specific configs
 ├── 📄 Dockerfile                   # Railway deployment
 ├── 📄 requirements.txt             # All Python dependencies
 ├── 📄 Procfile                     # Heroku deployment
