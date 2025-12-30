@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { Brain, AlertTriangle, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react'
 
 interface NarrativeCardProps {
@@ -10,6 +10,106 @@ interface NarrativeCardProps {
 const NarrativeCard: React.FC<NarrativeCardProps> = ({ narrative, disclaimers, citations }) => {
   const [showDisclaimers, setShowDisclaimers] = useState(true)
   const [showCitations, setShowCitations] = useState(false)
+
+  // Format narrative text with proper structure and line breaks
+  const formattedNarrative = useMemo(() => {
+    if (!narrative) return []
+
+    // Split text into sections based on markdown headers (**Section:**)
+    const sections: Array<{ type: 'header' | 'paragraph'; title?: string; content: string[] }> = []
+    
+    // Split by sections that start with **Header:**
+    const parts = narrative.split(/(?=\*\*[^*]+\*\*:)/g)
+    
+    parts.forEach((part) => {
+      const trimmedPart = part.trim()
+      if (!trimmedPart) return
+      
+      // Check if this part starts with a bold header
+      const headerMatch = trimmedPart.match(/^\*\*([^*]+)\*\*:\s*(.*)/s)
+      
+      if (headerMatch) {
+        const [, title, content] = headerMatch
+        const contentLines = content
+          .split('\n')
+          .map(line => line.trim())
+          .filter(line => line.length > 0)
+        
+        sections.push({
+          type: 'header',
+          title: title.trim(),
+          content: contentLines
+        })
+      } else {
+        // Regular paragraph
+        const lines = trimmedPart
+          .split('\n')
+          .map(line => line.trim())
+          .filter(line => line.length > 0)
+        
+        if (lines.length > 0) {
+          sections.push({
+            type: 'paragraph',
+            content: lines
+          })
+        }
+      }
+    })
+    
+    // Convert sections to JSX
+    return sections.map((section, sectionIndex) => {
+      if (section.type === 'header' && section.title) {
+        const hasBulletPoints = section.content.some(line => line.startsWith('- '))
+        const bulletItems: string[] = []
+        const regularLines: string[] = []
+        
+        section.content.forEach(line => {
+          if (line.startsWith('- ')) {
+            bulletItems.push(line.substring(2).trim())
+          } else {
+            regularLines.push(line)
+          }
+        })
+        
+        return (
+          <div key={sectionIndex} className="mb-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-3">
+              {section.title}
+            </h3>
+            {hasBulletPoints && bulletItems.length > 0 && (
+              <ul className="list-disc list-inside space-y-2 mb-3 text-gray-700">
+                {bulletItems.map((item, itemIndex) => (
+                  <li key={itemIndex} className="leading-relaxed">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {regularLines.length > 0 && (
+              <div className="space-y-2">
+                {regularLines.map((line, lineIndex) => (
+                  <p key={lineIndex} className="text-gray-700 leading-relaxed">
+                    {line}
+                  </p>
+                ))}
+              </div>
+            )}
+          </div>
+        )
+      } else {
+        // Regular paragraph section
+        return (
+          <div key={sectionIndex} className="mb-4">
+            {section.content.map((line, lineIndex) => (
+              <p key={lineIndex} className="text-gray-700 leading-relaxed mb-2">
+                {line}
+              </p>
+            ))}
+          </div>
+        )
+      }
+    })
+  }, [narrative])
 
   return (
     <div className="card">
@@ -26,9 +126,9 @@ const NarrativeCard: React.FC<NarrativeCardProps> = ({ narrative, disclaimers, c
       <div className="card-content space-y-6">
         {/* Main Narrative */}
         <div className="prose prose-sm max-w-none">
-          <p className="text-gray-700 leading-relaxed">
-            {narrative}
-          </p>
+          <div className="text-gray-700 leading-relaxed">
+            {formattedNarrative}
+          </div>
         </div>
 
         {/* Disclaimers */}
