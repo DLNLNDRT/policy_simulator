@@ -107,22 +107,32 @@ def clean_dataframe_for_streamlit(df):
     if df is None or df.empty:
         return df
     
-    # Convert object columns to string to avoid Arrow issues
+    # Create a copy to avoid modifying the original
+    df = df.copy()
+    
+    # First, try to convert object columns to numeric where possible
     for col in df.columns:
         if df[col].dtype == 'object':
-            df[col] = df[col].astype(str)
+            # Try to convert to numeric first
+            numeric_series = pd.to_numeric(df[col], errors='coerce')
+            # If most values converted successfully, use numeric version
+            if not numeric_series.isna().all():
+                non_null_ratio = (numeric_series.notna().sum() / len(df[col]))
+                if non_null_ratio > 0.5:  # If more than 50% are numeric
+                    df[col] = numeric_series
+                else:
+                    # Otherwise convert to string
+                    df[col] = df[col].astype(str)
+            else:
+                # Convert to string if can't convert to numeric
+                df[col] = df[col].astype(str)
     
-    # Replace NaN values with empty strings
-    df = df.fillna('')
-    
-    # Ensure numeric columns are properly typed
+    # Replace NaN values appropriately: empty strings for object columns, 0 for numeric
     for col in df.columns:
         if df[col].dtype == 'object':
-            # Try to convert to numeric if possible
-            try:
-                df[col] = pd.to_numeric(df[col], errors='ignore')
-            except:
-                pass
+            df[col] = df[col].fillna('')
+        else:
+            df[col] = df[col].fillna(0)
     
     return df
 
@@ -138,7 +148,7 @@ def load_data_files():
     
     data_dir = None
     for dir_path in possible_data_dirs:
-        if dir_path.exists() and any(dir_path.glob("*.csv")) or any(dir_path.glob("*.xlsx")):
+        if dir_path.exists() and (any(dir_path.glob("*.csv")) or any(dir_path.glob("*.xlsx"))):
             data_dir = dir_path
             break
     
@@ -302,7 +312,12 @@ def create_data_overview(data_files):
     total_files = len(data_files)
     total_rows = sum(len(df) for df in data_files.values())
     total_columns = sum(len(df.columns) for df in data_files.values())
-    total_size = sum(df.memory_usage(deep=True).sum() for df in data_files.values()) / 1024 / 1024  # MB
+    # Use shallow memory usage for performance (deep=True is slow for large dataframes)
+    try:
+        total_size = sum(df.memory_usage(deep=False).sum() for df in data_files.values()) / 1024 / 1024  # MB
+    except Exception:
+        # Fallback to row count estimate if memory calculation fails
+        total_size = total_rows * 0.001  # Rough estimate: ~1KB per row
     
     with col1:
         st.metric("📁 Total Files", total_files)
@@ -322,7 +337,7 @@ def create_data_overview(data_files):
             'File': file_name,
             'Rows': len(df),
             'Columns': len(df.columns),
-            'Memory (MB)': f"{df.memory_usage(deep=True).sum() / 1024 / 1024:.2f}",
+            'Memory (MB)': f"{df.memory_usage(deep=False).sum() / 1024 / 1024:.2f}",
             'Missing Values': df.isnull().sum().sum(),
             'Duplicate Rows': df.duplicated().sum()
         }
@@ -476,10 +491,15 @@ def create_correlation_analysis(artifacts, data_files):
             
             # Fill correlation matrix
             for corr in correlations:
-                i = features.index(corr['feature_x'])
-                j = features.index(corr['feature_y'])
-                corr_matrix[i][j] = corr['correlation']
-                corr_matrix[j][i] = corr['correlation']
+                try:
+                    if corr['feature_x'] in features and corr['feature_y'] in features:
+                        i = features.index(corr['feature_x'])
+                        j = features.index(corr['feature_y'])
+                        corr_matrix[i][j] = corr['correlation']
+                        corr_matrix[j][i] = corr['correlation']
+                except (ValueError, KeyError):
+                    # Skip if feature not found in features list
+                    continue
             
             # Create heatmap
             fig = px.imshow(
@@ -540,12 +560,19 @@ def create_correlation_analysis(artifacts, data_files):
                 numeric_cols.extend(df.select_dtypes(include=[np.number]).columns)
             
             if len(numeric_cols) > 1:
-                # Create a combined dataframe for correlation
-                combined_df = pd.concat(combined_data, axis=1)
-                numeric_df = combined_df[numeric_cols]
-                
-                # Calculate correlation matrix
-                corr_matrix = numeric_df.corr()
+                try:
+                    # Create a combined dataframe for correlation
+                    # Reset index to avoid alignment issues
+                    combined_data_reset = [df.reset_index(drop=True) for df in combined_data]
+                    combined_df = pd.concat(combined_data_reset, axis=1)
+                    numeric_df = combined_df[numeric_cols]
+                    
+                    # Calculate correlation matrix
+                    corr_matrix = numeric_df.corr()
+                except (ValueError, TypeError) as e:
+                    st.error(f"❌ Error combining datasets for correlation: {str(e)}")
+                    st.info("💡 Try selecting datasets with compatible structures.")
+                    continue
                 
                 # Create interactive heatmap
                 fig = px.imshow(
@@ -859,7 +886,18 @@ def create_country_analysis(data_files):
             breakdown_df = pd.DataFrame(country_dataset_breakdown)
             
             # Create pivot table for better visualization
-            pivot_df = breakdown_df.pivot(index='Country', columns='Dataset', values='Data Points').fillna(0)
+            try:
+                # Check for duplicates before pivoting
+                duplicates = breakdown_df.duplicated(subset=['Country', 'Dataset'], keep=False)
+                if duplicates.any():
+                    # Aggregate duplicates by summing data points
+                    breakdown_df = breakdown_df.groupby(['Country', 'Dataset'])['Data Points'].sum().reset_index()
+                
+                pivot_df = breakdown_df.pivot(index='Country', columns='Dataset', values='Data Points').fillna(0)
+            except (ValueError, KeyError) as e:
+                st.warning(f"⚠️ Could not create pivot table: {str(e)}")
+                st.dataframe(breakdown_df, width='stretch')
+                continue
             
             col1, col2 = st.columns(2)
             
