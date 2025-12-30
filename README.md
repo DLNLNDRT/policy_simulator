@@ -34,7 +34,9 @@ Interactive data exploration and analysis dashboard:
 ### 🎥 **App Walkthrough Video**
 Watch a complete walkthrough of the Policy Simulator application:
 
-[![Policy Simulator Walkthrough](https://img.youtube.com/vi/ezAhlVTMoWU/maxresdefault.jpg)](https://www.youtube.com/watch?v=ezAhlVTMoWU)
+<a href="https://www.youtube.com/watch?v=ezAhlVTMoWU" target="_blank" rel="noopener noreferrer">
+  <img src="https://img.youtube.com/vi/ezAhlVTMoWU/maxresdefault.jpg" alt="Policy Simulator Walkthrough" style="max-width: 100%;">
+</a>
 
 ---
 
