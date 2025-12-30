@@ -8,7 +8,8 @@ import {
   Users,
   BarChart3,
   CheckCircle,
-  ExternalLink
+  ExternalLink,
+  BookOpen
 } from 'lucide-react'
 
 const AboutPage: React.FC = () => {
@@ -301,6 +302,15 @@ const AboutPage: React.FC = () => {
               >
                 <ExternalLink className="w-5 h-5" />
                 <span>GitHub</span>
+              </a>
+              <a
+                href="https://medium.com/p/35c7cb4b3bc7/edit"
+                className="btn-outline btn-lg inline-flex items-center space-x-2"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <BookOpen className="w-5 h-5" />
+                <span>Medium Article</span>
               </a>
             </div>
           </div>
