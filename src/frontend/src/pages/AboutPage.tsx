@@ -294,21 +294,7 @@ const AboutPage: React.FC = () => {
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="/docs"
-                className="btn-outline btn-lg inline-flex items-center space-x-2"
-              >
-                <ExternalLink className="w-5 h-5" />
-                <span>Documentation</span>
-              </a>
-              <a
-                href="/api/docs"
-                className="btn-outline btn-lg inline-flex items-center space-x-2"
-              >
-                <ExternalLink className="w-5 h-5" />
-                <span>API Reference</span>
-              </a>
-              <a
-                href="https://github.com/your-org/policy-simulation-assistant"
+                href="https://github.com/DLNLNDRT/policy_simulator"
                 className="btn-outline btn-lg inline-flex items-center space-x-2"
                 target="_blank"
                 rel="noopener noreferrer"
