@@ -66,14 +66,14 @@ const HomePage: React.FC = () => {
 
       <div className="min-h-screen">
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-primary-50 to-blue-50 py-20">
+        <section className="relative bg-gradient-to-br from-primary-50 to-blue-50 pt-12 pb-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
                 Policy Simulation
                 <span className="text-primary-600 block">Assistant</span>
               </h1>
-              <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+              <p className="text-xl text-gray-600 mb-6 max-w-3xl mx-auto">
                 GenAI-powered healthcare policy simulation tool that transforms global health data 
                 into predictive insights for policy makers, ministries, and NGOs.
               </p>
@@ -98,13 +98,13 @@ const HomePage: React.FC = () => {
         </section>
 
         {/* Video Walkthrough Section */}
-        <section className="py-20 bg-white">
+        <section className="pt-8 pb-12 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <div className="text-center mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
                 See It In Action
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
                 Watch a complete walkthrough of the Policy Simulator and learn how to use all features
               </p>
             </div>
