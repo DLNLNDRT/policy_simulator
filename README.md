@@ -31,6 +31,13 @@ Interactive data exploration and analysis dashboard:
 
 *Note: The React frontend requires the backend API to be running for full functionality.*
 
+### 🎥 **App Walkthrough Video**
+Watch a complete walkthrough of the Policy Simulator application:
+
+[![Policy Simulator Walkthrough](https://img.youtube.com/vi/ezAhlVTMoWU/maxresdefault.jpg)](https://www.youtube.com/watch?v=ezAhlVTMoWU)
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ezAhlVTMoWU" title="Policy Simulator Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ---
 
 ## 🎯 Project Overview
