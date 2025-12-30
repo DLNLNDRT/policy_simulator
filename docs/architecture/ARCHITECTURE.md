@@ -182,7 +182,7 @@ Report Compilation → Export Processing
 - **Life Expectancy**: WHO Global Health Observatory
 - **Doctor Density**: WHO Global Health Observatory
 - **Nurse Density**: WHO Global Health Observatory
-- **Health Spending**: World Bank Development Indicators
+- **Health Spending**: WHO Global Health Observatory
 - **Access to Medicine**: WHO Essential Medicines List
 
 **Data Quality Standards**:

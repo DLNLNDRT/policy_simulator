@@ -36,8 +36,7 @@ const AboutPage: React.FC = () => {
   ]
 
   const dataSources = [
-    { name: 'WHO Global Health Observatory', description: 'Life expectancy, workforce density, mortality data' },
-    { name: 'World Bank Data', description: 'Government health spending, economic indicators' }
+    { name: 'WHO Global Health Observatory', description: 'Life expectancy, workforce density, government health spending, mortality data' }
   ]
 
   const methodology = [

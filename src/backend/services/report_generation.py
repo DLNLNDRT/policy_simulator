@@ -677,7 +677,6 @@ class ReportGenerationEngine:
         """Extract data sources from data"""
         sources = [
             "WHO Global Health Observatory",
-            "World Bank Health Statistics",
         ]
         
         if "data_sources" in data:

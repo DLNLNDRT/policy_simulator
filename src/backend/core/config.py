@@ -38,7 +38,6 @@ class Settings(BaseSettings):
     
     # Data Sources
     WHO_DATA_API_KEY: Optional[str] = Field(default=None, env="WHO_DATA_API_KEY")
-    WORLD_BANK_API_KEY: Optional[str] = Field(default=None, env="WORLD_BANK_API_KEY")
     
     # Security
     SECRET_KEY: str = Field(

@@ -24,7 +24,6 @@ class ProcessingStepType(Enum):
 
 class DataSourceType(Enum):
     WHO_GLOBAL_HEALTH = "who_global_health"
-    WORLD_BANK = "world_bank"
     INTERNAL_PROCESSING = "internal_processing"
 
 @dataclass
@@ -114,20 +113,10 @@ class DataProvenanceTracker:
                 url="https://www.who.int/data/gho",
                 last_updated=datetime.now(),
                 reliability_score=0.95,
-                coverage=["life_expectancy", "mortality", "health_workforce"],
+                coverage=["life_expectancy", "mortality", "health_workforce", "health_expenditure"],
                 source_type=DataSourceType.WHO_GLOBAL_HEALTH,
                 version="2024.1",
                 description="WHO's comprehensive health statistics database"
-            ),
-            "world_bank": DataSource(
-                name="World Bank Data",
-                url="https://data.worldbank.org/indicator",
-                last_updated=datetime.now(),
-                reliability_score=0.92,
-                coverage=["health_expenditure", "gdp", "population"],
-                source_type=DataSourceType.WORLD_BANK,
-                version="2024.1",
-                description="World Bank's global development indicators"
             ),
         }
     

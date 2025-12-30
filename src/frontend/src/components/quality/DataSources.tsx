@@ -57,8 +57,6 @@ const DataSources: React.FC<DataSourcesProps> = ({
     switch (sourceId) {
       case 'who_gho':
         return <Shield className="w-5 h-5 text-blue-600" />
-      case 'world_bank':
-        return <Database className="w-5 h-5 text-green-600" />
       default:
         return <Database className="w-5 h-5 text-gray-600" />
     }
@@ -68,8 +66,6 @@ const DataSources: React.FC<DataSourcesProps> = ({
     switch (sourceId) {
       case 'who_gho':
         return 'bg-blue-50 border-blue-200'
-      case 'world_bank':
-        return 'bg-green-50 border-green-200'
       default:
         return 'bg-gray-50 border-gray-200'
     }

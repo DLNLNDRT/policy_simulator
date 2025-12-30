@@ -182,7 +182,6 @@ const SimulationPageNew: React.FC = () => {
                     ]}
                     citations={[
                       'WHO Global Health Observatory 2023',
-                      'World Bank Health Expenditure Data',
                     ]}
                   />
                 </>
@@ -215,7 +214,7 @@ const SimulationPageNew: React.FC = () => {
                 </h3>
               </div>
               <p className="text-gray-600 text-sm">
-                Our simulation engine uses regression models trained on WHO and World Bank data 
+                Our simulation engine uses regression models trained on WHO data 
                 to predict life expectancy changes based on workforce and spending modifications.
               </p>
             </div>
@@ -246,7 +245,7 @@ const SimulationPageNew: React.FC = () => {
               </div>
               <p className="text-gray-600 text-sm">
                 All simulations use validated data with 98.4% quality score. 
-                Sources include WHO Global Health Observatory and World Bank datasets.
+                Sources include WHO Global Health Observatory datasets.
               </p>
             </div>
           </div>

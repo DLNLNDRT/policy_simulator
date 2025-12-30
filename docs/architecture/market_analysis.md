@@ -53,7 +53,7 @@ If you capture 1 % of the USD 43 b healthcare analytics market → ~$430�
 | Persona | Organization / Role | Jobs to Be Done | Pain Points | Success Metrics |
 |---|---|---|---|---|
 | **Health Ministry Planner** | Government | Forecast workforce & budgets | Uncertain data, accountability | Accuracy, savings, credibility |
-| **Donor / Development Analyst** | NGO, WHO, World Bank | Compare countries, fund allocation | Fragmented data, slow reports | Faster insights, consistency |
+| **Donor / Development Analyst** | NGO, WHO | Compare countries, fund allocation | Fragmented data, slow reports | Faster insights, consistency |
 | **Researcher / Academic** | University | Cross‑national studies | Data wrangling overhead | Reproducibility, publication speed |
 | **Health‑Tech PM** | EHR / Analytics Startup | Embed AI insight modules | Need reliable backend, low hallucination | User retention, upsell |
 | **Journalist / Advocate** | Media / NGO | Create country health briefs | Lack of visuals & automation | Turnaround time, credibility |
@@ -100,7 +100,7 @@ If you capture 1 % of the USD 43 b healthcare analytics market → ~$430�
 - Sales, legal, and compliance overhead  
 
 ### Partnerships  
-- WHO, World Bank  
+- WHO  
 - Academic & NGO collaborations for validation  
 - Health IT vendors for embedding modules  
 

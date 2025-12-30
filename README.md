@@ -162,10 +162,10 @@ CORS_ORIGINS=http://localhost:3000,http://localhost:5173
 The platform integrates 9 health indicator datasets:
 
 - **Life Expectancy**: WHO Global Health Observatory
-- **Workforce Density**: Doctors, nurses, and pharmacists per population
-- **Government Spending**: Health expenditure as % of GDP
-- **Access to Medicine**: Essential medicine affordability indices
-- **Mortality Data**: Cause-specific death rates by country
+- **Workforce Density**: Doctors, nurses, and pharmacists per population (WHO)
+- **Government Spending**: Health expenditure as % of GDP (WHO)
+- **Access to Medicine**: Essential medicine affordability indices (WHO)
+- **Mortality Data**: Cause-specific death rates by country (WHO)
 
 *See [DATA_PIPELINE.md](./DATA_PIPELINE.md) for detailed data processing information.*
 
@@ -271,7 +271,7 @@ npm run type-check       # TypeScript type checking
 ### Competitive Advantage
 
 - **Cross-national Transparency**: Open data with explainable AI
-- **Policy-grade Accuracy**: Validated against WHO/World Bank benchmarks
+- **Policy-grade Accuracy**: Validated against WHO benchmarks
 - **Rapid Iteration**: Cursor IDE + FastAPI for fast development cycles
 
 *See [adapt_context/artifacts/market_analysis.md](./adapt_context/artifacts/market_analysis.md) for detailed market research.*
@@ -362,8 +362,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- **WHO Global Health Observatory** for health indicator datasets
-- **World Bank** for government spending data
+- **WHO Global Health Observatory** for all health indicator datasets including life expectancy, workforce density, government health spending, and mortality data
 - **OpenAI** for GPT-4 API access
 - **Cursor IDE** for AI-assisted development
 

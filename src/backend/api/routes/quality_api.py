@@ -77,12 +77,6 @@ async def get_quality_overview():
                     "reliability_score": 0.95,
                     "status": "active"
                 },
-                "world_bank": {
-                    "name": "World Bank Data",
-                    "last_updated": (datetime.now() - timedelta(days=1)).isoformat(),
-                    "reliability_score": 0.92,
-                    "status": "active"
-                },
             }
         }
         
@@ -185,7 +179,6 @@ async def get_country_quality(country_code: str):
                     "last_updated": (datetime.now() - timedelta(days=2)).isoformat()
                 },
                 {
-                    "name": "World Bank Data",
                     "coverage": ["health_spending"],
                     "last_updated": (datetime.now() - timedelta(days=1)).isoformat()
                 }
@@ -302,17 +295,17 @@ async def get_data_provenance(dataset_id: str):
             # Create mock provenance data for demonstration
             provenance_data = provenance_tracker.create_provenance_record(
                 dataset_id=dataset_id,
-                initial_sources=["who_global_health", "world_bank"]
+                initial_sources=["who_global_health"]
             )
             
             # Add some processing steps
             provenance_tracker.add_processing_step(
                 dataset_id=dataset_id,
                 step_type=ProcessingStepType.DATA_INGESTION,
-                description="Ingested health data from WHO and World Bank",
+                description="Ingested health data from WHO Global Health Observatory",
                 input_data="Raw CSV files from external sources",
                 output_data="Standardized health indicators dataset",
-                parameters={"sources": ["who_global_health", "world_bank"]},
+                parameters={"sources": ["who_global_health"]},
                 duration_ms=2500
             )
             
@@ -386,16 +379,6 @@ async def get_data_sources():
                     "reliability_score": 0.95,
                     "coverage": ["life_expectancy", "mortality", "health_workforce"],
                     "last_updated": (datetime.now() - timedelta(days=2)).isoformat(),
-                    "status": "active"
-                },
-                {
-                    "id": "world_bank",
-                    "name": "World Bank Data",
-                    "url": "https://data.worldbank.org/indicator",
-                    "type": "world_bank",
-                    "reliability_score": 0.92,
-                    "coverage": ["health_expenditure", "gdp", "population"],
-                    "last_updated": (datetime.now() - timedelta(days=1)).isoformat(),
                     "status": "active"
                 },
             ]

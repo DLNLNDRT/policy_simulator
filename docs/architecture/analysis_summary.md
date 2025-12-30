@@ -158,9 +158,7 @@ From raw data ingestion and validation to market positioning, MVP definition, KP
 ## 8. Appendix
 
 ### Data Sources
-- WHO Global Health Observatory (life expectancy, workforce, mortality)  
-- World Bank Data (health spending)  
-- National statistical offices (affordable medicine indices)  
+- WHO Global Health Observatory (life expectancy, workforce, government health spending, mortality, affordable medicine indices)  
 - Consolidated via Supabase migration scripts.
 
 ### Tools & Platforms
@@ -174,7 +172,7 @@ From raw data ingestion and validation to market positioning, MVP definition, KP
 ### References
 - Grand View Research – *Healthcare Analytics Market Size 2025–2030*  
 - Market.US – *Global GenAI in Healthcare Report*  
-- WHO & World Bank public datasets  
+- WHO public datasets  
 - Innovaccer, Optum, Merative competitive insights  
 
 ---

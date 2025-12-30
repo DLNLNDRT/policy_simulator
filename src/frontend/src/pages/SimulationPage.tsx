@@ -233,8 +233,7 @@ const SimulationPage: React.FC = () => {
         narrative: narrative,
         disclaimers: disclaimers,
         citations: simulationData.citations || [
-          'WHO Global Health Observatory 2023',
-          'World Bank Health Expenditure Data'
+          'WHO Global Health Observatory 2023'
         ],
         responseTime: simulationData.response_time || 0,
         cost: simulationData.cost || 0
@@ -264,8 +263,7 @@ const SimulationPage: React.FC = () => {
           'Please consult with healthcare professionals for policy decisions'
         ],
         citations: [
-          'WHO Global Health Observatory 2023',
-          'World Bank Health Expenditure Data'
+          'WHO Global Health Observatory 2023'
         ],
         responseTime: 1850,
         cost: 0.08
@@ -390,7 +388,7 @@ const SimulationPage: React.FC = () => {
                 </h3>
               </div>
               <p className="text-gray-600 text-sm">
-                Our simulation engine uses regression models trained on WHO and World Bank data 
+                Our simulation engine uses regression models trained on WHO data 
                 to predict life expectancy changes based on workforce and spending modifications.
               </p>
             </div>
@@ -421,7 +419,7 @@ const SimulationPage: React.FC = () => {
               </div>
               <p className="text-gray-600 text-sm">
                 All simulations use validated data with 98.4% quality score. 
-                Sources include WHO Global Health Observatory and World Bank datasets.
+                Sources include WHO Global Health Observatory datasets.
               </p>
             </div>
           </div>

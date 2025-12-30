@@ -75,7 +75,7 @@ The **Data Quality Assurance** feature provides real-time monitoring, validation
 #### FR4.3: Data Provenance Tracking
 - **Description:** Complete tracking of data sources and processing history
 - **Acceptance Criteria:**
-  - ✅ Track original data sources (WHO, World Bank)
+  - ✅ Track original data sources (WHO)
   - ✅ Record data processing steps and transformations
   - ✅ Maintain version history for all datasets
   - ✅ Provide audit trail for data lineage
@@ -290,7 +290,6 @@ interface ProcessingStep {
 ├─────────────────────────────────────────────────────────────┤
 │  Data Sources & Provenance                                 │
 │  📊 WHO Global Health Observatory (Last updated: 2 days)  │
-│  📊 World Bank Data (Last updated: 1 day)                 │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -420,7 +419,7 @@ interface ProcessingStep {
 - **Feature 3 (Narrative Generator):** Quality context in generated narratives
 
 ### External Dependencies
-- **Data Sources:** WHO, World Bank APIs for provenance tracking
+- **Data Sources:** WHO APIs for provenance tracking
 - **Monitoring Tools:** Application performance monitoring
 - **Alert Systems:** Email/SMS notification services
 - **Storage:** Database for quality metrics and provenance data
@@ -469,5 +468,4 @@ interface ProcessingStep {
 ## 📚 References
 
 - [WHO Global Health Observatory Data Quality Guidelines](https://www.who.int/data/gho/data-quality)
-- [World Bank Data Quality Framework](https://datahelpdesk.worldbank.org/knowledgebase/articles/1886676)
 - [FAIR Data Principles](https://www.go-fair.org/fair-principles/)

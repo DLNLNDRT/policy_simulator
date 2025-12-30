@@ -96,7 +96,7 @@ No sufficient yearly coverage to estimate trends.
 
 ## 6) Business Context Integration
 - **Benchmarks:** Life expectancy commonly ~65–85 years; physician density ~1–6 per 1,000; nurses ~3–15 per 1,000; health spending ~5–12% of GDP. Align units to these bands.
-- **Regulatory notes:** When surfacing health insights, avoid clinical advice. Cite sources and methodology in UI (WHO/World Bank definitions may vary).
+- **Regulatory notes:** When surfacing health insights, avoid clinical advice. Cite sources and methodology in UI (WHO definitions may vary).
 - **GenAI feature ideas:**
   - *Explanatory insights*: tooltips linking workforce density to outcomes with context and uncertainty.
   - *What-if*: sliders for workforce or spending changes projecting expected directional impact on outcomes.

@@ -49,8 +49,7 @@ To democratize access to healthcare policy insights by combining high-quality gl
 - **Deployment:** Cursor IDE optimized development workflow
 
 #### Data Sources
-- WHO Global Health Observatory (life expectancy, workforce, mortality)
-- World Bank Data (government health spending)
+- WHO Global Health Observatory (life expectancy, workforce, government health spending, mortality)
 
 ### Out of Scope (Future Phases)
 

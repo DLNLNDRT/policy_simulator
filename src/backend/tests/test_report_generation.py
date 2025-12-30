@@ -37,8 +37,7 @@ class TestReportGenerationEngine:
                 }
             },
             "data_sources": [
-                "WHO Global Health Observatory",
-                "World Bank Health Statistics"
+                "WHO Global Health Observatory"
             ]
         }
     
@@ -255,7 +254,6 @@ class TestReportGenerationEngine:
         assert isinstance(sources, list)
         assert len(sources) > 0
         assert 'WHO Global Health Observatory' in sources
-        assert 'World Bank Health Statistics' in sources
     
     def test_extract_analytical_methods(self, report_engine, sample_data):
         """Test analytical methods extraction"""

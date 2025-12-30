@@ -27,7 +27,7 @@ The **Policy Simulation Assistant** is a GenAI-powered healthcare policy simulat
 
 ### Competitive Advantage
 - **Cross-national Transparency:** Open data with explainable AI
-- **Policy-grade Accuracy:** Validated against WHO/World Bank benchmarks
+- **Policy-grade Accuracy:** Validated against WHO benchmarks
 - **Rapid Iteration:** Cursor IDE + FastAPI for fast development cycles
 - **Data Quality:** 98.4/100 quality score with comprehensive validation
 
@@ -69,8 +69,7 @@ The **Policy Simulation Assistant** is a GenAI-powered healthcare policy simulat
 4. **User Interface:** Interactive controls, real-time visualization, export functionality
 
 ### Data Sources
-- **WHO Global Health Observatory:** Life expectancy, workforce density, mortality data
-- **World Bank Data:** Government health spending, economic indicators
+- **WHO Global Health Observatory:** Life expectancy, workforce density, government health spending, mortality data
 
 ---
 
@@ -205,7 +204,7 @@ The **Policy Simulation Assistant** is a GenAI-powered healthcare policy simulat
 - **No Personal Data:** Only aggregate health indicators
 - **Source Attribution:** Maintain data provenance and citations
 - **Audit Logging:** Track all data access and modifications
-- **Compliance:** Follow WHO/World Bank data usage guidelines
+- **Compliance:** Follow WHO data usage guidelines
 
 ### AI Safety
 - **Factual Grounding:** GPT responses validated against source data
@@ -323,7 +322,7 @@ The **Policy Simulation Assistant** is a GenAI-powered healthcare policy simulat
 
 ### Stakeholders
 - **Target Users:** Health Ministry Planners, Development Analysts, Policy Researchers
-- **Partners:** WHO, World Bank
+- **Partners:** WHO
 - **Advisors:** Healthcare policy experts, AI safety specialists
 
 ### Communication

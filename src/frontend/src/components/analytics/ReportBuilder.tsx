@@ -138,8 +138,7 @@ const ReportBuilder: React.FC<ReportBuilderProps> = ({ onGenerate }) => {
           }
         },
         data_sources: [
-          'WHO Global Health Observatory',
-          'World Bank Health Statistics'
+          'WHO Global Health Observatory'
         ]
       }
 
