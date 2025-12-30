@@ -8,11 +8,7 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
-from plotly.subplots import make_subplots
-import seaborn as sns
-import matplotlib.pyplot as plt
 from pathlib import Path
-import json
 import re
 from datetime import datetime
 import warnings
@@ -116,7 +112,7 @@ def clean_dataframe_for_streamlit(df):
             # Try to convert to numeric first
             numeric_series = pd.to_numeric(df[col], errors='coerce')
             # If most values converted successfully, use numeric version
-            if not numeric_series.isna().all():
+            if not numeric_series.isna().all() and len(df[col]) > 0:
                 non_null_ratio = (numeric_series.notna().sum() / len(df[col]))
                 if non_null_ratio > 0.5:  # If more than 50% are numeric
                     df[col] = numeric_series
@@ -348,7 +344,11 @@ def create_data_overview(data_files):
     
     # File explorer
     st.subheader("🔍 File Explorer")
-    selected_file = st.selectbox("Select a file to explore:", list(data_files.keys()))
+    if data_files:
+        selected_file = st.selectbox("Select a file to explore:", list(data_files.keys()))
+    else:
+        st.warning("No data files available for exploration.")
+        return
     
     if selected_file:
         df = data_files[selected_file]
@@ -537,7 +537,11 @@ def create_correlation_analysis(artifacts, data_files):
     st.subheader("🔍 Interactive Correlation Explorer")
     
     # Allow user to select datasets for correlation analysis
-    available_datasets = list(data_files.keys())
+    available_datasets = list(data_files.keys()) if data_files else []
+    if not available_datasets:
+        st.warning("No datasets available for correlation analysis.")
+        return
+    
     selected_datasets = st.multiselect(
         "Select datasets for correlation analysis:",
         available_datasets,
@@ -572,7 +576,7 @@ def create_correlation_analysis(artifacts, data_files):
                 except (ValueError, TypeError) as e:
                     st.error(f"❌ Error combining datasets for correlation: {str(e)}")
                     st.info("💡 Try selecting datasets with compatible structures.")
-                    continue
+                    return  # Exit function early instead of continue
                 
                 # Create interactive heatmap
                 fig = px.imshow(
@@ -897,7 +901,7 @@ def create_country_analysis(data_files):
             except (ValueError, KeyError) as e:
                 st.warning(f"⚠️ Could not create pivot table: {str(e)}")
                 st.dataframe(breakdown_df, width='stretch')
-                continue
+                return  # Exit function early instead of continue
             
             col1, col2 = st.columns(2)
             
@@ -933,16 +937,25 @@ def create_country_analysis(data_files):
             st.metric("Total Valid Countries", len(all_countries))
         
         with col2:
-            avg_coverage = sum(len(countries) for countries in dataset_country_mapping.values()) / len(dataset_country_mapping)
-            st.metric("Average Countries per Dataset", f"{avg_coverage:.1f}")
+            if dataset_country_mapping:
+                avg_coverage = sum(len(countries) for countries in dataset_country_mapping.values()) / len(dataset_country_mapping)
+                st.metric("Average Countries per Dataset", f"{avg_coverage:.1f}")
+            else:
+                st.metric("Average Countries per Dataset", "N/A")
         
         with col3:
-            max_countries = max(len(countries) for countries in dataset_country_mapping.values())
-            st.metric("Max Countries in Dataset", max_countries)
+            if dataset_country_mapping:
+                max_countries = max(len(countries) for countries in dataset_country_mapping.values())
+                st.metric("Max Countries in Dataset", max_countries)
+            else:
+                st.metric("Max Countries in Dataset", "N/A")
         
         with col4:
-            min_countries = min(len(countries) for countries in dataset_country_mapping.values())
-            st.metric("Min Countries in Dataset", min_countries)
+            if dataset_country_mapping:
+                min_countries = min(len(countries) for countries in dataset_country_mapping.values())
+                st.metric("Min Countries in Dataset", min_countries)
+            else:
+                st.metric("Min Countries in Dataset", "N/A")
         
         # Data quality insights
         st.subheader("💡 Data Coverage Insights")
@@ -1017,11 +1030,11 @@ def create_temporal_analysis(data_files):
                         # If conversion fails, try to extract years from string values
                         try:
                             # Look for 4-digit numbers in the column
-                            import re
                             all_values = df[col].astype(str)
                             years = []
                             for val in all_values:
-                                year_matches = re.findall(r'\b(19|20)\d{2}\b', str(val))
+                                # Fix regex to capture full 4-digit year, not just "19" or "20"
+                                year_matches = re.findall(r'\b(19\d{2}|20\d{2})\b', str(val))
                                 years.extend([int(y) for y in year_matches if 1900 <= int(y) <= 2030])
                             
                             if years:
@@ -1049,7 +1062,7 @@ def create_temporal_analysis(data_files):
                 'Duration (Years)': data['max'] - data['min'] + 1,
                 'Unique Years': data['unique'],
                 'Data Points': data['count'],
-                'Coverage %': round((data['unique'] / (data['max'] - data['min'] + 1)) * 100, 1)
+                'Coverage %': round((data['unique'] / (data['max'] - data['min'] + 1)) * 100, 1) if (data['max'] - data['min'] + 1) > 0 else 0.0
             }
             for dataset_col, data in temporal_data.items()
         ])
@@ -1229,11 +1242,16 @@ def create_insights_summary(artifacts):
         
         if correlations:
             strong_correlations = [c for c in correlations if abs(c['correlation']) >= 0.7]
+            if strong_correlations:
+                strongest_corr = max(strong_correlations, key=lambda x: abs(x['correlation']))['correlation']
+            else:
+                strongest_corr = 0.0
+            
             st.markdown(f"""
             <div class="insight-box">
                 <strong>📊 Correlation Analysis Results:</strong><br>
                 • Found {len(strong_correlations)} strong correlations (|r| ≥ 0.7)<br>
-                • Strongest correlation: {max(strong_correlations, key=lambda x: abs(x['correlation']))['correlation']:.2f}<br>
+                • Strongest correlation: {strongest_corr:.2f}<br>
                 • All correlations are statistically significant (p < 0.05)<br>
                 • These relationships can inform policy simulation models
             </div>
