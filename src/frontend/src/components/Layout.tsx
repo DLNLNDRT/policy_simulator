@@ -203,7 +203,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <div className="border-t border-gray-200 mt-8 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-sm text-gray-600">
-                © 2024 Policy Simulator. Built with the ADAPT Framework.
+                © 2026 Policy Simulator. Built with the ADAPT Framework.
               </p>
               <div className="flex space-x-6 mt-4 md:mt-0">
                 <span className="text-xs text-gray-500">
