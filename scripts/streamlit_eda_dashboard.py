@@ -26,9 +26,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Configure Streamlit to avoid Arrow serialization issues
-st.config.set_option('global.dataFrameSerialization', 'legacy')
-
 # Custom CSS for better styling with improved color scheme
 st.markdown("""
 <style>
