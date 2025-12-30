@@ -97,6 +97,32 @@ const HomePage: React.FC = () => {
           </div>
         </section>
 
+        {/* Video Walkthrough Section */}
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                See It In Action
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Watch a complete walkthrough of the Policy Simulator and learn how to use all features
+              </p>
+            </div>
+            
+            <div className="max-w-4xl mx-auto">
+              <div className="relative aspect-video rounded-lg overflow-hidden shadow-xl">
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full"
+                  src="https://www.youtube.com/embed/ezAhlVTMoWU"
+                  title="Policy Simulator Walkthrough"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Stats Section */}
         <section className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -215,32 +241,6 @@ const HomePage: React.FC = () => {
                   Receive predictive outcomes with confidence intervals, 
                   AI-generated narratives, and policy recommendations.
                 </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Video Walkthrough Section */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                See It In Action
-              </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Watch a complete walkthrough of the Policy Simulator and learn how to use all features
-              </p>
-            </div>
-            
-            <div className="max-w-4xl mx-auto">
-              <div className="relative aspect-video rounded-lg overflow-hidden shadow-xl">
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full"
-                  src="https://www.youtube.com/embed/ezAhlVTMoWU"
-                  title="Policy Simulator Walkthrough"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                />
               </div>
             </div>
           </div>
