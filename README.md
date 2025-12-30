@@ -153,7 +153,7 @@ CORS_ORIGINS=http://localhost:3000,http://localhost:5173
 
 - **Frontend**: React 18, TypeScript, Vite, Tailwind CSS, Recharts
 - **Backend**: Python 3.11, FastAPI, SQLite, Pandas, Scikit-learn
-- **AI/ML**: OpenAI GPT-5, Anthropic Claude API
+- **AI/ML**: OpenAI GPT-4, Anthropic Claude API
 - **Testing**: pytest (backend), Jest + React Testing Library (frontend)
 - **Development**: Cursor IDE with AI-assisted coding
 
@@ -364,7 +364,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - **WHO Global Health Observatory** for health indicator datasets
 - **World Bank** for government spending data
-- **OpenAI** for GPT-5 API access
+- **OpenAI** for GPT-4 API access
 - **Cursor IDE** for AI-assisted development
 
 ---

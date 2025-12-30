@@ -21,7 +21,7 @@ const AboutPage: React.FC = () => {
     {
       icon: Brain,
       title: 'AI-Powered Narratives',
-      description: 'GPT-5 generated explanations with citations, disclaimers, and policy context'
+      description: 'GPT-4 generated explanations with citations, disclaimers, and policy context'
     },
     {
       icon: Shield,
@@ -207,7 +207,7 @@ const AboutPage: React.FC = () => {
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">AI Integration</h3>
                 <p className="text-gray-600 text-sm">
-                  OpenAI GPT-5, Anthropic Claude, Custom prompt engineering
+                  OpenAI GPT-4, Anthropic Claude, Custom prompt engineering
                 </p>
               </div>
             </div>
@@ -301,15 +301,6 @@ const AboutPage: React.FC = () => {
               >
                 <ExternalLink className="w-5 h-5" />
                 <span>GitHub</span>
-              </a>
-              <a
-                href="https://medium.com/p/35c7cb4b3bc7/edit"
-                className="btn-outline btn-lg inline-flex items-center space-x-2"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <BookOpen className="w-5 h-5" />
-                <span>Medium Article</span>
               </a>
             </div>
           </div>

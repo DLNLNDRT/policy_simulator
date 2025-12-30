@@ -12,7 +12,7 @@ The Narrative Insight Generator transforms raw simulation results and benchmark 
 ## Key Components
 
 ### 1. AI Narrative Engine
-- **GPT-5 Integration** for high-quality narrative generation
+- **GPT-4 Integration** for high-quality narrative generation
 - **Contextual Prompting** with simulation results and benchmark data
 - **Multi-format Output** (executive summaries, detailed reports, presentations)
 - **Citation Management** with proper source attribution
@@ -93,7 +93,7 @@ The Narrative Insight Generator transforms raw simulation results and benchmark 
 - **QualityValidator** - Factual accuracy and bias checking
 
 ### 2. AI Integration
-- **OpenAI GPT-5** for narrative generation
+- **OpenAI GPT-4** for narrative generation
 - **Structured Prompting** with context and constraints
 - **Response Validation** for accuracy and appropriateness
 - **Cost Management** with usage tracking and optimization
@@ -134,7 +134,7 @@ The Narrative Insight Generator transforms raw simulation results and benchmark 
 ## Implementation Plan
 
 ### Phase 1: Core Narrative Engine (Week 1)
-- Set up OpenAI GPT-5 integration
+- Set up OpenAI GPT-4 integration
 - Create basic prompt templates
 - Implement narrative generation service
 - Build simple frontend interface

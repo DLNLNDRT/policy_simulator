@@ -58,14 +58,14 @@ The **Policy Simulation Assistant** is a GenAI-powered healthcare policy simulat
 ### Core Technology Stack
 - **Frontend:** React 18 + TypeScript + Vite + Tailwind CSS + Recharts
 - **Backend:** Python 3.11 + FastAPI + SQLite + Pandas + Scikit-learn
-- **AI/ML:** OpenAI GPT-5 + Anthropic Claude API
+- **AI/ML:** OpenAI GPT-4 + Anthropic Claude API
 - **Testing:** pytest (backend) + Jest + React Testing Library (frontend)
 - **Development:** Cursor IDE with AI-assisted coding
 
 ### Key Components
 1. **Data Pipeline:** Health indicator ingestion, validation, and quality monitoring
 2. **Simulation Engine:** Regression-based prediction models with confidence intervals
-3. **AI Integration:** GPT-5 narrative generation with safety validation
+3. **AI Integration:** GPT-4 narrative generation with safety validation
 4. **User Interface:** Interactive controls, real-time visualization, export functionality
 
 ### Data Sources
@@ -103,7 +103,7 @@ The **Policy Simulation Assistant** is a GenAI-powered healthcare policy simulat
    - Regression-based prediction models
 
 2. **AI-Powered Narrative Generation**
-   - GPT-5 generated explanations with contextual insights
+   - GPT-4 generated explanations with contextual insights
    - Safety disclaimers and uncertainty measures
    - Data source citations and methodology transparency
    - Multiple narrative styles (professional, academic, policy)

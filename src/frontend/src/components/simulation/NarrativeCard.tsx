@@ -198,7 +198,7 @@ const NarrativeCard: React.FC<NarrativeCardProps> = ({ narrative, disclaimers, c
                 AI-Generated Content
               </h4>
               <p className="text-sm text-purple-800">
-                This analysis was generated using GPT-5 and is based on statistical correlations 
+                This analysis was generated using GPT-4 and is based on statistical correlations 
                 in the underlying health data. It should be used for exploratory analysis and 
                 policy discussion, not as definitive policy recommendations.
               </p>

@@ -42,14 +42,14 @@ Deployed as a **TypeScript + Supabase app** with **GPT-powered narrative layer**
 |---|---|---|---|
 | **Data Readiness** | Life expectancy, workforce density, spending, mortality datasets cleaned & merged | ✅ High | Supabase tables from `merged_dataset.xlsx` |
 | **AI/ML Layer** | Regression + correlation inference for simulation | ✅ High | Python + OpenAI fine-tuning or on-the-fly GPT |
-| **Narrative Layer** | GPT-powered explanation with structured prompt templates | ✅ High | OpenAI GPT-4/5 API |
+| **Narrative Layer** | GPT-powered explanation with structured prompt templates | ✅ High | OpenAI GPT-4 API |
 | **Infrastructure** | Supabase backend + TypeScript/React frontend in Cursor IDE | ✅ High | Already compatible stack |
 | **Visualization** | Recharts + Tailwind integration for graphs | ✅ High | Local |
 | **Monitoring / RLS** | Row Level Security in Supabase | ✅ Medium | Use policies per country/user |
 | **Explainability Layer** | LIME-style local surrogate text output | ✅ Medium | Optional in Phase 2 |
 
 **Conclusion:**  
-The MVP can be built with **existing stack (Cursor IDE + Supabase + GPT-5)** and does not require new datasets or cloud migration. All major dependencies are ready.
+The MVP can be built with **existing stack (Cursor IDE + Supabase + GPT-4)** and does not require new datasets or cloud migration. All major dependencies are ready.
 
 ---
 

@@ -24,7 +24,7 @@ To democratize access to healthcare policy insights by combining high-quality gl
    - Regression-based prediction models
 
 2. **AI-Powered Narrative Generation**
-   - GPT-5 generated explanations with contextual insights
+   - GPT-4 generated explanations with contextual insights
    - Safety disclaimers and uncertainty measures
    - Data source citations and methodology transparency
    - Multiple narrative styles (professional, academic, policy)
@@ -44,7 +44,7 @@ To democratize access to healthcare policy insights by combining high-quality gl
 #### Technical Scope
 - **Frontend:** React 18 + TypeScript + Vite + Tailwind CSS
 - **Backend:** Python 3.11 + FastAPI + SQLite/PostgreSQL
-- **AI Integration:** OpenAI GPT-5 + Anthropic Claude API
+- **AI Integration:** OpenAI GPT-4 + Anthropic Claude API
 - **Testing:** pytest (backend) + Jest + React Testing Library
 - **Deployment:** Cursor IDE optimized development workflow
 
@@ -134,7 +134,7 @@ To democratize access to healthcare policy insights by combining high-quality gl
    - Parameter validation and range checking
 
 3. **AI Integration**
-   - GPT-5 narrative generation
+   - GPT-4 narrative generation
    - Response validation and safety checks
    - Cost tracking and optimization
 
@@ -146,7 +146,7 @@ To democratize access to healthcare policy insights by combining high-quality gl
 ### Technology Stack
 - **Frontend:** React 18, TypeScript, Vite, Tailwind CSS, Recharts
 - **Backend:** Python 3.11, FastAPI, SQLite, Pandas, Scikit-learn
-- **AI/ML:** OpenAI GPT-5, Anthropic Claude API
+- **AI/ML:** OpenAI GPT-4, Anthropic Claude API
 - **Testing:** pytest, Jest, React Testing Library
 - **Development:** Cursor IDE with AI-assisted coding
 
@@ -187,7 +187,7 @@ To democratize access to healthcare policy insights by combining high-quality gl
 - Responsive design implementation
 
 ### Sprint 4 (Weeks 7-8): AI Integration
-- GPT-5 narrative generation
+- GPT-4 narrative generation
 - Response validation and safety checks
 - Cost tracking implementation
 

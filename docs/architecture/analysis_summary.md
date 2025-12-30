@@ -2,7 +2,7 @@
 
 **Date:** 11 October 2025  
 **Duration:** Multi-session (3 days total)  
-**LLM Used:** GPT-5  
+**LLM Used:** GPT-4  
 **Participants:** Mafalda Delgado (Product Lead/CEO), Technical Advisor (ChatGPT), supporting data scientist roles (virtual)  
 **Datasets:**  
 - Life Expectancy.csv  
@@ -62,7 +62,7 @@ From raw data ingestion and validation to market positioning, MVP definition, KP
   2. Health Benchmark Dashboard  
   3. Narrative Insight Generator  
 - Defined **MVP sprint plan** (5 sprints, ~9 weeks total) and **Phase 2–5 roadmap** (anomaly detection, API monetization, health equity index).  
-- **Decision:** Build MVP first in **Cursor IDE + Supabase + GPT-5**, optimizing for rapid iteration.
+- **Decision:** Build MVP first in **Cursor IDE + Supabase + GPT-4**, optimizing for rapid iteration.
 
 ### Phase 5 – KPI Framework  
 **Artifact:** `kpi_definitions.md`  
@@ -81,7 +81,7 @@ From raw data ingestion and validation to market positioning, MVP definition, KP
 | **Modeling Strategy** | Regression-based “what-if” simulation backed by GPT narrative layer | Balances explainability and speed |
 | **Product Strategy** | Launch Policy Simulation Assistant as MVP | Highest impact/feasibility ratio |
 | **Success Strategy** | Focus on user adoption and simulation accuracy | Drives both validation and monetization |
-| **Architecture** | Cursor IDE + Supabase + GPT-5 + Tailwind/Recharts | Rapid prototyping with built-in analytics hooks |
+| **Architecture** | Cursor IDE + Supabase + GPT-4 + Tailwind/Recharts | Rapid prototyping with built-in analytics hooks |
 
 ---
 
@@ -94,7 +94,7 @@ From raw data ingestion and validation to market positioning, MVP definition, KP
 - **Interactive tables** – Top correlations, completeness metrics  
 - **Dashboards** (planned) – KPI and simulation outputs via Supabase + Recharts
 
-**Tools Used:** Python, Pandas, Matplotlib, Supabase, Cursor IDE (target), GPT-5 for narrative generation.
+**Tools Used:** Python, Pandas, Matplotlib, Supabase, Cursor IDE (target), GPT-4 for narrative generation.
 
 ---
 
@@ -108,7 +108,7 @@ From raw data ingestion and validation to market positioning, MVP definition, KP
    - React components: Simulation slider cards, KPI dashboards, Chart widgets  
    - Use Tailwind + Recharts for dynamic visuals
 3. **AI Integration:**  
-   - GPT-5 via structured prompts:  
+   - GPT-4 via structured prompts:  
      - Input: simulation results  
      - Output: contextualized narrative (“A 10 % increase in nurse density may add 0.4 years to LE”)  
    - Optional: Add LIME-based explanation layer for interpretability.
@@ -164,7 +164,7 @@ From raw data ingestion and validation to market positioning, MVP definition, KP
 - Consolidated via Supabase migration scripts.
 
 ### Tools & Platforms
-- **LLM:** GPT-5  
+- **LLM:** GPT-4  
 - **Data Stack:** Python + Pandas + Supabase  
 - **Visualization:** Matplotlib, Recharts (for Cursor UI)  
 - **IDE:** Cursor  
@@ -190,4 +190,4 @@ From raw data ingestion and validation to market positioning, MVP definition, KP
 ---
 
 ✅ **Outcome:**  
-You now possess a fully documented **ADAPT Framework dossier**, linking your data, product, market, and success metrics into a coherent, development-ready plan for the **Policy Simulation Assistant MVP** — primed for buildout in **Cursor IDE + Supabase + GPT-5**.
+You now possess a fully documented **ADAPT Framework dossier**, linking your data, product, market, and success metrics into a coherent, development-ready plan for the **Policy Simulation Assistant MVP** — primed for buildout in **Cursor IDE + Supabase + GPT-4**.

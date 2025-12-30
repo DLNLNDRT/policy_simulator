@@ -53,7 +53,7 @@ The Policy Simulation Assistant is built as a **full-stack web application** wit
 ┌─────────────────────────────────────────────────────────────────┐
 │                      AI/ML Layer                              │
 ├─────────────────────────────────────────────────────────────────┤
-│  • OpenAI GPT-5 API Integration                                │
+│  • OpenAI GPT-4 API Integration                                │
 │  • Scikit-learn Regression Models                             │
 │  • Statistical Analysis & Correlation                         │
 │  • Natural Language Processing                                 │
@@ -119,7 +119,7 @@ Ranking Calculation → Visualization Generation
 **Data Flow**:
 ```
 Simulation Results → Template Selection → AI Prompt Generation → 
-GPT-5 API Call → Response Processing → Quality Assessment → 
+GPT-4 API Call → Response Processing → Quality Assessment → 
 Narrative Formatting → UI Display
 ```
 
@@ -216,7 +216,7 @@ Model Training → Prediction Service
 - **Validation**: Cross-validation with time series split
 
 **Narrative Generation**:
-- **Model**: OpenAI GPT-5
+- **Model**: OpenAI GPT-4
 - **Prompt Engineering**: Structured templates with context
 - **Quality Control**: Automated fact-checking and disclaimers
 - **Cost Management**: Response caching and rate limiting
