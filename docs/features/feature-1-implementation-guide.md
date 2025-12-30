@@ -32,7 +32,7 @@ class HealthDataProcessor:
 ```
 
 **Key Features:**
-- Processes WHO, World Bank, and OECD health data
+- Processes WHO and World Bank health data
 - Normalizes data formats and units
 - Calculates 98.4/100 data quality score
 - Extracts baseline data for 9+ countries
@@ -119,8 +119,6 @@ const SimulationPageNew: React.FC = () => {
 ### Data Sources
 - **WHO Global Health Observatory:** Life expectancy, workforce density
 - **World Bank Data:** Government health spending
-- **National Statistics:** Country-specific indicators
-- **OECD Health Statistics:** Cross-national comparisons
 
 ### Data Processing Flow
 1. **Ingestion:** Load CSV files from multiple sources

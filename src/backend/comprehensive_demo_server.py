@@ -997,8 +997,7 @@ Based on the simulation analysis for {country}, the proposed policy changes are 
     # Generate citations
     citations = [
         "WHO Global Health Observatory 2023",
-        "World Bank Health Expenditure Data",
-        "OECD Health Statistics 2023"
+        "World Bank Health Expenditure Data"
     ]
     
     return {
@@ -1331,15 +1330,6 @@ async def get_data_sources():
             "coverage": "Global",
             "quality_score": 97.8
         },
-        {
-            "source_id": "oecd_health",
-            "name": "OECD Health Statistics",
-            "description": "Health indicators for OECD countries",
-            "url": "https://stats.oecd.org/",
-            "last_updated": "2024-01-12",
-            "coverage": "OECD Countries",
-            "quality_score": 99.1
-        }
     ]
 
 # ============================================================================

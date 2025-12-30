@@ -25,8 +25,6 @@ class ProcessingStepType(Enum):
 class DataSourceType(Enum):
     WHO_GLOBAL_HEALTH = "who_global_health"
     WORLD_BANK = "world_bank"
-    OECD_HEALTH = "oecd_health"
-    NATIONAL_STATISTICS = "national_statistics"
     INTERNAL_PROCESSING = "internal_processing"
 
 @dataclass
@@ -131,16 +129,6 @@ class DataProvenanceTracker:
                 version="2024.1",
                 description="World Bank's global development indicators"
             ),
-            "oecd_health": DataSource(
-                name="OECD Health Statistics",
-                url="https://stats.oecd.org/",
-                last_updated=datetime.now(),
-                reliability_score=0.90,
-                coverage=["health_indicators", "health_expenditure", "health_outcomes"],
-                source_type=DataSourceType.OECD_HEALTH,
-                version="2024.1",
-                description="OECD's health statistics and indicators"
-            )
         }
     
     def create_provenance_record(self, dataset_id: str, initial_sources: List[str]) -> ProvenanceData:

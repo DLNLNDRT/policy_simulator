@@ -357,7 +357,7 @@ class SimulationParameters(BaseModel):
 ### Compliance
 - **Data Privacy:** No personal health data collection
 - **Source Attribution:** Maintain data provenance
-- **Quality Standards:** Follow WHO/OECD guidelines
+- **Quality Standards:** Follow WHO/World Bank guidelines
 - **Documentation:** Complete methodology documentation
 
 ---
@@ -366,7 +366,7 @@ class SimulationParameters(BaseModel):
 
 ### External Dependencies
 - **OpenAI API:** For future narrative generation (Feature 2)
-- **Health Data Sources:** WHO, World Bank, OECD datasets
+- **Health Data Sources:** WHO, World Bank datasets
 - **Charting Library:** Recharts for visualization
 - **Testing Framework:** Jest, React Testing Library, pytest
 

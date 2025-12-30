@@ -83,12 +83,6 @@ async def get_quality_overview():
                     "reliability_score": 0.92,
                     "status": "active"
                 },
-                "oecd_health": {
-                    "name": "OECD Health Statistics",
-                    "last_updated": (datetime.now() - timedelta(days=3)).isoformat(),
-                    "reliability_score": 0.90,
-                    "status": "active"
-                }
             }
         }
         
@@ -308,17 +302,17 @@ async def get_data_provenance(dataset_id: str):
             # Create mock provenance data for demonstration
             provenance_data = provenance_tracker.create_provenance_record(
                 dataset_id=dataset_id,
-                initial_sources=["who_global_health", "world_bank", "oecd_health"]
+                initial_sources=["who_global_health", "world_bank"]
             )
             
             # Add some processing steps
             provenance_tracker.add_processing_step(
                 dataset_id=dataset_id,
                 step_type=ProcessingStepType.DATA_INGESTION,
-                description="Ingested health data from WHO, World Bank, and OECD",
+                description="Ingested health data from WHO and World Bank",
                 input_data="Raw CSV files from external sources",
                 output_data="Standardized health indicators dataset",
-                parameters={"sources": ["who_global_health", "world_bank", "oecd_health"]},
+                parameters={"sources": ["who_global_health", "world_bank"]},
                 duration_ms=2500
             )
             
@@ -404,16 +398,6 @@ async def get_data_sources():
                     "last_updated": (datetime.now() - timedelta(days=1)).isoformat(),
                     "status": "active"
                 },
-                {
-                    "id": "oecd_health",
-                    "name": "OECD Health Statistics",
-                    "url": "https://stats.oecd.org/",
-                    "type": "oecd_health",
-                    "reliability_score": 0.90,
-                    "coverage": ["health_indicators", "health_expenditure", "health_outcomes"],
-                    "last_updated": (datetime.now() - timedelta(days=3)).isoformat(),
-                    "status": "active"
-                }
             ]
         }
         

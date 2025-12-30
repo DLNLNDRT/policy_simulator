@@ -183,7 +183,6 @@ const SimulationPageNew: React.FC = () => {
                     citations={[
                       'WHO Global Health Observatory 2023',
                       'World Bank Health Expenditure Data',
-                      'OECD Health Statistics 2023'
                     ]}
                   />
                 </>

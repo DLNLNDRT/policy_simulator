@@ -271,7 +271,7 @@ npm run type-check       # TypeScript type checking
 ### Competitive Advantage
 
 - **Cross-national Transparency**: Open data with explainable AI
-- **Policy-grade Accuracy**: Validated against WHO/OECD benchmarks
+- **Policy-grade Accuracy**: Validated against WHO/World Bank benchmarks
 - **Rapid Iteration**: Cursor IDE + FastAPI for fast development cycles
 
 *See [adapt_context/artifacts/market_analysis.md](./adapt_context/artifacts/market_analysis.md) for detailed market research.*

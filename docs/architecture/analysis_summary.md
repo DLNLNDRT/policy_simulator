@@ -174,7 +174,7 @@ From raw data ingestion and validation to market positioning, MVP definition, KP
 ### References
 - Grand View Research – *Healthcare Analytics Market Size 2025–2030*  
 - Market.US – *Global GenAI in Healthcare Report*  
-- WHO & OECD public datasets  
+- WHO & World Bank public datasets  
 - Innovaccer, Optum, Merative competitive insights  
 
 ---

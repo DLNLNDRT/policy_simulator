@@ -100,7 +100,7 @@ If you capture 1 % of the USD 43 b healthcare analytics market → ~$430�
 - Sales, legal, and compliance overhead  
 
 ### Partnerships  
-- WHO, World Bank, national statistics offices  
+- WHO, World Bank  
 - Academic & NGO collaborations for validation  
 - Health IT vendors for embedding modules  
 

@@ -678,8 +678,6 @@ class ReportGenerationEngine:
         sources = [
             "WHO Global Health Observatory",
             "World Bank Health Statistics",
-            "OECD Health Data",
-            "National Statistics Offices"
         ]
         
         if "data_sources" in data:

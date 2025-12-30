@@ -442,7 +442,6 @@ interface ChartOptions {
 ## 📚 References
 
 - [Advanced Analytics Best Practices](https://www.tableau.com/learn/articles/advanced-analytics)
-- [Report Generation Standards](https://www.oecd.org/statistics/data-quality-assessment-framework.htm)
 - [Data Visualization Guidelines](https://www.d3js.org/)
 - [Statistical Analysis Methods](https://scipy.org/)
 
@@ -488,6 +487,5 @@ interface ChartOptions {
 ## 📚 References
 
 - [Advanced Analytics Best Practices](https://www.tableau.com/learn/articles/advanced-analytics)
-- [Report Generation Standards](https://www.oecd.org/statistics/data-quality-assessment-framework.htm)
 - [Data Visualization Guidelines](https://www.d3js.org/)
 - [Statistical Analysis Methods](https://scipy.org/)

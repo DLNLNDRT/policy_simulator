@@ -35,8 +35,6 @@ export enum ProcessingStepType {
 export enum DataSourceType {
   WHO_GLOBAL_HEALTH = 'who_global_health',
   WORLD_BANK = 'world_bank',
-  OECD_HEALTH = 'oecd_health',
-  NATIONAL_STATISTICS = 'national_statistics',
   INTERNAL_PROCESSING = 'internal_processing'
 }
 

@@ -51,8 +51,6 @@ To democratize access to healthcare policy insights by combining high-quality gl
 #### Data Sources
 - WHO Global Health Observatory (life expectancy, workforce, mortality)
 - World Bank Data (government health spending)
-- National Statistics Offices (country-specific indicators)
-- OECD Health Statistics (cross-national comparisons)
 
 ### Out of Scope (Future Phases)
 

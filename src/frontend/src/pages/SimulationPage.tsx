@@ -234,8 +234,7 @@ const SimulationPage: React.FC = () => {
         disclaimers: disclaimers,
         citations: simulationData.citations || [
           'WHO Global Health Observatory 2023',
-          'World Bank Health Expenditure Data',
-          'OECD Health Statistics 2023'
+          'World Bank Health Expenditure Data'
         ],
         responseTime: simulationData.response_time || 0,
         cost: simulationData.cost || 0
@@ -266,8 +265,7 @@ const SimulationPage: React.FC = () => {
         ],
         citations: [
           'WHO Global Health Observatory 2023',
-          'World Bank Health Expenditure Data',
-          'OECD Health Statistics 2023'
+          'World Bank Health Expenditure Data'
         ],
         responseTime: 1850,
         cost: 0.08
