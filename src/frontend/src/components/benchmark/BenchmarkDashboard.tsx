@@ -232,7 +232,7 @@ const BenchmarkDashboard: React.FC = () => {
               countries={countries}
               selectedCountries={selectedCountries}
               onSelectionChange={handleCountrySelectionChange}
-              maxSelection={5}
+              maxSelection={countries.length}
             />
           </div>
         </div>
