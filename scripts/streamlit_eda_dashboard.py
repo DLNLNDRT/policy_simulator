@@ -127,8 +127,21 @@ def clean_dataframe_for_streamlit(df):
     return df
 
 def load_data_files():
-    """Load all data files from adapt_context/data directory"""
-    data_dir = Path("adapt_context/data")
+    """Load all data files from multiple possible locations"""
+    # Try multiple possible data directory locations
+    possible_data_dirs = [
+        Path("data/raw"),  # Streamlit Cloud / standard location
+        Path("policy_simulator/data/raw"),  # Alternative location
+        Path("adapt_context/data"),  # Legacy location
+        Path("../data/raw"),  # Relative path
+    ]
+    
+    data_dir = None
+    for dir_path in possible_data_dirs:
+        if dir_path.exists() and any(dir_path.glob("*.csv")) or any(dir_path.glob("*.xlsx")):
+            data_dir = dir_path
+            break
+    
     data_files = {}
     
     # List of expected files
@@ -142,6 +155,10 @@ def load_data_files():
         "Access to affordable medicine.csv",
         "Cause of Death.xlsx"
     ]
+    
+    if data_dir is None:
+        st.warning("⚠️ Data directory not found. Tried: " + ", ".join([str(d) for d in possible_data_dirs]))
+        return data_files
     
     for file_name in expected_files:
         file_path = data_dir / file_name
@@ -161,14 +178,27 @@ def load_data_files():
             except Exception as e:
                 st.error(f"❌ Error loading {file_name}: {str(e)}")
         else:
-            st.warning(f"⚠️ File not found: {file_name}")
+            st.warning(f"⚠️ File not found: {file_name} at {file_path}")
     
     return data_files
 
 @st.cache_data
 def load_artifacts():
-    """Load and parse artifact files"""
-    artifacts_dir = Path("adapt_context/artifacts")
+    """Load and parse artifact files from multiple possible locations"""
+    # Try multiple possible artifact directory locations
+    possible_artifact_dirs = [
+        Path("docs/architecture"),  # Standard location
+        Path("policy_simulator/docs/architecture"),  # Alternative location
+        Path("adapt_context/artifacts"),  # Legacy location
+        Path("../docs/architecture"),  # Relative path
+    ]
+    
+    artifacts_dir = None
+    for dir_path in possible_artifact_dirs:
+        if dir_path.exists():
+            artifacts_dir = dir_path
+            break
+    
     artifacts = {}
     
     artifact_files = [
@@ -178,6 +208,10 @@ def load_artifacts():
         "market_analysis.md",
         "scenarios_prioritized.md"
     ]
+    
+    if artifacts_dir is None:
+        st.warning("⚠️ Artifacts directory not found. Tried: " + ", ".join([str(d) for d in possible_artifact_dirs]))
+        return artifacts
     
     for file_name in artifact_files:
         file_path = artifacts_dir / file_name
@@ -189,7 +223,7 @@ def load_artifacts():
             except Exception as e:
                 st.error(f"❌ Error loading {file_name}: {str(e)}")
         else:
-            st.warning(f"⚠️ Artifact not found: {file_name}")
+            st.warning(f"⚠️ Artifact not found: {file_name} at {file_path}")
     
     return artifacts
 
@@ -1198,12 +1232,19 @@ def main():
         artifacts = load_artifacts()
     
     if not data_files:
-        st.error("❌ No data files found. Please ensure data files are in the adapt_context/data directory.")
-        return
+        st.error("❌ No data files found. Please ensure data files are in one of these locations:")
+        st.code("""
+        - data/raw/
+        - policy_simulator/data/raw/
+        - adapt_context/data/
+        """)
+        st.info("💡 The dashboard will work with partial data - some features may be limited.")
+        # Don't return - allow partial functionality
     
     if not artifacts:
-        st.error("❌ No artifact files found. Please ensure artifact files are in the adapt_context/artifacts directory.")
-        return
+        st.warning("⚠️ No artifact files found. Some analysis sections may be limited.")
+        st.info("💡 Artifacts are optional - the dashboard will work with available data.")
+        # Don't return - allow partial functionality
     
     # Sidebar navigation
     st.sidebar.title("📋 Navigation")
@@ -1247,4 +1288,9 @@ def main():
     """.format(date=datetime.now().strftime("%Y-%m-%d %H:%M:%S")), unsafe_allow_html=True)
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        st.error(f"❌ Fatal error starting dashboard: {str(e)}")
+        st.exception(e)
+        st.info("💡 Please check the logs for more details.")
