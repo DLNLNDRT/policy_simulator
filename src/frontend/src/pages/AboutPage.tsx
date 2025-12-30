@@ -8,8 +8,7 @@ import {
   Users,
   BarChart3,
   CheckCircle,
-  ExternalLink,
-  BookOpen
+  ExternalLink
 } from 'lucide-react'
 
 const AboutPage: React.FC = () => {
