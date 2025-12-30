@@ -772,14 +772,35 @@ async def generate_narrative(request: SimulationNarrativeRequest):
     
     # Extract simulation data
     sim_results = request.simulation_results
+    
     country = sim_results.get('country', 'Unknown')
     baseline = sim_results.get('baseline', {})
     parameters = sim_results.get('parameters', {})
     prediction = sim_results.get('prediction', {})
     
-    # Extract key values
-    current_le = baseline.get('life_expectancy', 75.0)
-    predicted_change = prediction.get('change', 0.0)
+    # Handle both dict and Pydantic model formats
+    if hasattr(baseline, 'life_expectancy'):
+        current_le = baseline.life_expectancy
+    elif isinstance(baseline, dict):
+        current_le = baseline.get('life_expectancy', 75.0)
+    else:
+        current_le = 75.0
+    
+    if hasattr(prediction, 'change'):
+        predicted_change = prediction.change
+    elif isinstance(prediction, dict):
+        predicted_change = prediction.get('change', 0.0)
+    else:
+        predicted_change = 0.0
+    
+    # Handle parameters - could be dict or Pydantic model
+    if hasattr(parameters, 'model_dump'):
+        params_dict = parameters.model_dump()
+    elif isinstance(parameters, dict):
+        params_dict = parameters
+    else:
+        params_dict = {}
+    
     new_le = current_le + predicted_change
     
     # Determine impact direction
@@ -802,12 +823,13 @@ Based on the simulation analysis for {country}, the proposed policy changes are 
 **Policy Implications:**
 """
         
-        if parameters.get('doctor_density', 0) != 0:
-            narrative_text += f"- Doctor density change: {parameters['doctor_density']:+.1f} per 10,000 population\n"
-        if parameters.get('nurse_density', 0) != 0:
-            narrative_text += f"- Nurse density change: {parameters['nurse_density']:+.1f} per 10,000 population\n"
-        if parameters.get('health_spending', 0) != 0:
-            narrative_text += f"- Health spending change: {parameters['health_spending']:+.1f}% of GDP\n"
+        # Use params_dict for parameter access
+        if params_dict.get('doctor_density', 0) != 0:
+            narrative_text += f"- Doctor density change: {params_dict['doctor_density']:+.1f} per 10,000 population\n"
+        if params_dict.get('nurse_density', 0) != 0:
+            narrative_text += f"- Nurse density change: {params_dict['nurse_density']:+.1f} per 10,000 population\n"
+        if params_dict.get('health_spending', 0) != 0:
+            narrative_text += f"- Health spending change: {params_dict['health_spending']:+.1f}% of GDP\n"
         
         # Add focus area sections
         if "health_outcomes" in request.focus_areas:
@@ -835,7 +857,8 @@ Based on the simulation analysis for {country}, the proposed policy changes are 
 - Monitoring framework: Establish quarterly progress reviews and annual impact assessments
 """
         
-        if "policy_recommendations" in request.focus_areas:
+        # Always include policy recommendations (even if not in focus_areas)
+        if "policy_recommendations" in request.focus_areas or len(request.focus_areas) == 0:
             narrative_text += f"""
 **Policy Recommendations:**
 - Monitor implementation of proposed changes
@@ -874,12 +897,12 @@ KEY FINDINGS
 POLICY CHANGES ANALYZED
 """
         
-        if parameters.get('doctor_density', 0) != 0:
-            narrative_text += f"• Doctor Density: {parameters['doctor_density']:+.1f} per 10,000 population\n"
-        if parameters.get('nurse_density', 0) != 0:
-            narrative_text += f"• Nurse Density: {parameters['nurse_density']:+.1f} per 10,000 population\n"
-        if parameters.get('health_spending', 0) != 0:
-            narrative_text += f"• Health Spending: {parameters['health_spending']:+.1f}% of GDP\n"
+        if params_dict.get('doctor_density', 0) != 0:
+            narrative_text += f"• Doctor Density: {params_dict['doctor_density']:+.1f} per 10,000 population\n"
+        if params_dict.get('nurse_density', 0) != 0:
+            narrative_text += f"• Nurse Density: {params_dict['nurse_density']:+.1f} per 10,000 population\n"
+        if params_dict.get('health_spending', 0) != 0:
+            narrative_text += f"• Health Spending: {params_dict['health_spending']:+.1f}% of GDP\n"
         
         narrative_text += f"""
 STRATEGIC RECOMMENDATIONS
@@ -913,12 +936,12 @@ CURRENT TRENDS
 FACTOR ANALYSIS
 """
         
-        if parameters.get('doctor_density', 0) != 0:
-            narrative_text += f"• Doctor Density Impact: {parameters['doctor_density']:+.1f} per 10,000 population\n"
-        if parameters.get('nurse_density', 0) != 0:
-            narrative_text += f"• Nurse Density Impact: {parameters['nurse_density']:+.1f} per 10,000 population\n"
-        if parameters.get('health_spending', 0) != 0:
-            narrative_text += f"• Health Spending Impact: {parameters['health_spending']:+.1f}% of GDP\n"
+        if params_dict.get('doctor_density', 0) != 0:
+            narrative_text += f"• Doctor Density Impact: {params_dict['doctor_density']:+.1f} per 10,000 population\n"
+        if params_dict.get('nurse_density', 0) != 0:
+            narrative_text += f"• Nurse Density Impact: {params_dict['nurse_density']:+.1f} per 10,000 population\n"
+        if params_dict.get('health_spending', 0) != 0:
+            narrative_text += f"• Health Spending Impact: {params_dict['health_spending']:+.1f}% of GDP\n"
         
         narrative_text += f"""
 TREND PROJECTIONS
@@ -944,12 +967,13 @@ Based on the simulation analysis for {country}, the proposed policy changes are 
 **Policy Implications:**
 """
         
-        if parameters.get('doctor_density', 0) != 0:
-            narrative_text += f"- Doctor density change: {parameters['doctor_density']:+.1f} per 10,000 population\n"
-        if parameters.get('nurse_density', 0) != 0:
-            narrative_text += f"- Nurse density change: {parameters['nurse_density']:+.1f} per 10,000 population\n"
-        if parameters.get('health_spending', 0) != 0:
-            narrative_text += f"- Health spending change: {parameters['health_spending']:+.1f}% of GDP\n"
+        # Use params_dict for parameter access (already created above)
+        if params_dict.get('doctor_density', 0) != 0:
+            narrative_text += f"- Doctor density change: {params_dict['doctor_density']:+.1f} per 10,000 population\n"
+        if params_dict.get('nurse_density', 0) != 0:
+            narrative_text += f"- Nurse density change: {params_dict['nurse_density']:+.1f} per 10,000 population\n"
+        if params_dict.get('health_spending', 0) != 0:
+            narrative_text += f"- Health spending change: {params_dict['health_spending']:+.1f}% of GDP\n"
         
         narrative_text += f"""
 **Recommendations:**
