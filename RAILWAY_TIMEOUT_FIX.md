@@ -118,3 +118,4 @@ curl --max-time 15 https://web-production-98ab3.up.railway.app/api/simulations/c
 ```
 
 If Test 1 fails, the app isn't starting. Check Railway logs.
+

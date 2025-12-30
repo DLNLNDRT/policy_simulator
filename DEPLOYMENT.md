@@ -20,7 +20,7 @@ python run_dashboard.py
 
 ### URLs
 - **Frontend**: http://localhost:5173
-- **Backend API**: http://localhost:8000
+- **Backend API**: http://localhost:8005
 - **Analytics Dashboard**: http://localhost:8501
 
 ## 🌐 Production Deployment

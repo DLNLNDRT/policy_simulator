@@ -124,7 +124,7 @@ cp env.example .env
 # Edit .env with your API keys and configuration
 
 # Start the demo server
-python comprehensive_demo_server.py
+python run_server.py
 ```
 
 ### Environment Variables
@@ -132,7 +132,7 @@ python comprehensive_demo_server.py
 ```bash
 # Backend Configuration
 BACKEND_HOST=0.0.0.0
-BACKEND_PORT=8000
+BACKEND_PORT=8005
 BACKEND_DEBUG=true
 
 # Database Configuration

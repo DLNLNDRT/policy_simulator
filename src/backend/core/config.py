@@ -12,14 +12,14 @@ class Settings(BaseSettings):
     """Application settings"""
     
     # Application
-    APP_NAME: str = "Policy Simulation Assistant"
+    APP_NAME: str = "Policy Simulator"
     VERSION: str = "1.0.0"
     ENVIRONMENT: str = Field(default="development", env="ENVIRONMENT")
     DEBUG: bool = Field(default=True, env="DEBUG")
     
     # Server
     BACKEND_HOST: str = Field(default="0.0.0.0", env="BACKEND_HOST")
-    BACKEND_PORT: int = Field(default=8000, env="BACKEND_PORT")
+    BACKEND_PORT: int = Field(default=8005, env="BACKEND_PORT")
     
     # Database
     DATABASE_URL: str = Field(

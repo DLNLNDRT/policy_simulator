@@ -28,8 +28,9 @@ COPY . .
 RUN ls -la src/backend/comprehensive_demo_server.py || echo "File not found!" && \
     find . -name "comprehensive_demo_server.py" -type f || echo "File search failed"
 
-# Expose port (Railway will set PORT environment variable)
-EXPOSE $PORT
+# Expose port (Railway will set PORT environment variable automatically)
+# Using default port 8005, but Railway will override with PORT env var
+EXPOSE 8005
 
-# Start the application
-CMD ["python", "src/backend/comprehensive_demo_server.py"]
+# Start the application using run_server.py which handles path setup correctly
+CMD ["python", "run_server.py"]
